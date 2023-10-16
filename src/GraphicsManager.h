@@ -70,7 +70,7 @@ class GraphicsManager{
         bool LoadTexture( const std::string& name, const std::string& path );
         void Draw();
 
-        GraphicsManager::Sprite GetSprite(EntityID entityID);
+        
       //  bool lImage(const std::string& name, const std::string& path );
       //  
         //----------INSTANCE VARIABLES--------------

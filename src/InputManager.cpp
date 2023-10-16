@@ -21,7 +21,6 @@ void InputManager::Update(){
 bool InputManager::KeyisPressed(int key){
    
     if(glfwGetKey(GLOBAL_ENGINE.graphicsManager.window, key)== GLFW_PRESS){ 
-        printf("Key pressed\n");
         return true;
      } 
     return false;

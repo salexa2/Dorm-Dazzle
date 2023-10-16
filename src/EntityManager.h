@@ -65,9 +65,7 @@ public:
     T& Get( EntityID entity ){
           return GetAppropriateSparseSet<T>()[ entity ];
     }
-   EntityManager::Health& GetHealth(EntityID entityID);
-
-
+  
 
     
     template< typename T >

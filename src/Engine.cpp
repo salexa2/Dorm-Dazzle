@@ -27,21 +27,16 @@
             graphicsManager.Shutdown();
             //inputManager.Shutdown();
         }
-        
+
+        void Engine::ExitGame()
+        {
+            glfwSetWindowShouldClose(GLOBAL_ENGINE.graphicsManager.window, true); 
+        }
+
         //----------HELP HELP HELP 
         void Engine::RunGameLoop(const UpdateCallBack& callback){
           
-          /*
-          graphicsManager.LoadTexture("imageName","assets/fox.png");
-          GraphicsManager::Sprite fox; 
-          fox.image_name = "imageName";
-          fox.position = {0,0,0};
-          fox.scale = {100,100};
-          fox.z = 0;
-          //fox.d = graphicsManager.image_map.at("imageName");
-          std::vector<GraphicsManager::Sprite> spriteVector;
-          spriteVector.push_back(fox);
-        */  
+       
           while(true){
              inputManager.Update();
              UpdateCallBack();

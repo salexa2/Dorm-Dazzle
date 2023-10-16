@@ -28,6 +28,7 @@ class Engine{
             void RunGameLoop(const UpdateCallBack& callback);
             //shuts down managers
             void Shutdown();
+            void ExitGame();
             
 
   

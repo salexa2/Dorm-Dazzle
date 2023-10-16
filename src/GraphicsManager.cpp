@@ -116,7 +116,7 @@ void GraphicsManager::Start(){
     //Checkpoint 4, prevent resizing window from breaking the thing.
     glfwWindowHint( GLFW_RESIZABLE, GLFW_FALSE );
     // Create the window.
-    window = glfwCreateWindow(600,600, "window_name", false ? glfwGetPrimaryMonitor() : 0, 0 );
+    window = glfwCreateWindow(600,600, "Sigma Engine", false ? glfwGetPrimaryMonitor() : 0, 0 );
     glfwSetWindowAspectRatio( window, 600, 600 );
     if( !window )
     {
@@ -360,7 +360,7 @@ void GraphicsManager::InitPipe()
 }
 bool GraphicsManager::LoadTexture(const std::string& name, const std::string& path )
 {
-    printf("%s",name);
+    //printf("%s",name);
     int width, height, channels;
     unsigned char* data = stbi_load( path.c_str(), &width, &height, &channels, 4 );
 
@@ -425,7 +425,7 @@ void GraphicsManager::Draw()
         .loadOp = WGPULoadOp_Clear,
         .storeOp = WGPUStoreOp_Store,
         // Choose the background color.
-        .clearValue = WGPUColor{ 237, 28, 0, 1.0 }
+        .clearValue = WGPUColor{1, 1, 1, 1 }
         }})
     }) );
 
@@ -517,9 +517,5 @@ void GraphicsManager::Draw()
 
 }
 
-GraphicsManager::Sprite GraphicsManager::GetSprite(EntityID entityID)
-{
-    return ECS.Get<GraphicsManager::Sprite>(entityID);
-}
 
 

@@ -17,16 +17,12 @@ int main( int argc, const char* argv[] ) {
     std::cout << "Hello, World!\n";
    
        // Create a Lua state
-    sol::state lua;
+    
 
 
 
     // Expose the KeyIsDown function to Lua
 
-    lua.set_function( "KeyisPressed", [&]( const int keycode ) { return GLOBAL_ENGINE.inputManager.KeyisPressed( keycode ); } );
-    lua.set_function("KeyisReleased", &InputManager::KeyisReleased, &GLOBAL_ENGINE.inputManager);
-    lua.set_function("CreateEntity", &EntityManager::CreateEntity, &ECS);
-  
     //lua.set_function("GetSprite",&GraphicsManager:: GetSprite, &GLOBAL_ENGINE.graphicsManager);
    // lua.set_function("Health",&EntityManager:: GetHealth, &ECS);
 
@@ -34,28 +30,8 @@ int main( int argc, const char* argv[] ) {
 
 
     // Expose keycodes to Lua using lua.new_enum
-    lua.new_enum("KEYBOARD",
-                 "R", GLFW_KEY_R,
-                 "SPACE", GLFW_KEY_SPACE
-                 // Add more keycodes here
-    );
-
-
-    lua.new_usertype<GraphicsManager::Sprite>(
-    "Sprite",
-    sol::constructors<GraphicsManager::Sprite()>(), 
-    "image_name", &GraphicsManager::Sprite::image_name,
-    "position", &GraphicsManager::Sprite::position,
-    "scale", &GraphicsManager::Sprite::scale,
-    "z",&GraphicsManager::Sprite::z
-    );
-
-    lua.new_usertype<EntityManager::Health>(
-    "Health",
-    sol::constructors<EntityManager::Health()>(), 
-    "percent", &EntityManager::Health::percent
-    );
-
+  
+  
   
   
    // Engine engine;
@@ -63,10 +39,7 @@ int main( int argc, const char* argv[] ) {
 
 //SET IMAGE
  //  lua.set_function("LoadTexture", [&](const std::string name, const std::string path) {return GLOBAL_ENGINE.graphicsManager.LoadTexture(name,path);});
-    
-    lua.set_function("LoadTexture", [&](const std::string& name, const std::string& path) {
-    return GLOBAL_ENGINE.graphicsManager.LoadTexture(name, path);
-});
+  
      GLOBAL_ENGINE.scriptManager.LoadScript("startup", "assets/scripts/startup.lua");
     GLOBAL_ENGINE.scriptManager.scriptResults["startup"]();
     GLOBAL_ENGINE.scriptManager.LoadScript("checkpress", "assets/scripts/checkpress.lua");

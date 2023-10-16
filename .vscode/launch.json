@@ -53,8 +53,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/shana/Documents/illengine/demo",
-      "program": "c:/Users/shana/Documents/illengine/demo/build/Debug/outDebug",
+      "cwd": "c:/Users/shana/Documents/illengine/src",
+      "program": "c:/Users/shana/Documents/illengine/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

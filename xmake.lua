@@ -5,6 +5,7 @@ add_requires("wgpu-native", "glfw3webgpu")
 add_requires("glm") 
 add_requires("stb")
 add_requires("lua", "sol2")
+add_requires("imgui", {configs = {glfw = true, wgpu = true}})
 
 
 set_policy("build.warning", true) -- show warnings
@@ -18,6 +19,7 @@ target("illengine")
     add_packages("stb", {public = true})
     add_packages("lua")
     add_packages("sol2", {public = true})
+    add_packages("imgui", {public = true})
 
     set_kind("static")
     set_languages("cxx20")

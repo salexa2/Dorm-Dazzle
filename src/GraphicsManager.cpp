@@ -116,8 +116,8 @@ void GraphicsManager::Start(){
     //Checkpoint 4, prevent resizing window from breaking the thing.
     glfwWindowHint( GLFW_RESIZABLE, GLFW_FALSE );
     // Create the window.
-    window = glfwCreateWindow(600,600, "Sigma Engine", false ? glfwGetPrimaryMonitor() : 0, 0 );
-    glfwSetWindowAspectRatio( window, 600, 600 );
+    window = glfwCreateWindow(1000,720, "Sigma Engine", false ? glfwGetPrimaryMonitor() : 0, 0 );
+    glfwSetWindowAspectRatio( window, 1000, 720 );
     if( !window )
     {
         std::cerr << "Failed to create a window." << std::endl;
@@ -374,7 +374,7 @@ bool GraphicsManager::LoadTexture(const std::string& name, const std::string& pa
     .usage = WGPUTextureUsage_TextureBinding | WGPUTextureUsage_CopyDst,
     .dimension = WGPUTextureDimension_2D,
     .size = { (uint32_t)width, (uint32_t)height, 1 },
-    .format = WGPUTextureFormat_RGBA8Unorm,
+    .format = WGPUTextureFormat_RGBA8UnormSrgb,
     .mipLevelCount = 1,
     .sampleCount = 1
     } ) );
@@ -425,7 +425,7 @@ void GraphicsManager::Draw()
         .loadOp = WGPULoadOp_Clear,
         .storeOp = WGPUStoreOp_Store,
         // Choose the background color.
-        .clearValue = WGPUColor{1, 1, 1, 1 }
+        .clearValue = WGPUColor{255, 83, 1, 0 }
         }})
     }) );
 

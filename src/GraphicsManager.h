@@ -9,6 +9,7 @@
 #include "webgpu_raii.h"
 #include <unordered_map>
 #include "EntityManager.h"
+#include "GuiManager.h"
 
 class InputManager;
 class GraphicsManager{
@@ -89,6 +90,7 @@ class GraphicsManager{
         WGPUSamplerRef textSampler;
         WGPUShaderModuleRef shader_module; 
         std::unordered_map<std::string, ImageData> image_map;
+        GuiManager guiManager; 
         int width; 
         int height;
         /*

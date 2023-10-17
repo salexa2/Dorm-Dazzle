@@ -26,6 +26,7 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
 
 void GuiManager::Shutdown()
 {
+   
    // ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
@@ -40,9 +41,26 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     ImGui::NewFrame();
     
     ImGui::Begin("Dorm Shop!"); 
+    //college student - 2 lava lamp 
+    //rich-snitch - 2
+    //gamer - 2 messy and high tech
+    //pride - 2 
+    //goth -2 - 
+    //halloween -2 - 
+    //christmas- 2
+    //gym rat - 2
+    //anime -2 - 
+    //girly-pop -2
+    //royal - 2
+    //cat lady -2
+    //nerd alert -2 
+    //
+
    
     ImGui::Text("Explore each of the \nfurnature categories.");
-  //  ImGui::SetCursorPos(ImVec2(0, 0));
+
+//-------------beds---------------------------
+
     ImGui::SetWindowSize(ImVec2(200, 400));
     if (ImGui::Button("BED")) {
         
@@ -52,7 +70,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     }
 
     if (ImGui::BeginPopup("Bed-SubMenu")) {
-        if (ImGui::Button("Boring Bed")) {
+        if (ImGui::Button("Boring-Bed")) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "bed";  
             printf("changed to default bed"); 
         }
@@ -60,10 +78,31 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed";
             
             printf("changed to patriot bed");
+
         
         }
     ImGui::EndPopup();
     }
+
+//---------desk-------------
+    if(ImGui::Button("Desk-Decor-I")) {
+        
+         printf("gui\n");
+         ImGui::SetNextWindowSize(ImVec2(400, 100));
+         ImGui::OpenPopup("Desk-SubMenu");
+    }
+
+    
+    if (ImGui::BeginPopup("Desk-SubMenu")) {
+        if (ImGui::Button("Boring-Desk-Decor-I")) {
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "bed";  
+            printf("changed to default Desk Accesory1"); 
+        }
+
+        
+    ImGui::EndPopup();
+    }
+
 
     ImGui::End();
     ImGui::EndFrame();

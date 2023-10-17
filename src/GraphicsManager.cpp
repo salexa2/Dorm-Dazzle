@@ -9,6 +9,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include <algorithm>
+#include <fstream>
 
 
 
@@ -52,6 +53,8 @@ namespace{
 }
 
 Uniforms uniforms;
+
+ std::string saveFilePath = "sprites.json"; 
 
 const char* source = R"(
 struct Uniforms {
@@ -156,7 +159,9 @@ void GraphicsManager::Start(){
    
 }
 void GraphicsManager::Shutdown(){
-    guiManager.Shutdown();
+
+     SaveSprites(saveFilePath);
+     guiManager.Shutdown();
      glfwTerminate();
  
     
@@ -520,5 +525,66 @@ void GraphicsManager::Draw()
 
 }
 
+json GraphicsManager::SerializeData()
+{
+    json spriteData;
 
+    for (const auto& entitySpritePair : ECS.GetAppropriateSparseSet<GraphicsManager::Sprite>()) {
+        const EntityID entity = entitySpritePair.first;
+        const GraphicsManager::Sprite& sprite = entitySpritePair.second;
 
+        json spriteInfo;
+        spriteInfo["entity"] = entity;
+        spriteInfo["image"] = sprite.image_name;
+        spriteData.push_back(spriteInfo);
+    }
+    return spriteData;
+}
+
+void GraphicsManager::SaveSprites(const std::string &filename)
+{
+    json spriteData = SerializeData(); 
+    std::ofstream file(filename);
+    if (file.is_open()) {
+        file << spriteData.dump(4); // Dump the JSON with indentation for readability
+        file.close();
+    }
+}
+
+void GraphicsManager::LoadSprite(const std::string &filename)
+{
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Failed to open sprite file: " << filename << std::endl;
+        return;
+    }
+
+    // Parse the JSON data
+    nlohmann::json spriteData;
+    try {
+        file >> spriteData;
+    } catch (const nlohmann::json::exception& e) {
+        std::cerr << "Error parsing JSON data: " << e.what() << std::endl;
+        file.close();
+        return;
+    }
+
+    file.close();
+    //works, ignore error
+    if (!spriteData.is_array()) {
+        std::cerr << "Sprite data is not in the expected array format." << std::endl;
+        return;
+    }
+
+    for (const auto& spriteInfo : spriteData) {
+        if (spriteInfo.is_object()) {
+            EntityID entity = spriteInfo["entity"];
+            std::string image_name = spriteInfo["image"];
+
+            // Create or update Sprite components in the EntityManager
+            if (ECS.GetAppropriateSparseSet<GraphicsManager::Sprite>().count(entity) > 0) {
+                ECS.Get<GraphicsManager::Sprite>(entity).image_name = image_name;
+            }
+        }
+    }
+} 

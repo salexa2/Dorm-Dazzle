@@ -1,0 +1,14 @@
+[
+    {
+        "entity": 1,
+        "image": "room"
+    },
+    {
+        "entity": 2,
+        "image": "patriotbed"
+    },
+    {
+        "entity": 0,
+        "image": "fox"
+    }
+]

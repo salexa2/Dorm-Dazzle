@@ -10,6 +10,9 @@
 #include <unordered_map>
 #include "EntityManager.h"
 #include "GuiManager.h"
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
 
 
 class InputManager;
@@ -71,6 +74,9 @@ class GraphicsManager{
 
         bool LoadTexture( const std::string& name, const std::string& path );
         void Draw();
+        json SerializeData();
+        void SaveSprites(const std::string& filename);
+        void LoadSprite(const std::string& filename);
 
         
       //  bool lImage(const std::string& name, const std::string& path );

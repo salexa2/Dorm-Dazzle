@@ -46,7 +46,7 @@
               break;
             }
             graphicsManager.Draw();
-
+          //  GLOBAL_ENGINE.graphicsManager.guiManager.Draw(GLOBAL_ENGINE.graphicsManager.render_pass);
 
              
             

@@ -19,22 +19,30 @@ int main( int argc, const char* argv[] ) {
   
 
     GLOBAL_ENGINE.Start();
-
+   GLOBAL_ENGINE.graphicsManager.guiManager.Start(GLOBAL_ENGINE.graphicsManager.window,GLOBAL_ENGINE.graphicsManager.device,GLOBAL_ENGINE.graphicsManager.swap_chain_format);
+  
 
      GLOBAL_ENGINE.scriptManager.LoadScript("startup", "assets/scripts/startup.lua");
     GLOBAL_ENGINE.scriptManager.scriptResults["startup"]();
-  
+
+ 
 
     GLOBAL_ENGINE.RunGameLoop( [&]( Engine& ) {
+
+       
 
         GLOBAL_ENGINE.scriptManager.LoadScript("checkpress", "assets/scripts/checkpress.lua");
         GLOBAL_ENGINE.scriptManager.scriptResults["checkpress"]();
 
+      
+       
       //   printMessage(GLOBAL_ENGINE);
+        
          GLOBAL_ENGINE.scriptManager.UpdateEngine();
 
         GLOBAL_ENGINE.scriptManager.LoadScript("fox", "assets/scripts/fox.lua");
-        GLOBAL_ENGINE.scriptManager.scriptResults["fox"]();
+        GLOBAL_ENGINE.scriptManager.scriptResults["fox"](); 
+       
          
     } );
     

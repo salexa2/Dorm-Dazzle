@@ -11,6 +11,7 @@
 #include "EntityManager.h"
 #include "GuiManager.h"
 
+
 class InputManager;
 class GraphicsManager{
 
@@ -89,6 +90,7 @@ class GraphicsManager{
         WGPURenderPipelineRef pipeline;
         WGPUSamplerRef textSampler;
         WGPUShaderModuleRef shader_module; 
+        WGPURenderPassEncoderRef render_pass;
         std::unordered_map<std::string, ImageData> image_map;
         GuiManager guiManager; 
         int width; 

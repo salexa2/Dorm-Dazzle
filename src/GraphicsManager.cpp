@@ -104,20 +104,20 @@ fn fragment_shader_main( in: VertexOutput ) -> @location(0) vec4f {
  
  //------------FUNCTIONS---------------------------
  GraphicsManager::GraphicsManager(){
-    
+   
 
 }
 
 
-void GraphicsManager::Start(){
+void GraphicsManager::Start(){ 
     glfwInit();
     // We don't want GLFW to set up a graphics API.
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     //Checkpoint 4, prevent resizing window from breaking the thing.
     glfwWindowHint( GLFW_RESIZABLE, GLFW_FALSE );
     // Create the window.
-    window = glfwCreateWindow(1000,720, "Sigma Engine", false ? glfwGetPrimaryMonitor() : 0, 0 );
-    glfwSetWindowAspectRatio( window, 1000, 720 );
+    window = glfwCreateWindow(900,800, "Sigma Engine", false ? glfwGetPrimaryMonitor() : 0, 0 );
+    glfwSetWindowAspectRatio( window, 900, 800);
     if( !window )
     {
         std::cerr << "Failed to create a window." << std::endl;
@@ -156,6 +156,7 @@ void GraphicsManager::Start(){
    
 }
 void GraphicsManager::Shutdown(){
+    guiManager.Shutdown();
      glfwTerminate();
  
     
@@ -418,7 +419,7 @@ void GraphicsManager::Draw()
     }) );
     WGPUCommandEncoderRef encoder = wgpuDeviceCreateCommandEncoder( device, nullptr );
     WGPUTextureViewRef current_texture_view = wgpuSwapChainGetCurrentTextureView( swapchain );
-    WGPURenderPassEncoderRef render_pass = wgpuCommandEncoderBeginRenderPass( encoder, to_ptr<WGPURenderPassDescriptor>({
+    render_pass = wgpuCommandEncoderBeginRenderPass( encoder, to_ptr<WGPURenderPassDescriptor>({
     .colorAttachmentCount = 1,
     .colorAttachments = to_ptr<WGPURenderPassColorAttachment>({{
         .view = current_texture_view,
@@ -507,7 +508,9 @@ void GraphicsManager::Draw()
          
             
     }
-  
+    
+     guiManager.Draw(render_pass);
+
      wgpuRenderPassEncoderEnd(render_pass);       
      WGPUCommandBuffer command = wgpuCommandEncoderFinish( encoder, nullptr );
      wgpuQueueSubmit( queue, 1, &command );

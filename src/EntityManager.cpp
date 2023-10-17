@@ -4,15 +4,15 @@
 
 EntityManager::EntityManager()
 {
+    size = 0; 
 }
 
 
 EntityID EntityManager::CreateEntity()
 {
     
-    used_entity_ids.insert(++size);
-    //printf("size:%d",size);
-    return size;
+    used_entity_ids.insert(size);
+    return size++;
 }
 
 void EntityManager::Destroy(EntityID e)

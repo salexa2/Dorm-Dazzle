@@ -5,9 +5,19 @@
    print("This is a start up Lua function.")
    LoadTexture("room", "assets/room.jpg")
    LoadTexture("fox", "assets/fox.png")
+
+   --BED TEXTURES--
    LoadTexture("bed", "assets/bed.png")
    LoadTexture("patriotbed", "assets/patriotbed.png")
+   LoadTexture("patriotbed2", "assets/patriotbed2.png") --size 206% on the website or save the json file and modify the sprite but DONT move it
+   LoadTexture("richsnitchbed", "assets/richsnitchbed.png")
+   LoadTexture("gamerbed", "assets/gamerbed.png")
+   LoadTexture("gamerbed2", "assets/gamerbed2.png")
+   LoadTexture("pridebed", "assets/pridebed.png")
+   LoadTexture("gothbed", "assets/gothbed.png")
+   LoadTexture("gothbed2", "assets/gothbed2.png")
    
+
    e1 = CreateEntity() --EID = 0
    e0 = CreateEntity() --EID =1
 
@@ -32,10 +42,10 @@
   
    GetSprite(bed).image_name = "bed"
    GetSprite(bed).position.x= 50
-   GetSprite(bed).position.y = -30
+   GetSprite(bed).position.y = -36
    GetSprite(bed).position.z = 0
-   GetSprite(bed).scale.x = 70
-   GetSprite(bed).scale.y = 70
+   GetSprite(bed).scale.x = 80
+   GetSprite(bed).scale.y = 80
    GetScript(bed).name = "bed"--print("bed:",bed)
    
    GetSprite(e1).image_name = "fox"

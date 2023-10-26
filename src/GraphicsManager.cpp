@@ -119,8 +119,8 @@ void GraphicsManager::Start(){
     //Checkpoint 4, prevent resizing window from breaking the thing.
     glfwWindowHint( GLFW_RESIZABLE, GLFW_FALSE );
     // Create the window.
-    window = glfwCreateWindow(900,800, "Sigma Engine", false ? glfwGetPrimaryMonitor() : 0, 0 );
-    glfwSetWindowAspectRatio( window, 900, 800);
+    window = glfwCreateWindow(1600,1000, "Sigma Engine", false ? glfwGetPrimaryMonitor() : 0, 0 );
+    glfwSetWindowAspectRatio( window, 1600, 1000); //900 800
     if( !window )
     {
         std::cerr << "Failed to create a window." << std::endl;

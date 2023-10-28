@@ -21,6 +21,10 @@
    LoadTexture("boringlamp", "assets/boringlamp.png")
    
 
+   --Load Sounds
+   LoadSound("twinkle", "assets/sounds/twinkle.wav")
+   PlaySound("twinkle") -- play sound
+
    e1 = CreateEntity() --EID = 0
    e0 = CreateEntity() --EID =1
    bed = CreateEntity() --EID = 2

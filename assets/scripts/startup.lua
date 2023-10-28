@@ -16,7 +16,10 @@
    LoadTexture("pridebed", "assets/pridebed.png")
    LoadTexture("gothbed", "assets/gothbed.png")
    LoadTexture("gothbed2", "assets/gothbed2.png")
-   
+
+   --Load Sounds
+   LoadSound("twinkle", "assets/sounds/twinkle.wav")
+   PlaySound("twinkle") -- play sound
 
    e1 = CreateEntity() --EID = 0
    e0 = CreateEntity() --EID =1

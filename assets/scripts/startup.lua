@@ -16,18 +16,21 @@
    LoadTexture("pridebed", "assets/pridebed.png")
    LoadTexture("gothbed", "assets/gothbed.png")
    LoadTexture("gothbed2", "assets/gothbed2.png")
+   LoadTexture("halloweenbed", "assets/halloweenbed.png")
+   --LAMP TEXTURES--
+   LoadTexture("boringlamp", "assets/boringlamp.png")
    
 
    e1 = CreateEntity() --EID = 0
    e0 = CreateEntity() --EID =1
-
    bed = CreateEntity() --EID = 2
-   desk = CreateEntity() -- EID = 3
-   dresser = CreateEntity() --EID = 4
-   window = CreateEntity() --EID = 5
-   Wall = CreateEntity() -- EID= 6
-   Rug = CreateEntity() -- EID= 7
-   floor = CreateEntity() -- EID8
+   lamp = CreateEntity() -- EID = 3
+   desk = CreateEntity()--EID = 4
+   dresser = CreateEntity() --EID = 5
+   fridge = CreateEntity()-- EID= 6
+   window = CreateEntity() -- EID= 7
+   Wall = CreateEntity() 
+   Rug = CreateEntity() 
 
    
    GetSprite(e0).image_name = "room"
@@ -47,6 +50,14 @@
    GetSprite(bed).scale.x = 80
    GetSprite(bed).scale.y = 80
    GetScript(bed).name = "bed"--print("bed:",bed)
+
+   GetSprite(lamp).image_name = "boringlamp"
+   GetSprite(lamp).position.x= -55
+   GetSprite(lamp).position.y =15
+   GetSprite(lamp).position.z = 0
+   GetSprite(lamp).scale.x = 20
+   GetSprite(lamp).scale.y = 20
+   GetScript(lamp).name = "lamp"
    
    GetSprite(e1).image_name = "fox"
    GetSprite(e1).position.x= -90

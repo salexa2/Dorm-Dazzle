@@ -33,8 +33,7 @@ int main( int argc, const char* argv[] ) {
 
         GLOBAL_ENGINE.scriptManager.LoadScript("checkpress", "assets/scripts/checkpress.lua");
         GLOBAL_ENGINE.scriptManager.scriptResults["checkpress"]();
-
-      
+     
        
       //   printMessage(GLOBAL_ENGINE);
         

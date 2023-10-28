@@ -54,6 +54,11 @@ void ScriptManager::Start()
     return ECS.Get<EntityManager::Velocity>(e);
    });
 
+   /* JENNNIFER EDITS */
+   //Sound Manager Function
+   lua.set_function("LoadSound", [&](const std::string& name, const std::string& path) {GLOBAL_ENGINE.soundManager.LoadSound(name, path);});
+   lua.set_function("PlaySound", [&](const std::string& name){GLOBAL_ENGINE.soundManager.PlaySound(name);});
+
 // ---------------------usertype sets------------------
      lua.new_usertype<GraphicsManager::Sprite>(
     "Sprite",

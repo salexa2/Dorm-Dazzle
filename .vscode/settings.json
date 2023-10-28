@@ -70,7 +70,16 @@
     "filesystem": "cpp",
     "set": "cpp",
     "typeindex": "cpp",
-    "xtree": "cpp"
+    "xtree": "cpp",
+    "array": "cpp",
+    "*.tcc": "cpp",
+    "cstdarg": "cpp",
+    "cwctype": "cpp",
+    "deque": "cpp",
+    "memory_resource": "cpp",
+    "numeric": "cpp",
+    "random": "cpp",
+    "fstream": "cpp"
   },
   "C_Cpp_Runner.msvcBatchPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Auxiliary/Build/vcvarsall.bat",
   "C_Cpp_Runner.cCompilerPath": "gcc",

@@ -18,11 +18,15 @@
             
           graphicsManager.Start();
           scriptManager.Start(); 
+
+          soundManager.StartUp(); //JM
            
         }
            
         
         void Engine::Shutdown(){
+
+          soundManager.ShutDown(); //JM
             
             graphicsManager.Shutdown();
             //inputManager.Shutdown();

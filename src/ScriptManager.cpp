@@ -54,6 +54,9 @@ void ScriptManager::Start()
     return ECS.Get<EntityManager::Velocity>(e);
    });
 
+   /* JENNNIFER EDITS */
+   //Sound Manager Function
+
 // ---------------------usertype sets------------------
      lua.new_usertype<GraphicsManager::Sprite>(
     "Sprite",

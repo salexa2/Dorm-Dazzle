@@ -5,6 +5,7 @@
 #include "ResourceManager.h"
 #include "EntityManager.h"
 #include "ScriptManager.h"
+#include "SoundManager.h"
 #include <functional>
 
 //Engine GLOBAL_ENGINE;
@@ -18,7 +19,8 @@ class Engine{
             GraphicsManager graphicsManager;
             InputManager inputManager;
             ResourceManager resouceManager;
-            ScriptManager scriptManager; 
+            ScriptManager scriptManager;
+            SoundManager soundManager; //JM
             
            
             //start up managers

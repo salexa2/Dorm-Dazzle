@@ -14,7 +14,9 @@
 //include this in the graphics manager, 
 GuiManager::GuiManager()
 {
-    temp= "bed";
+    temp = "";
+  ///  std::cout << "help: " << ECS.Get<GraphicsManager::Sprite>(2).image_name << std::endl;
+
 }
 
 void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat swapchainformat)
@@ -40,8 +42,6 @@ void GuiManager::Shutdown()
 
 void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 {
- 
-
     ImGui_ImplWGPU_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
@@ -85,87 +85,132 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
     }
     if (ImGui::BeginPopup("Bed-SubMenu")) {
+        //------------------boring bed--------------------------
         if (ImGui::Button("Boring-Bed")) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "bed"; 
             temp =   "bed"; 
             printf("changed to default bed\n"); 
         }
+        if(ImGui::IsItemHovered()) {
+            printf("hoveredborin\n");
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "bed";    
+        }else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
+             printf("not hovered - goth\n");
+             ECS.Get<GraphicsManager::Sprite>(2).image_name = temp; // Revert to temp when not hovered.
+        }
+        //-------------------patriotbed-----------------
         if (ImGui::Button("Patriot-Bed")) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed";
             temp = "patriotbed";
             printf("changed to patriot bed\n"); 
            
-        } 
-     //   std::cout << "temp: " << temp << std::endl;
+        } if (ImGui::IsItemHovered()) {
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed";    
+        }
+        //-------------------Patriotbed2------------------------
         if (ImGui::Button("Patriot-Bed-II")) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed2";   
             printf("changed to patriot bed2");
+            temp = "patriotbed2";
+        }if (ImGui::IsItemHovered()) {
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed2";    
         }
+        //--------------------richsnitch---------------------
         if (ImGui::Button("Rich-Snitch")) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "richsnitchbed";   
             printf("changed to rich snitch");
+            temp = "richsnitchbed";
+        }if (ImGui::IsItemHovered()) {
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "richsnitchbed";    
         }
+        //--------------------------Gamerbed-----------------------
          if (ImGui::Button("Gamer-Bed")) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed";   
             printf("changed to gamer bed");
+            temp = "gamerbed";
+        }if (ImGui::IsItemHovered()) {
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed";    
         }
+        //----------------------Gamerbed2------------------------
          if (ImGui::Button("Gamer-Bed-II")) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed2";   
             printf("changed to gamer bed2");
+            temp = "gamerbed2";
+         }
+        if (ImGui::IsItemHovered()) {
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed2";    
         }
+        //-----------------rainbowbed------------------------------
         if (ImGui::Button("Rainbow-Bed")) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "pridebed";   
             printf("changed to pride bed");
             temp =  "pridebed";
            // printf("temp:  ",temp);
         }
+        if (ImGui::IsItemHovered()) {
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "pridebed";    
+        }
+        //---------------Gothbed-----------------------------
         if (ImGui::Button("Goth-Bed")) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed";   
             printf("changed to goth bed");
+            temp = "gothbed";
         }
+        if(ImGui::IsItemHovered()) {
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed";    
+        }
+        //-----------------Gothbed2---------------------------
          if (ImGui::Button("Goth-Bed-II")) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed2";   
-            printf("changed to goth bed");
+            printf("changed to goth bed2");
             temp = "gothbed2";
-        }  
+        }
+        if (ImGui::IsItemHovered()) {
+            //printf("hovered");
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed2";    
+        }
+      
         //----------------------Halloween-------------------
         if (ImGui::Button("Halloween-Bed")) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "halloweenbed";  
             printf("changed to Halloween bed"); 
             temp = "halloweenbed";
         }
-        if (ImGui::IsItemHovered()) {// allows user to preview the decor before the purchase it! 
-            ECS.Get<GraphicsManager::Sprite>(2).image_name = "halloweenbed";    
-        }
-        if(!ImGui::IsItemHovered()) { 
-            std::cout << "temp: " << temp << std::endl;
-            if(ECS.Get<GraphicsManager::Sprite>(2).image_name != temp){
-                ECS.Get<GraphicsManager::Sprite>(2).image_name = temp;
-            }
-            
-        }
+        if(ImGui::IsItemHovered()) {// allows user to preview the decor before the purchase it! 
+           // printf("hovered hallowe");
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "halloweenbed";     
+             
+         }
+      
         //----------------Christmas---------------------------
 
         if (ImGui::Button("Christmas-Bed")) {
         
-            printf("changed to Christmas bed"); 
+            printf("changed to Christmas bed");
+            //temp = "christmasbed";
         }
         if (ImGui::Button("Gym-Rat-Bed")) {
         
             printf("changed to Gym Rat bed"); 
+            //temp = "gymratbed";
         }
         if (ImGui::Button("Anime-Bed")) {
         
             printf("changed to anime bed"); 
+            //temp = "animebed";
         }
         if (ImGui::Button("Cat-Lady-Bed")) {
         
             printf("changed to cat lady bed"); 
+           // temp = "catladybed";
         }
         if (ImGui::Button("Nerdy-Bed")) {
         
             printf("changed to nerdy lamp"); 
+            //temp = "nerdybed";
         }
+
+        
     ImGui::EndPopup();
     }
   
@@ -232,14 +277,39 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         }
     ImGui::EndPopup();
     }
+    ImGui::End(); 
+    //-------------money------------------
+    ImGui::Begin("Bread!"); 
+    ImGui::SetCursorPos(ImVec2(5, 50));
+    ImGui::Text("Crumbs: $%.2f", ECS.Get<EntityManager::Money>(0).price);
+     if (ImGui::Button("Favor")) {
+        //5 energy
+        //100 crumbs
 
-       
+     }
+     if (ImGui::Button("Work-Study")) {
+        //10 energy
+        //200 crumbs
+     }
+     if (ImGui::Button("Part-Time-Job")) {
+        //15 energy
+        //300 crumbs
+     }
+     if (ImGui::Button("Internship")) {
+        //25 energy
+        //800 crumbs
+     }
 
-    ImGui::End();
-    ImGui::EndFrame();
+    ImGui::End(); 
+
+    ImGui::EndFrame(); 
     ImGui::Render(); 
     ImGui_ImplWGPU_RenderDrawData(ImGui::GetDrawData(),render_pass);
    
 }
 
-
+void GuiManager::SetTemp()
+{
+    std::cout << "checking: " <<  ECS.Get<GraphicsManager::Sprite>(2).image_name << std::endl;
+    temp =  ECS.Get<GraphicsManager::Sprite>(2).image_name ;
+}

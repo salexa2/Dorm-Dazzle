@@ -413,6 +413,9 @@ void GraphicsManager::Draw()
         // inside the loop
     } );
     
+  
+    
+
     if (sprites.empty()) {
         printf("skipped rendering");
         // Skip rendering if there are no sprites.

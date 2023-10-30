@@ -25,7 +25,8 @@ int main( int argc, const char* argv[] ) {
     GLOBAL_ENGINE.scriptManager.LoadScript("startup", "assets/scripts/startup.lua");
     GLOBAL_ENGINE.scriptManager.scriptResults["startup"]();
    
-   GLOBAL_ENGINE.graphicsManager.LoadSprite("sprites.json");
+    GLOBAL_ENGINE.graphicsManager.LoadSprite("sprites.json");
+    GLOBAL_ENGINE.graphicsManager.guiManager.SetTemp();
 
     GLOBAL_ENGINE.RunGameLoop( [&]( Engine& ) {
 

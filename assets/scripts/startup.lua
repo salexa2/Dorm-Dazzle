@@ -27,6 +27,7 @@
 
    e1 = CreateEntity() --EID = 0
    e0 = CreateEntity() --EID =1
+
    bed = CreateEntity() --EID = 2
    lamp = CreateEntity() -- EID = 3
    desk = CreateEntity()--EID = 4
@@ -70,7 +71,10 @@
    GetSprite(e1).scale.x = 25
    GetSprite(e1).scale.y = 25
    GetScript(e1).name = "fox"
-   --print("e1:",e1)
+   GetMoney(e1).price = 10000
+   print(e1)
+   print(GetMoney(e1).price)
+ 
 
 
  

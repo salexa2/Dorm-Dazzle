@@ -54,6 +54,11 @@ void ScriptManager::Start()
     return ECS.Get<EntityManager::Velocity>(e);
    });
 
+    lua.set_function("GetMoney", [&](EntityID e) -> EntityManager::Money& {
+    return ECS.Get<EntityManager::Money>(e);
+   });
+
+
    /* JENNNIFER EDITS */
    //Sound Manager Function
    lua.set_function("LoadSound", [&](const std::string& name, const std::string& path) {GLOBAL_ENGINE.soundManager.LoadSound(name, path);});
@@ -97,6 +102,12 @@ void ScriptManager::Start()
     sol::constructors<EntityManager::Velocity()>(), 
     "x", &EntityManager::Velocity::x,
     "y", &EntityManager::Velocity::y
+    );
+
+    lua.new_usertype<EntityManager::Money>(
+    "Money",
+    sol::constructors<EntityManager::Money()>(), 
+    "price", &EntityManager::Money::price
     );
 
 
@@ -151,4 +162,5 @@ void ScriptManager::UpdateEngine()
      ECS.ForEach<Script>( [&]( EntityID entity ) {
         ECS.Get<Script>(entity);
     } );
+    
 }

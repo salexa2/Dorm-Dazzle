@@ -18,6 +18,7 @@ class GuiManager{
                 void Shutdown();
                 void Draw(WGPURenderPassEncoder render_pass);
                 std::string temp;
+                void SetTemp();
 
         private:
               

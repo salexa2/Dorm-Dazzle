@@ -5,7 +5,11 @@
     },
     {
         "entity": 2,
-        "image": "gothbed"
+        "image": "richsnitchbed"
+    },
+    {
+        "entity": 3,
+        "image": "boringlamp"
     },
     {
         "entity": 0,

@@ -51,6 +51,7 @@ public:
     struct Sprite { std::string image; int size; };
     struct Health { float percent; };
     struct Script { std::string name; };
+    struct Money{float price;};
   
    
 

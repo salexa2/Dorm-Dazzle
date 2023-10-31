@@ -5,11 +5,27 @@
     },
     {
         "entity": 2,
-        "image": "richsnitchbed"
+        "image": "patriotbed"
     },
     {
         "entity": 3,
         "image": "boringlamp"
+    },
+    {
+        "entity": 4,
+        "image": "boringdesk"
+    },
+    {
+        "entity": 5,
+        "image": "boringdresser"
+    },
+    {
+        "entity": 7,
+        "image": "boringfloor"
+    },
+    {
+        "entity": 6,
+        "image": "towel"
     },
     {
         "entity": 0,

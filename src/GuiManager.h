@@ -17,7 +17,9 @@ class GuiManager{
                 void Start( GLFWwindow* window, WGPUDevice device,  WGPUTextureFormat swapchainformat);
                 void Shutdown();
                 void Draw(WGPURenderPassEncoder render_pass);
-                std::string temp;
+                std::string temp;//bed
+                std::string temp2; //lamp
+
                 void SetTemp();
 
         private:

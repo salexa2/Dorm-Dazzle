@@ -3,7 +3,7 @@
 
 
    print("This is a start up Lua function.")
-   LoadTexture("room", "assets/room.jpg")
+   LoadTexture("room", "assets/dormroom.png")
    LoadTexture("fox", "assets/fox.png")
 
    --BED TEXTURES--
@@ -19,9 +19,22 @@
    LoadTexture("halloweenbed", "assets/halloweenbed.png")
    --LAMP TEXTURES--
    LoadTexture("boringlamp", "assets/boringlamp.png")
-   
 
-   --Load Sounds
+   --------DESK TEXTURES-------
+   LoadTexture("boringdesk","assets/boringdesk.png")
+   
+  ---------DRESSER TEXTURES-------------
+  LoadTexture("boringdresser","assets/boringdresser.png")
+  LoadTexture("animedresser","assets/animedresser.png")
+   ---------FRIDGE TEXTURES---------------
+   
+   LoadTexture("ramen", "assets/fridgeramen.png")
+   LoadTexture("microwave", "assets/microwave.png")
+   LoadTexture("towel", "assets/boringtowel.png")
+   --------FLOOR TEXTURES---------------
+   LoadTexture("boringfloor", "assets/boringfloor.png")
+
+   --Load Sounds-------
    LoadSound("twinkle", "assets/sounds/twinkle.wav")
    PlaySound("twinkle") -- play sound
 
@@ -33,10 +46,10 @@
    desk = CreateEntity()--EID = 4
    dresser = CreateEntity() --EID = 5
    fridge = CreateEntity()-- EID= 6
+   Rug = CreateEntity() --9
    window = CreateEntity() -- EID= 7
-   Wall = CreateEntity() 
-   Rug = CreateEntity() 
-
+   Wall = CreateEntity() --8
+ 
    
    GetSprite(e0).image_name = "room"
    GetSprite(e0).position.x= 10
@@ -63,7 +76,43 @@
    GetSprite(lamp).scale.x = 20
    GetSprite(lamp).scale.y = 20
    GetScript(lamp).name = "lamp"
+
+   GetSprite(desk).image_name = "boringdesk"
+   GetSprite(desk).position.x= -30
+   GetSprite(desk).position.y =15
+   GetSprite(desk).position.z = 0
+   GetSprite(desk).scale.x = 30
+   GetSprite(desk).scale.y = 30
+   GetScript(desk).name = "desk"
+
+   GetSprite(dresser).image_name = "boringdresser"
+   GetSprite(dresser).position.x= -20
+   GetSprite(dresser).position.y = 40
+   GetSprite(dresser).position.z = 0
+   GetSprite(dresser).scale.x = 20
+   GetSprite(dresser).scale.y = 20
+   GetScript(dresser).name = "dresser"
+
+
+   GetSprite(Rug).image_name = "boringfloor"
+   GetSprite(Rug).position.x= 10
+   GetSprite(Rug).position.y = -65
+   GetSprite(Rug).position.z = 0
+   GetSprite(Rug).scale.x = 50
+   GetSprite(Rug).scale.y = 50
+   GetScript(Rug).name = "floor"
+   print(Rug)
+
    
+   GetSprite(fridge).image_name = "towel"
+   GetSprite(fridge).position.x= -3
+   GetSprite(fridge).position.y = 55
+   GetSprite(fridge).position.z = 0
+   GetSprite(fridge).scale.x = 15
+   GetSprite(fridge).scale.y = 15
+   GetScript(fridge).name = "fridge"
+   
+   --OUR FOX ENTITY WILL BE THE GAMER SO ANY COMPONENTS REVOLVING THE USER JUST ATTACH TO THE FOX ENTITY
    GetSprite(e1).image_name = "fox"
    GetSprite(e1).position.x= -90
    GetSprite(e1).position.y = -80
@@ -72,8 +121,8 @@
    GetSprite(e1).scale.y = 25
    GetScript(e1).name = "fox"
    GetMoney(e1).price = 10000
-   print(e1)
-   print(GetMoney(e1).price)
+   GetHealth(e1).percent = 40
+   
  
 
 

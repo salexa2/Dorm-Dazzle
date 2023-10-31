@@ -5,19 +5,19 @@
     },
     {
         "entity": 2,
-        "image": "patriotbed"
+        "image": "gamerbed"
     },
     {
         "entity": 3,
-        "image": "boringlamp"
+        "image": "gamerlamp"
     },
     {
         "entity": 4,
-        "image": "boringdesk"
+        "image": "pcdesk"
     },
     {
         "entity": 5,
-        "image": "boringdresser"
+        "image": "gamingdresser"
     },
     {
         "entity": 7,
@@ -25,7 +25,7 @@
     },
     {
         "entity": 6,
-        "image": "towel"
+        "image": "microwave"
     },
     {
         "entity": 0,

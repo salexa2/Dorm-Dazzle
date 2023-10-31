@@ -19,13 +19,18 @@
    LoadTexture("halloweenbed", "assets/halloweenbed.png")
    --LAMP TEXTURES--
    LoadTexture("boringlamp", "assets/boringlamp.png")
+   LoadTexture("gamerlamp", "assets/gamerlamp.png")
+   LoadTexture("patriotlamp", "assets/patriotlamp.png")
 
    --------DESK TEXTURES-------
    LoadTexture("boringdesk","assets/boringdesk.png")
+   LoadTexture("pcdesk","assets/deskpc.png")
+
    
   ---------DRESSER TEXTURES-------------
   LoadTexture("boringdresser","assets/boringdresser.png")
   LoadTexture("animedresser","assets/animedresser.png")
+  LoadTexture("gamingdresser","assets/gamingdresser.png")
    ---------FRIDGE TEXTURES---------------
    
    LoadTexture("ramen", "assets/fridgeramen.png")

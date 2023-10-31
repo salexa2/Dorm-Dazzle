@@ -273,50 +273,51 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             ECS.Get<GraphicsManager::Sprite>(3).image_name = "boringlamp";  
             printf("changed to default lamp"); 
         } 
-        if (ImGui::Button("Patriot-Lamp")) {
+        if (ImGui::Button("Patriot-Lamp")) { //shadai 
+            ECS.Get<GraphicsManager::Sprite>(3).image_name = "patriotlamp";  
             printf("changed to patriot lamp"); 
         }
 
 
-        if (ImGui::Button("Rich-Snitch-Lamp")) {
+        if (ImGui::Button("Rich-Snitch-Lamp")) {//shadai 
           
             printf("changed to rich snitch lamp"); 
         }
-        if (ImGui::Button("Gaming-Lamp")) {
-          
+        if (ImGui::Button("Gaming-Lamp")) {//shadai 
+            ECS.Get<GraphicsManager::Sprite>(3).image_name = "gamerlamp";  
             printf("changed to gaming lamp"); 
         }
-        if (ImGui::Button("Rainbow-Lamp")) {
+        if (ImGui::Button("Rainbow-Lamp")) { //sahdai 
         
             printf("changed to rainbow lamp"); 
         }
-         if (ImGui::Button("Goth-Lamp")) {
+         if (ImGui::Button("Goth-Lamp")) {//shadai 
             //candles
             printf("changed to gothlamp"); 
         }
-         if (ImGui::Button("Halloween-Lamp")) {
+         if (ImGui::Button("Halloween-Lamp")) { //shadai 
             //jackolantern
             printf("changed to Halloween lamp"); 
         }
         if (ImGui::Button("Christmas-Lamp")) {
         
-            printf("changed to Christmas lamp"); 
+            printf("changed to Christmas lamp");  //jen
         }
-        if (ImGui::Button("Gym-Rat-Lamp")) {
+        if (ImGui::Button("Gym-Rat-Lamp")) { //jen
         
             printf("changed to Gym Rat lamp"); 
         }
-        if (ImGui::Button("Anime-Lamp")) {
+        if (ImGui::Button("Anime-Lamp")) {//jen
          //lave lamp
             printf("changed to anime lamp"); 
         }
-        if (ImGui::Button("Cat-Lady-Lamp")) {
+        if (ImGui::Button("Cat-Lady-Lamp")) {//jen
         
             printf("changed to cat lady"); 
         }
-        if (ImGui::Button("Nerdy-Lamp")) {
-        
-            printf("changed to nerdy lamp"); 
+        if (ImGui::Button("Nerdy-Lamp")) {//jen
+         //theres a sticky note object on the website totes put that behind the lamp!
+            printf("changed to nerdy lamp"); //jen
         }
     ImGui::EndPopup();
     }
@@ -334,54 +335,55 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             ECS.Get<GraphicsManager::Sprite>(4).image_name = "boringdesk";  
             printf("changed to default desk"); 
         } 
-        if (ImGui::Button("Patriot-Desk")) {
+        if (ImGui::Button("Patriot-Desk")) { // shadai 
             printf("changed to patriot Desk"); 
         }
 
 
-        if (ImGui::Button("Rich-Snitch-Desk")) {
+        if (ImGui::Button("Rich-Snitch-Desk")) {//shadai 
           
             printf("changed to rich Desk"); 
         }
-        if (ImGui::Button("Gaming-Desk-I")) {
+        if (ImGui::Button("Gaming-Desk-I")) {//shadai 
             //PC
+            ECS.Get<GraphicsManager::Sprite>(4).image_name = "pcdesk"; 
             printf("changed to gaming Desk"); 
         }
-        if (ImGui::Button("Gaming-Desk-II")) {
+        if (ImGui::Button("Gaming-Desk-II")) { //shadai 
             //Console
             printf("changed to gaming Desk"); 
         }
-        if (ImGui::Button("Rainbow-Desk")) {
+        if (ImGui::Button("Rainbow-Desk")) { //shadai 
             //laptop with rainbow mouse mat and a cup of coffee
             printf("changed to rainbow Desk"); 
         }
-         if (ImGui::Button("Goth-Desk")) {
+         if (ImGui::Button("Goth-Desk")) { // shadai 
             //maybe - ritual - skull withe pencils paper, a thick book 
             printf("changed to gothdesk"); 
         }
-         if (ImGui::Button("Halloween-Desk")) {
+         if (ImGui::Button("Halloween-Desk")) { //shadai 
             //potion brew
             printf("changed to Halloween desk"); 
         }
-        if (ImGui::Button("Christmas-Desk")) {
+        if (ImGui::Button("Christmas-Desk")) { //jen 
             //bunch of presents
             printf("changed to Christmas desk"); 
         }
-        if (ImGui::Button("Gym-Rat-Desk")) {
+        if (ImGui::Button("Gym-Rat-Desk")) { //jen 
             //dumbbell set and a phone ?
             printf("changed to Gym Rat desk"); 
         }
         if (ImGui::Button("Anime-Desk")) {
-            //ipad, bunch of manga books + wooden ref figure
+            //ipad, bunch of manga books + white pencil  + robot ref figure(On the website)  //jen
             printf("changed to anime desk"); 
         }
         if (ImGui::Button("Cat-Lady-desk")) {
-            //knitting gear plus cat figure
+            //knitting gear plus cat figure //jen 
         
             printf("changed to cat lady"); 
         }
         if (ImGui::Button("Nerdy-Desk")) {
-            //whiteboard+ calculator, text books stacked
+            //whiteboard+ calculator, text books stacked //jen
             printf("changed to nerdy desk"); 
         }
     ImGui::EndPopup();
@@ -401,53 +403,53 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             ECS.Get<GraphicsManager::Sprite>(5).image_name = "boringdresser";  
             printf("changed to default dresser"); 
         } 
-        if (ImGui::Button("Patriot-Dresser")) {
+        if (ImGui::Button("Patriot-Dresser")) { // shadai 
             //patriot merch
             printf("changed to patriot dresser"); 
         }
-        if (ImGui::Button("Rich-Snitch-Dresser")) {
+        if (ImGui::Button("Rich-Snitch-Dresser")) {//shadai 
             // jewlery 
             printf("changed to rich Desk"); 
         }
-        if (ImGui::Button("Gaming-Dresser-I")) {
-            //VR
+        if (ImGui::Button("Gaming-Dresser-I")) {//shadai 
+            ECS.Get<GraphicsManager::Sprite>(5).image_name = "gamingdresser";
             printf("changed to gaming Desk"); 
         }
-        if (ImGui::Button("Rainbow-Dresser")) {
+        if (ImGui::Button("Rainbow-Dresser")) {//shadai 
             //pride flag with some flasks
             printf("changed to rainbow dresser"); 
         }
-         if (ImGui::Button("Goth-Dresser")) {
+         if (ImGui::Button("Goth-Dresser")) { //shadai 
             //maybe - ritual - skull withe pencils paper, a thick book 
             printf("changed to gothlamp"); 
         }
-         if (ImGui::Button("Halloween-Dresser")) {
+         if (ImGui::Button("Halloween-Dresser")) { //shadai 
             //potion brew
             printf("changed to Halloween lamp"); 
         }
-        if (ImGui::Button("Christmas-Dresser")) {
+        if (ImGui::Button("Christmas-Dresser")) { //jenn
             //bunch of presents
             printf("changed to Christmas dresser"); 
         }
-        if (ImGui::Button("Gym-Rat-Dresser")) {
+        if (ImGui::Button("Gym-Rat-Dresser")) { //jenn
             //dumbbell set and a phone ?
             printf("changed to Gym Rat lamp"); 
         }
-        if (ImGui::Button("Anime-Dresser")) {
+        if (ImGui::Button("Anime-Dresser")) {//jenn
             //anime figure
             ECS.Get<GraphicsManager::Sprite>(5).image_name = "animedresser";
             printf("changed to anime dresser"); 
         }
-        if (ImGui::Button("Cat-Lady-Desk")) {
+        if (ImGui::Button("Cat-Lady-Desk")) {//jen
             //yarn + cat snacks
         
             printf("changed to cat lady dresser"); 
         }
-        if (ImGui::Button("Nerdy-Dresser")) {
+        if (ImGui::Button("Nerdy-Dresser")) {//jen
             //printer
             printf("changed to nerdy lamp"); 
         }
-        if (ImGui::Button("Nerdy-Dresser-II")) {
+        if (ImGui::Button("Nerdy-Dresser-II")) {//jen
             //action figure
             printf("changed to nerdy lamp"); 
         }
@@ -475,15 +477,15 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
              ECS.Get<GraphicsManager::Sprite>(6).image_name = "microwave";  
             printf("changed to microwave"); 
         }
-        if (ImGui::Button("Mini-Crockpot")) {
+        if (ImGui::Button("Mini-Crockpot")) { //jenn
             // minicrockpot plus seasonings
             printf("changed to crockpot"); 
         }
-        if (ImGui::Button("Coffee-Maker")) {
+        if (ImGui::Button("Coffee-Maker")) { //jen
             //coffee maker
             printf("changed to coffeemaker"); 
         }
-        if (ImGui::Button("Sweet-Tooth")) {
+        if (ImGui::Button("Sweet-Tooth")) { //jen
             //basket of snacks
             printf("changed to sweettooth"); 
         }
@@ -500,22 +502,22 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             ECS.Get<GraphicsManager::Sprite>(7).image_name = "boringfloor";  
             //open moving boxes
         } 
-        if (ImGui::Button("Patriot-Floor")) {
-            //green rug
+        if (ImGui::Button("Patriot-Floor")) { //Shadai 
+            //green rug 
         }
-        if (ImGui::Button("Rich-Snitch-Floor")) {
+        if (ImGui::Button("Rich-Snitch-Floor")) { //Shadai 
             // Fluffy white rug 
         }
-        if (ImGui::Button("Gaming-Floor")) {
+        if (ImGui::Button("Gaming-Floor")) {//Shadai 
             //Bean bag + circle rug
         }
-        if (ImGui::Button("Rainbow-Floor")) {
+        if (ImGui::Button("Rainbow-Floor")) {//Shadai 
             //cloud rug
         }
-         if (ImGui::Button("Goth-Floor")) {
+         if (ImGui::Button("Goth-Floor")) {//Shadai 
             //ouija rug
         }
-         if (ImGui::Button("Halloween-Floor")) {
+         if (ImGui::Button("Halloween-Floor")) {//Shadai 
             //bat rug or web rug design 
         }
         if (ImGui::Button("Christmas-Floor")) {

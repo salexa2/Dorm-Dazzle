@@ -78,7 +78,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
      ImGui::SetWindowPos(ImVec2(500, 0));
     float currentStamina = ECS.Get<EntityManager::Health>(0).percent; // Get the player's current stamina value
     float maxStamina = 40; // Get the maximum stamina value
-    ImGui::ProgressBar(currentStamina / maxStamina, ImVec2(-1, 0), "Energy"); //maybe display a 2 minute timer thst countd doen til the next energy is added...? i know this is drawn every frame so it might be tricky?
+    ImGui::ProgressBar(currentStamina / maxStamina, ImVec2(-1, 0), "Max: 40"); 
     ImGui::End();
 //-----------------------------------------------------------------
 
@@ -547,7 +547,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     ImGui::Begin("Bread!"); 
     ImGui::SetCursorPos(ImVec2(5, 50));
     ImGui::Text("Crumbs: $%.2f", ECS.Get<EntityManager::Money>(0).price);
-     if (ImGui::Button("Favor")) {
+     if (ImGui::Button("Favor - 5 Energy")) {
         if(ECS.Get<EntityManager::Health>(0).percent>=5){
             ECS.Get<EntityManager::Money>(0).price+=200;
             ECS.Get<EntityManager::Health>(0).percent-=5; 
@@ -556,7 +556,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         //100 crumbs
 
      }
-     if (ImGui::Button("Work-Study")) {
+     if (ImGui::Button("Work-Study - 10 Energy")) {
         if(ECS.Get<EntityManager::Health>(0).percent>=10){
             ECS.Get<EntityManager::Money>(0).price+=400;
             ECS.Get<EntityManager::Health>(0).percent-=10; 
@@ -564,7 +564,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         //10 energy
         //400 crumbs
      }
-     if (ImGui::Button("Part-Time-Job")) {
+     if (ImGui::Button("Part-Time-Job - 15 Energy")) {
         if(ECS.Get<EntityManager::Health>(0).percent>=15){
             ECS.Get<EntityManager::Money>(0).price+=700;
             ECS.Get<EntityManager::Health>(0).percent-=15; 
@@ -572,12 +572,12 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         //15 energy
         //700 crumbs
      }
-     if (ImGui::Button("Internship")) {
+     if (ImGui::Button("Internship - 35 Energy")) {
         if(ECS.Get<EntityManager::Health>(0).percent>=35){
-            ECS.Get<EntityManager::Money>(0).price+=1100;
+            ECS.Get<EntityManager::Money>(0).price+=1200;
             ECS.Get<EntityManager::Health>(0).percent-=35;
         }
-        //25 energy
+        //35 energy
         //1200 crumbs
      }
 

@@ -25,19 +25,26 @@
    --------DESK TEXTURES-------
    LoadTexture("boringdesk","assets/boringdesk.png")
    LoadTexture("pcdesk","assets/deskpc.png")
+   LoadTexture("deskconsole","assets/deskconsole.png")
+   LoadTexture("desktv","assets/desktv.png")
+
 
    
   ---------DRESSER TEXTURES-------------
   LoadTexture("boringdresser","assets/boringdresser.png")
   LoadTexture("animedresser","assets/animedresser.png")
   LoadTexture("gamingdresser","assets/gamingdresser.png")
+  LoadTexture("patriotdresser","assets/patriotdresser.png")
    ---------FRIDGE TEXTURES---------------
    
    LoadTexture("ramen", "assets/fridgeramen.png")
+   LoadTexture("food", "assets/fridgefood.png")
    LoadTexture("microwave", "assets/microwave.png")
    LoadTexture("towel", "assets/boringtowel.png")
    --------FLOOR TEXTURES---------------
    LoadTexture("boringfloor", "assets/boringfloor.png")
+   LoadTexture("gamefloor", "assets/gamefloor.png")
+   LoadTexture("patriotfloor", "assets/patriotfloor.png")
 
    --Load Sounds-------
    LoadSound("twinkle", "assets/sounds/twinkle.wav")
@@ -74,14 +81,6 @@
    GetSprite(bed).scale.y = 80
    GetScript(bed).name = "bed"--print("bed:",bed)
 
-   GetSprite(lamp).image_name = "boringlamp"
-   GetSprite(lamp).position.x= -55
-   GetSprite(lamp).position.y =15
-   GetSprite(lamp).position.z = 0
-   GetSprite(lamp).scale.x = 20
-   GetSprite(lamp).scale.y = 20
-   GetScript(lamp).name = "lamp"
-
    GetSprite(desk).image_name = "boringdesk"
    GetSprite(desk).position.x= -30
    GetSprite(desk).position.y =15
@@ -90,23 +89,31 @@
    GetSprite(desk).scale.y = 30
    GetScript(desk).name = "desk"
 
+   GetSprite(lamp).image_name = "boringlamp"
+   GetSprite(lamp).position.x= -55
+   GetSprite(lamp).position.y =15
+   GetSprite(lamp).position.z = 0
+   GetSprite(lamp).scale.x = 20
+   GetSprite(lamp).scale.y = 20
+   GetScript(lamp).name = "lamp"
+
+
    GetSprite(dresser).image_name = "boringdresser"
    GetSprite(dresser).position.x= -20
    GetSprite(dresser).position.y = 40
    GetSprite(dresser).position.z = 0
-   GetSprite(dresser).scale.x = 20
-   GetSprite(dresser).scale.y = 20
+   GetSprite(dresser).scale.x = 25
+   GetSprite(dresser).scale.y = 25
    GetScript(dresser).name = "dresser"
 
 
    GetSprite(Rug).image_name = "boringfloor"
-   GetSprite(Rug).position.x= 10
-   GetSprite(Rug).position.y = -65
+   GetSprite(Rug).position.x= 15
+   GetSprite(Rug).position.y = -50
    GetSprite(Rug).position.z = 0
-   GetSprite(Rug).scale.x = 50
-   GetSprite(Rug).scale.y = 50
+   GetSprite(Rug).scale.x = 90
+   GetSprite(Rug).scale.y = 90
    GetScript(Rug).name = "floor"
-   print(Rug)
 
    
    GetSprite(fridge).image_name = "towel"

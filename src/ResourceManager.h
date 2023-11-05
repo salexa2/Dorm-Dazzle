@@ -12,7 +12,7 @@ class ResourceManager{
         ResourceManager();
         std::string passString(std::string path);
         void Start();
-        void Shutdown();
+        void Shutdown(); 
 
 
 

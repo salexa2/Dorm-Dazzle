@@ -337,6 +337,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         } 
         if (ImGui::Button("Patriot-Desk")) { // shadai 
             printf("changed to patriot Desk"); 
+            ECS.Get<GraphicsManager::Sprite>(4).image_name = "desktv";  
         }
 
 
@@ -351,6 +352,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         }
         if (ImGui::Button("Gaming-Desk-II")) { //shadai 
             //Console
+            ECS.Get<GraphicsManager::Sprite>(4).image_name = "deskconsole"; 
             printf("changed to gaming Desk"); 
         }
         if (ImGui::Button("Rainbow-Desk")) { //shadai 
@@ -405,6 +407,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         } 
         if (ImGui::Button("Patriot-Dresser")) { // shadai 
             //patriot merch
+             ECS.Get<GraphicsManager::Sprite>(5).image_name = "patriotdresser";
             printf("changed to patriot dresser"); 
         }
         if (ImGui::Button("Rich-Snitch-Dresser")) {//shadai 
@@ -468,10 +471,10 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             ECS.Get<GraphicsManager::Sprite>(6).image_name = "towel";  
             printf("changed to papertowel"); 
         } 
-        if (ImGui::Button("Ramen")) {
+        if (ImGui::Button("Food")) {
             //ramen cups
-            ECS.Get<GraphicsManager::Sprite>(6).image_name = "ramen";  
-            printf("changed to ramen"); 
+            ECS.Get<GraphicsManager::Sprite>(6).image_name = "food";  
+            printf("changed to food"); 
         } 
         if (ImGui::Button("Microwave")) {
              ECS.Get<GraphicsManager::Sprite>(6).image_name = "microwave";  
@@ -503,6 +506,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             //open moving boxes
         } 
         if (ImGui::Button("Patriot-Floor")) { //Shadai 
+            ECS.Get<GraphicsManager::Sprite>(7).image_name = "patriotfloor"; 
             //green rug 
         }
         if (ImGui::Button("Rich-Snitch-Floor")) { //Shadai 
@@ -510,6 +514,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         }
         if (ImGui::Button("Gaming-Floor")) {//Shadai 
             //Bean bag + circle rug
+             ECS.Get<GraphicsManager::Sprite>(7).image_name = "gamefloor";  
         }
         if (ImGui::Button("Rainbow-Floor")) {//Shadai 
             //cloud rug
@@ -532,11 +537,11 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         if (ImGui::Button("Cat-Lady-Floor")) {
             //fluffy Rug + Cat???
         
-            printf("changed to cat lady dresser"); 
+            
         }
         if (ImGui::Button("Nerdy-Floor")) {
             //comic book rug
-            printf("changed to nerdy lamp"); 
+        
         }
         ImGui::EndPopup();
     }

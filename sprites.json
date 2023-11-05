@@ -5,23 +5,23 @@
     },
     {
         "entity": 2,
-        "image": "gamerbed"
-    },
-    {
-        "entity": 3,
-        "image": "gamerlamp"
+        "image": "patriotbed2"
     },
     {
         "entity": 4,
-        "image": "pcdesk"
+        "image": "desktv"
+    },
+    {
+        "entity": 3,
+        "image": "patriotlamp"
     },
     {
         "entity": 5,
-        "image": "gamingdresser"
+        "image": "patriotdresser"
     },
     {
         "entity": 7,
-        "image": "boringfloor"
+        "image": "patriotfloor"
     },
     {
         "entity": 6,

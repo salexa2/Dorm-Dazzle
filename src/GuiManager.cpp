@@ -74,8 +74,8 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
    //if the sum of the difference and the current energy exceeds 40, just set the energy to 40. 
   
     ImGui::Begin("Energy");
-     ImGui::SetNextWindowSize(ImVec2(200, 30));
-     ImGui::SetWindowPos(ImVec2(500, 0));
+    ImGui::SetNextWindowSize(ImVec2(200, 30));
+    ImGui::SetWindowPos(ImVec2(500, 0));
     float currentStamina = ECS.Get<EntityManager::Health>(0).percent; // Get the player's current stamina value
     float maxStamina = 40; // Get the maximum stamina value
     ImGui::ProgressBar(currentStamina / maxStamina, ImVec2(-1, 0), "Max: 40"); 

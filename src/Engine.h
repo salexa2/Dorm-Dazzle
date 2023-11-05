@@ -8,33 +8,35 @@
 #include "SoundManager.h"
 #include <functional>
 
+
+
 //Engine GLOBAL_ENGINE;
 
 class Engine{
 
       
-        public:
-            Engine();
-         //   ~Engine();
-            GraphicsManager graphicsManager;
-            InputManager inputManager;
-            ResourceManager resouceManager;
-            ScriptManager scriptManager;
-            SoundManager soundManager; //JM
+public:
+    Engine();
+    //   ~Engine();
+    GraphicsManager graphicsManager;
+    InputManager inputManager;
+    ResourceManager resouceManager;
+    ScriptManager scriptManager;
+    SoundManager soundManager; //JM
             
            
-            //start up managers
-            void Start();
-            //runs game 
-            typedef std::function<void(Engine&)> UpdateCallBack;
-            void RunGameLoop(const UpdateCallBack& callback);
-            //shuts down managers
-            void Shutdown();
-            void ExitGame();
-            
+    //start up managers
+    void Start();
+    //runs game 
+    typedef std::function<void(Engine&)> UpdateCallBack;
+    void RunGameLoop(const UpdateCallBack& callback);
+    //shuts down managers
+    void Shutdown();
+    void ExitGame();
 
-  
-        
+private:
+    void SaveTime();
+
 };
 
  inline Engine GLOBAL_ENGINE;

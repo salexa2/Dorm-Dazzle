@@ -21,12 +21,25 @@ GuiManager::GuiManager()
 
 void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat swapchainformat)
 {
+    
+    //initialize time things...
+    maxStamina = 40.0f;
+    currentStamina = maxStamina;
+    
+    
     IMGUI_CHECKVERSION();
     ImGui::CreateContext(); 
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOther(window, true);
     WGPUTextureFormat ob = WGPUTextureFormat_Undefined; 
     ImGui_ImplWGPU_Init(device,3,swapchainformat, ob);
+
+
+    
+}
+
+void GuiManager::LoadTime() {
+    //read time saved to file into 
 }
 
 
@@ -72,13 +85,27 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
    //every 2 minutes add an energy?
    //add energy when player is away, so get the time before they quit, save it, then get the time when they get on, get the difference and increase energy
    //if the sum of the difference and the current energy exceeds 40, just set the energy to 40. 
+
+    float player_health = ECS.Get<EntityManager::Health>(0).percent;
+    
   
     ImGui::Begin("Energy");
     ImGui::SetNextWindowSize(ImVec2(200, 30));
     ImGui::SetWindowPos(ImVec2(500, 0));
-    float currentStamina = ECS.Get<EntityManager::Health>(0).percent; // Get the player's current stamina value
-    float maxStamina = 40; // Get the maximum stamina value
+    //float currentStamina = ECS.Get<EntityManager::Health>(0).percent; // Get the player's current stamina value
+    //float maxStamina = 40; // Get the maximum stamina value
+    float replenish_rate = 0.001f;
     ImGui::ProgressBar(currentStamina / maxStamina, ImVec2(-1, 0), "Max: 40"); 
+
+    //replenish over time
+    currentStamina = currentStamina + replenish_rate;
+    //clamp to maxStamina
+    if (currentStamina > maxStamina) {
+        currentStamina = maxStamina;
+    }
+    //update player health to match
+    ECS.Get<EntityManager::Health>(0).percent = currentStamina;
+
     ImGui::End();
 //-----------------------------------------------------------------
 
@@ -555,7 +582,8 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
      if (ImGui::Button("Favor - 5 Energy")) {
         if(ECS.Get<EntityManager::Health>(0).percent>=5){
             ECS.Get<EntityManager::Money>(0).price+=200;
-            ECS.Get<EntityManager::Health>(0).percent-=5; 
+            ECS.Get<EntityManager::Health>(0).percent-=5;
+            currentStamina -= 5;
         }
         //5 energy
         //100 crumbs
@@ -564,7 +592,8 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
      if (ImGui::Button("Work-Study - 10 Energy")) {
         if(ECS.Get<EntityManager::Health>(0).percent>=10){
             ECS.Get<EntityManager::Money>(0).price+=400;
-            ECS.Get<EntityManager::Health>(0).percent-=10; 
+            ECS.Get<EntityManager::Health>(0).percent-=10;
+            currentStamina -= 10;
         }
         //10 energy
         //400 crumbs
@@ -572,7 +601,8 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
      if (ImGui::Button("Part-Time-Job - 15 Energy")) {
         if(ECS.Get<EntityManager::Health>(0).percent>=15){
             ECS.Get<EntityManager::Money>(0).price+=700;
-            ECS.Get<EntityManager::Health>(0).percent-=15; 
+            ECS.Get<EntityManager::Health>(0).percent-=15;
+            currentStamina -= 15;
         }
         //15 energy
         //700 crumbs
@@ -581,6 +611,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         if(ECS.Get<EntityManager::Health>(0).percent>=35){
             ECS.Get<EntityManager::Money>(0).price+=1200;
             ECS.Get<EntityManager::Health>(0).percent-=35;
+            currentStamina -= 35;
         }
         //35 energy
         //1200 crumbs

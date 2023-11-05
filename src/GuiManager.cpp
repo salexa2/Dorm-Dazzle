@@ -9,7 +9,8 @@
 #include <chrono>
 #include <thread>
 
-
+std::chrono::steady_clock::time_point start_time;
+std::chrono::steady_clock::time_point end_time;
 
 //include this in the graphics manager, 
 GuiManager::GuiManager()
@@ -25,17 +26,17 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     //initialize time things...
     maxStamina = 40.0f;
     currentStamina = maxStamina;
-    
+    replenish_rate = 1.0f;
+
+    start_time = std::chrono::steady_clock::now();
+
     
     IMGUI_CHECKVERSION();
     ImGui::CreateContext(); 
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOther(window, true);
     WGPUTextureFormat ob = WGPUTextureFormat_Undefined; 
-    ImGui_ImplWGPU_Init(device,3,swapchainformat, ob);
-
-
-    
+    ImGui_ImplWGPU_Init(device,3,swapchainformat, ob);    
 }
 
 void GuiManager::LoadTime() {
@@ -85,21 +86,30 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
    //every 2 minutes add an energy?
    //add energy when player is away, so get the time before they quit, save it, then get the time when they get on, get the difference and increase energy
    //if the sum of the difference and the current energy exceeds 40, just set the energy to 40. 
-
-    float player_health = ECS.Get<EntityManager::Health>(0).percent;
-    
+ 
   
     ImGui::Begin("Energy");
     ImGui::SetNextWindowSize(ImVec2(200, 30));
     ImGui::SetWindowPos(ImVec2(500, 0));
-    //float currentStamina = ECS.Get<EntityManager::Health>(0).percent; // Get the player's current stamina value
-    //float maxStamina = 40; // Get the maximum stamina value
-    float replenish_rate = 0.001f;
+    //udpate progress bar
     ImGui::ProgressBar(currentStamina / maxStamina, ImVec2(-1, 0), "Max: 40"); 
 
+    //calculate current time
+
+    end_time = std::chrono::steady_clock::now();
+
+    //if time is >= 2 minutes -> update energy and reset start time
+    auto time_elapsed = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time);
+
+    //if (time_elapsed.count() >= 120) { //2 minutes
+    if (time_elapsed.count() >= 30) { //30 seconds
+        currentStamina = currentStamina + replenish_rate; //update energy
+        start_time = std::chrono::steady_clock::now(); //update to start counter over
+    }
+
     //replenish over time
-    currentStamina = currentStamina + replenish_rate;
-    //clamp to maxStamina
+    //currentStamina = currentStamina + replenish_rate;
+    ////clamp to maxStamina
     if (currentStamina > maxStamina) {
         currentStamina = maxStamina;
     }

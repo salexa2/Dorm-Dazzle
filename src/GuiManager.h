@@ -25,13 +25,11 @@ public:
 private:
     void LoadTime(); //helper function for reading last closed time
 
+    //make these public for... reasons lol
     float maxStamina;
     float currentStamina;
-
-
-
-
-
+    float replenish_rate;
+    
 };
 
 #endif

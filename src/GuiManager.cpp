@@ -25,10 +25,8 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     
     //initialize time things...
     maxStamina = 40.0f;
-    currentStamina = maxStamina;
     replenish_rate = 1.0f;
-
-    start_time = std::chrono::steady_clock::now();
+    start_time = std::chrono::steady_clock::now(); //set init start time to when gui manager starts
 
     
     IMGUI_CHECKVERSION();
@@ -87,34 +85,30 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
    //add energy when player is away, so get the time before they quit, save it, then get the time when they get on, get the difference and increase energy
    //if the sum of the difference and the current energy exceeds 40, just set the energy to 40. 
  
-  
     ImGui::Begin("Energy");
     ImGui::SetNextWindowSize(ImVec2(200, 30));
     ImGui::SetWindowPos(ImVec2(500, 0));
     //udpate progress bar
-    ImGui::ProgressBar(currentStamina / maxStamina, ImVec2(-1, 0), "Max: 40"); 
+    ImGui::ProgressBar(ECS.Get<EntityManager::Health>(0).percent / maxStamina, ImVec2(-1, 0), "Max: 40");
 
     //calculate current time
-
     end_time = std::chrono::steady_clock::now();
 
     //if time is >= 2 minutes -> update energy and reset start time
     auto time_elapsed = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time);
 
+    //replenish over time
     //if (time_elapsed.count() >= 120) { //2 minutes
     if (time_elapsed.count() >= 30) { //30 seconds
-        currentStamina = currentStamina + replenish_rate; //update energy
+        ECS.Get<EntityManager::Health>(0).percent += replenish_rate;
+        //currentStamina = currentStamina + replenish_rate; //update energy
         start_time = std::chrono::steady_clock::now(); //update to start counter over
     }
 
-    //replenish over time
-    //currentStamina = currentStamina + replenish_rate;
-    ////clamp to maxStamina
-    if (currentStamina > maxStamina) {
-        currentStamina = maxStamina;
+    //clamp to maxStamina
+    if (ECS.Get<EntityManager::Health>(0).percent > maxStamina) {
+        ECS.Get<EntityManager::Health>(0).percent = maxStamina;
     }
-    //update player health to match
-    ECS.Get<EntityManager::Health>(0).percent = currentStamina;
 
     ImGui::End();
 //-----------------------------------------------------------------

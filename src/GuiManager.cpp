@@ -35,10 +35,21 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
 
     std::cout << "Time between last shut down and now = " << diff << std::endl;
 
-    //if time is greater than 30 minutes, reset to max
-    if (diff > 1800) {
-        ECS.Get<EntityManager::Health>(0).percent = maxStamina;
-    }
+    //get last energy
+    float lastEnergy = LoadEnergy();
+    std::cout << "Energy at last load = " << lastEnergy << std::endl;
+    
+
+    ECS.Get<EntityManager::Health>(0).percent = lastEnergy; //set to last loaded energy
+
+    ////if time is greater than 30 minutes, reset to max
+    //// or if last energy is already the max stamina
+    //if (diff > 1800) {
+    //    ECS.Get<EntityManager::Health>(0).percent = maxStamina;
+    //}
+    //else {
+    //    
+    //}
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext(); 
@@ -46,6 +57,22 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     ImGui_ImplGlfw_InitForOther(window, true);
     WGPUTextureFormat ob = WGPUTextureFormat_Undefined; 
     ImGui_ImplWGPU_Init(device,3,swapchainformat, ob);    
+}
+
+float GuiManager::LoadEnergy() {
+    std::ifstream energyFile("energy.txt");
+
+    if (energyFile.is_open()) {
+        std::string energyString;
+        std::getline(energyFile, energyString);
+        energyFile.close();
+        return std::stof(energyString);
+    }
+    else {
+        std::cerr << "Unable to read from energy file." << std::endl;
+        return -1; //error
+
+    }
 }
 
 time_t GuiManager::LoadTime() {
@@ -83,6 +110,8 @@ void GuiManager::SaveEnergy() {
     std::ofstream energyFile("energy.txt");
 
     if (energyFile.is_open()) {
+        std::cout << "Current energy: " << ECS.Get<EntityManager::Health>(0).percent << std::endl;
+
         energyFile << ECS.Get<EntityManager::Health>(0).percent;
         energyFile.close();
         std::cout << "Saved current energy level to file." << std::endl;
@@ -128,6 +157,8 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     ImGui::Begin("Energy");
     ImGui::SetNextWindowSize(ImVec2(200, 30));
     ImGui::SetWindowPos(ImVec2(500, 0));
+
+
     //udpate progress bar
     ImGui::ProgressBar(ECS.Get<EntityManager::Health>(0).percent / maxStamina, ImVec2(-1, 0), "Max: 40");
 
@@ -139,7 +170,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
     //replenish over time
     //if (time_elapsed.count() >= 120) { //2 minutes
-    if (time_elapsed.count() >= 30) { //30 seconds
+    if (time_elapsed.count() >= 5) { //30 seconds
         ECS.Get<EntityManager::Health>(0).percent += replenish_rate;
         //currentStamina = currentStamina + replenish_rate; //update energy
         start_time = std::chrono::system_clock::now(); //update to start counter over
@@ -627,7 +658,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         if(ECS.Get<EntityManager::Health>(0).percent>=5){
             ECS.Get<EntityManager::Money>(0).price+=200;
             ECS.Get<EntityManager::Health>(0).percent-=5;
-            currentStamina -= 5;
+            //currentStamina -= 5;
         }
         //5 energy
         //100 crumbs
@@ -637,7 +668,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         if(ECS.Get<EntityManager::Health>(0).percent>=10){
             ECS.Get<EntityManager::Money>(0).price+=400;
             ECS.Get<EntityManager::Health>(0).percent-=10;
-            currentStamina -= 10;
+            //currentStamina -= 10;
         }
         //10 energy
         //400 crumbs
@@ -646,7 +677,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         if(ECS.Get<EntityManager::Health>(0).percent>=15){
             ECS.Get<EntityManager::Money>(0).price+=700;
             ECS.Get<EntityManager::Health>(0).percent-=15;
-            currentStamina -= 15;
+            //currentStamina -= 15;
         }
         //15 energy
         //700 crumbs
@@ -655,7 +686,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         if(ECS.Get<EntityManager::Health>(0).percent>=35){
             ECS.Get<EntityManager::Money>(0).price+=1200;
             ECS.Get<EntityManager::Health>(0).percent-=35;
-            currentStamina -= 35;
+            //currentStamina -= 35;
         }
         //35 energy
         //1200 crumbs

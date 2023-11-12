@@ -24,6 +24,7 @@ public:
 
 private:
     time_t LoadTime(); //helper function for reading last closed time
+    void SaveEnergy(); //helper function for writing current energy at shutdown
 
     //make these public for... reasons lol
     float maxStamina;

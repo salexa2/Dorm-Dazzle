@@ -23,20 +23,23 @@ GuiManager::GuiManager()
 
 void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat swapchainformat)
 {
-    time_t lastLoad = LoadTime();
     
     //initialize time things...
     maxStamina = 40.0f;
     replenish_rate = 1.0f;
     start_time = std::chrono::system_clock::now(); //set init start time to when gui manager starts
 
+    time_t lastLoad = LoadTime();
     time_t now = std::chrono::system_clock::to_time_t(start_time);
-
     double diff = difftime(now, lastLoad);
 
     std::cout << "Time between last shut down and now = " << diff << std::endl;
 
-    
+    //if time is greater than 30 minutes, reset to max
+    if (diff > 1800) {
+        ECS.Get<EntityManager::Health>(0).percent = maxStamina;
+    }
+
     IMGUI_CHECKVERSION();
     ImGui::CreateContext(); 
     ImGui::StyleColorsDark();
@@ -68,13 +71,25 @@ time_t GuiManager::LoadTime() {
     }
 }
 
-
 void GuiManager::Shutdown()
 {
-   
+    SaveEnergy();
    // ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
+}
+
+void GuiManager::SaveEnergy() {
+    std::ofstream energyFile("energy.txt");
+
+    if (energyFile.is_open()) {
+        energyFile << ECS.Get<EntityManager::Health>(0).percent;
+        energyFile.close();
+        std::cout << "Saved current energy level to file." << std::endl;
+    }
+    else {
+        std::cerr << "Unable to open energy file to write current status." << std::endl;
+    }
 }
 
 void GuiManager::Draw(  WGPURenderPassEncoder render_pass)

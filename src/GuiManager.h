@@ -23,7 +23,7 @@ public:
         void SetTemp();
 
 private:
-    void LoadTime(); //helper function for reading last closed time
+    time_t LoadTime(); //helper function for reading last closed time
 
     //make these public for... reasons lol
     float maxStamina;

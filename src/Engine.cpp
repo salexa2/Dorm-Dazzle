@@ -41,22 +41,20 @@ using namespace std;
 
     void Engine::SaveTime() {
         //save time of shutdown to file
-        //auto timenow = chrono::system_clock::to_time_t(chrono::system_clock::now());
-
-        //cout << ctime(&timenow) << endl;
-
-        time_t now = time(0);
-
-        // convert now to string form
-        char* dt = ctime(&now);
-
-        cout << "The local date and time is: " << dt << endl;
 
         // write to file for storage
-        std::ofstream timeFile;
-        timeFile.open("time.txt");
-        timeFile << dt;
-        timeFile.close();
+        std::ofstream timeFile("time.txt");
+
+        if (timeFile.is_open()) {
+            auto timenow = chrono::system_clock::to_time_t(chrono::system_clock::now());
+            timeFile << std::ctime(&timenow);
+            timeFile.close();
+            std::cout << "Current time has been written to time.txt" << std::endl;
+        }
+        else {
+            std::cerr << "Unable to open file to write current time." << std::endl;
+        }
+        
     }
 
     void Engine::ExitGame()

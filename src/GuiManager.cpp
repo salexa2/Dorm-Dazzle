@@ -8,9 +8,10 @@
 #include "GraphicsManager.cpp"
 #include <chrono>
 #include <thread>
+#include <ctime>
 
-std::chrono::steady_clock::time_point start_time;
-std::chrono::steady_clock::time_point end_time;
+std::chrono::system_clock::time_point start_time;
+std::chrono::system_clock::time_point end_time;
 
 //include this in the graphics manager, 
 GuiManager::GuiManager()
@@ -22,11 +23,18 @@ GuiManager::GuiManager()
 
 void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat swapchainformat)
 {
+    time_t lastLoad = LoadTime();
     
     //initialize time things...
     maxStamina = 40.0f;
     replenish_rate = 1.0f;
-    start_time = std::chrono::steady_clock::now(); //set init start time to when gui manager starts
+    start_time = std::chrono::system_clock::now(); //set init start time to when gui manager starts
+
+    time_t now = std::chrono::system_clock::to_time_t(start_time);
+
+    double diff = difftime(now, lastLoad);
+
+    std::cout << "Time between last shut down and now = " << diff << std::endl;
 
     
     IMGUI_CHECKVERSION();
@@ -37,8 +45,27 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     ImGui_ImplWGPU_Init(device,3,swapchainformat, ob);    
 }
 
-void GuiManager::LoadTime() {
+time_t GuiManager::LoadTime() {
     //read time saved to file into 
+
+    std::ifstream timeFile("time.txt");
+    if (timeFile.is_open()) {
+        std::string timeString;
+        std::getline(timeFile, timeString);
+        timeFile.close();
+        //std::cout << "The time at last shut down was " << timeString << std::endl;
+
+        // convert string to time_t
+        std::tm time = {};
+        std::istringstream stringTime(timeString);
+        stringTime >> std::get_time(&time, "%a %b %d %H:%M:%S %Y");
+
+        return std::mktime(&time);    
+    }
+    else {
+        std::cerr << "Unable to read from time.txt." << std::endl;
+        return NULL;
+    }
 }
 
 
@@ -49,8 +76,6 @@ void GuiManager::Shutdown()
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
-
-
 
 void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 {
@@ -92,7 +117,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     ImGui::ProgressBar(ECS.Get<EntityManager::Health>(0).percent / maxStamina, ImVec2(-1, 0), "Max: 40");
 
     //calculate current time
-    end_time = std::chrono::steady_clock::now();
+    end_time = std::chrono::system_clock::now();
 
     //if time is >= 2 minutes -> update energy and reset start time
     auto time_elapsed = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time);
@@ -102,7 +127,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     if (time_elapsed.count() >= 30) { //30 seconds
         ECS.Get<EntityManager::Health>(0).percent += replenish_rate;
         //currentStamina = currentStamina + replenish_rate; //update energy
-        start_time = std::chrono::steady_clock::now(); //update to start counter over
+        start_time = std::chrono::system_clock::now(); //update to start counter over
     }
 
     //clamp to maxStamina

@@ -24,8 +24,7 @@ using namespace std;
         graphicsManager.Start();
         scriptManager.Start(); 
 
-        soundManager.StartUp(); //JM
-           
+        soundManager.StartUp(); //JM       
     }
            
         
@@ -64,7 +63,12 @@ using namespace std;
 
     //----------HELP HELP HELP 
     void Engine::RunGameLoop(const UpdateCallBack& callback){
-          
+
+        // float lastEnergy = LoadEnergy();
+        float lastEnergy = GLOBAL_ENGINE.graphicsManager.guiManager.LoadEnergy();
+        std::cout << "Energy at last load = " << lastEnergy << std::endl;
+        //set health -> the progress bar
+        ECS.Get<EntityManager::Health>(0).percent = lastEnergy; //set to last loaded energy   
        
         while(true){
             inputManager.Update();

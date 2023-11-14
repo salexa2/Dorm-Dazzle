@@ -35,12 +35,13 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
 
     std::cout << "Time between last shut down and now = " << diff << std::endl;
 
+    //set up progress bar at start up...
     //get last energy
-    float lastEnergy = LoadEnergy();
-    std::cout << "Energy at last load = " << lastEnergy << std::endl;
-    
-
-    ECS.Get<EntityManager::Health>(0).percent = lastEnergy; //set to last loaded energy
+    // // float lastEnergy = LoadEnergy();
+    // float lastEnergy = LoadEnergy();
+    // std::cout << "Energy at last load = " << lastEnergy << std::endl;
+    // //set health -> the progress bar
+    // ECS.Get<EntityManager::Health>(0).percent = lastEnergy; //set to last loaded energy
 
     ////if time is greater than 30 minutes, reset to max
     //// or if last energy is already the max stamina
@@ -160,7 +161,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
 
     //udpate progress bar
-    ImGui::ProgressBar(ECS.Get<EntityManager::Health>(0).percent / maxStamina, ImVec2(-1, 0), "Max: 40");
+    ImGui::ProgressBar(ECS.Get<EntityManager::Health>(0).percent / maxStamina, ImVec2(-1, 0), "");
 
     //calculate current time
     end_time = std::chrono::system_clock::now();
@@ -170,9 +171,8 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
     //replenish over time
     //if (time_elapsed.count() >= 120) { //2 minutes
-    if (time_elapsed.count() >= 5) { //30 seconds
+    if (time_elapsed.count() >= 30) { //30 seconds -> update every 30 seconds
         ECS.Get<EntityManager::Health>(0).percent += replenish_rate;
-        //currentStamina = currentStamina + replenish_rate; //update energy
         start_time = std::chrono::system_clock::now(); //update to start counter over
     }
 

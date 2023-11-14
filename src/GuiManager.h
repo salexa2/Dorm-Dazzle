@@ -22,12 +22,14 @@ public:
 
         void SetTemp();
 
+        float LoadEnergy(); // make it public for engine to call
+
+
 private:
     time_t LoadTime(); //helper function for reading last closed time
     void SaveEnergy(); //helper function for writing current energy at shutdown
-    float LoadEnergy();
 
-    //make these public for... reasons lol
+    //make these global for... reasons lol
     float maxStamina;
     float currentStamina;
     float replenish_rate;

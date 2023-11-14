@@ -29,28 +29,7 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     replenish_rate = 1.0f;
     start_time = std::chrono::system_clock::now(); //set init start time to when gui manager starts
 
-    time_t lastLoad = LoadTime();
-    time_t now = std::chrono::system_clock::to_time_t(start_time);
-    double diff = difftime(now, lastLoad);
 
-    std::cout << "Time between last shut down and now = " << diff << std::endl;
-
-    //set up progress bar at start up...
-    //get last energy
-    // // float lastEnergy = LoadEnergy();
-    // float lastEnergy = LoadEnergy();
-    // std::cout << "Energy at last load = " << lastEnergy << std::endl;
-    // //set health -> the progress bar
-    // ECS.Get<EntityManager::Health>(0).percent = lastEnergy; //set to last loaded energy
-
-    ////if time is greater than 30 minutes, reset to max
-    //// or if last energy is already the max stamina
-    //if (diff > 1800) {
-    //    ECS.Get<EntityManager::Health>(0).percent = maxStamina;
-    //}
-    //else {
-    //    
-    //}
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext(); 
@@ -74,6 +53,32 @@ float GuiManager::LoadEnergy() {
         return -1; //error
 
     }
+}
+
+void GuiManager::InitProgressBar(){
+    
+    time_t lastLoad = LoadTime();
+    time_t now = std::chrono::system_clock::to_time_t(start_time);
+    double diff = difftime(now, lastLoad);
+
+    std::cout << "Time between last shut down and now = " << diff << std::endl;
+
+    //set up progress bar at start up...
+    //get last energy
+    // float lastEnergy = LoadEnergy();
+    float lastEnergy = LoadEnergy();
+    std::cout << "Energy at last load = " << lastEnergy << std::endl;
+    //set health -> the progress bar
+    ECS.Get<EntityManager::Health>(0).percent = lastEnergy; //set to last loaded energy   
+
+    ////if time is greater than 30 minutes, reset to max
+    //// or if last energy is already the max stamina
+    //if (diff > 1800) {
+    //    ECS.Get<EntityManager::Health>(0).percent = maxStamina;
+    //}
+    //else {
+    //    
+    //}
 }
 
 time_t GuiManager::LoadTime() {

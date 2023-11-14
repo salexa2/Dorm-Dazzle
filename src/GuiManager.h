@@ -24,6 +24,8 @@ public:
 
         float LoadEnergy(); // make it public for engine to call
 
+        void InitProgressBar();
+
 
 private:
     time_t LoadTime(); //helper function for reading last closed time

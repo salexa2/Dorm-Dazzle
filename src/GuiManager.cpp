@@ -71,14 +71,12 @@ void GuiManager::InitProgressBar(){
     //set health -> the progress bar
     ECS.Get<EntityManager::Health>(0).percent = lastEnergy; //set to last loaded energy   
 
-    ////if time is greater than 30 minutes, reset to max
-    //// or if last energy is already the max stamina
-    //if (diff > 1800) {
-    //    ECS.Get<EntityManager::Health>(0).percent = maxStamina;
-    //}
-    //else {
-    //    
-    //}
+    //if time is greater than 30 minutes, reset to max
+    // or if last energy is already the max stamina
+    if (diff > 1800) {
+       ECS.Get<EntityManager::Health>(0).percent = maxStamina;
+    }
+
 }
 
 time_t GuiManager::LoadTime() {

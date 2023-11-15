@@ -517,7 +517,7 @@ void GraphicsManager::Draw()
             
     }
     
-     guiManager.Draw(render_pass);
+     guiManager.Draw(render_pass); //drawing imgui here
 
      wgpuRenderPassEncoderEnd(render_pass);       
      WGPUCommandBuffer command = wgpuCommandEncoderFinish( encoder, nullptr );

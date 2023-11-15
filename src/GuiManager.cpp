@@ -284,6 +284,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     printf("changed to patriot bed2");
                     temp = "patriotbed2";
                     ECS.Get<EntityManager::Money>(0).price-=1050; 
+                    purchasedItems.push_back("patriotbed2");
                 }
                 else{
                     printf("Can't afford patriotbed2");
@@ -302,6 +303,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     printf("changed to rich snitch");
                     temp = "richsnitchbed";
                     ECS.Get<EntityManager::Money>(0).price-=1800; 
+                     purchasedItems.push_back("richsnitchbed");
                 }
             }
         }
@@ -316,6 +318,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     printf("changed to gamer bed");
                     temp = "gamerbed";
                     ECS.Get<EntityManager::Money>(0).price-=1150; 
+                     purchasedItems.push_back("gamerbed");
                 }
             }
         }
@@ -323,51 +326,63 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed";    
         }
         //----------------------Gamerbed2------------------------
-         if (ImGui::Button("Gamer-Bed-II 1150$")) {
-             if(ECS.Get<EntityManager::Money>(0).price >=1250){
-                ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed2";   
-                printf("changed to gamer bed2");
-                temp = "gamerbed2";
-                ECS.Get<EntityManager::Money>(0).price-=1250; 
-             }
+         if( isPurchased("gamerbed2")== false){
+            if (ImGui::Button("Gamer-Bed-II 1150$")) {
+                if(ECS.Get<EntityManager::Money>(0).price >=1250){
+                    ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed2";   
+                    printf("changed to gamer bed2");
+                    temp = "gamerbed2";
+                    ECS.Get<EntityManager::Money>(0).price-=1250; 
+                    purchasedItems.push_back("gamerbed2");
+                }
 
+            }
          }
         if (ImGui::IsItemHovered()) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed2";    
         }
         //-----------------rainbowbed------------------------------
-        if (ImGui::Button("Rainbow-Bed 1500$")) {
-             if(ECS.Get<EntityManager::Money>(0).price >=1500){
-                ECS.Get<GraphicsManager::Sprite>(2).image_name = "pridebed";   
-                printf("changed to pride bed");
-                temp =  "pridebed";
-                ECS.Get<EntityManager::Money>(0).price-=1500; 
-             }
-           // printf("temp:  ",temp);
-        }
+         if( isPurchased("pridebed")== false){
+            if (ImGui::Button("Rainbow-Bed 1500$")) {
+                if(ECS.Get<EntityManager::Money>(0).price >=1500){
+                    ECS.Get<GraphicsManager::Sprite>(2).image_name = "pridebed";   
+                    printf("changed to pride bed");
+                    temp =  "pridebed";
+                    ECS.Get<EntityManager::Money>(0).price-=1500; 
+                    purchasedItems.push_back("pridebed");
+                }
+            // printf("temp:  ",temp);
+            }
+         }
         if (ImGui::IsItemHovered()) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "pridebed";    
         }
         //---------------Gothbed-----------------------------
-        if (ImGui::Button("Goth-Bed 1550$")) {
-             if(ECS.Get<EntityManager::Money>(0).price >=1300){
-                ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed";   
-                printf("changed to goth bed");
-                temp = "gothbed";
-                ECS.Get<EntityManager::Money>(0).price-=1300; 
-             }
+        if( isPurchased("gothbed")== false){
+            if (ImGui::Button("Goth-Bed 1550$")) {
+                if(ECS.Get<EntityManager::Money>(0).price >=1300){
+                    ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed";   
+                    printf("changed to goth bed");
+                    temp = "gothbed";
+                    ECS.Get<EntityManager::Money>(0).price-=1300; 
+                    purchasedItems.push_back("gothbed");
+                }
+            }
         }
         if(ImGui::IsItemHovered()) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed";    
         }
         //-----------------Gothbed2---------------------------
-         if (ImGui::Button("Goth-Bed-II 1300$")) {
-             if(ECS.Get<EntityManager::Money>(0).price >=1500){
-                ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed2";   
-                printf("changed to goth bed2");
-                temp = "gothbed2";
-                ECS.Get<EntityManager::Money>(0).price-=1500; 
-             }
+         if( isPurchased("gothbed2")== false){
+            if (ImGui::Button("Goth-Bed-II 1300$")) {
+                if(ECS.Get<EntityManager::Money>(0).price >=1500){
+                    ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed2";   
+                    printf("changed to goth bed2");
+                    temp = "gothbed2";
+                    ECS.Get<EntityManager::Money>(0).price-=1500;
+                    purchasedItems.push_back("gothbed2");
+                }
+            }
         }
         if (ImGui::IsItemHovered()) {
             //printf("hovered");
@@ -375,13 +390,16 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         }
       
         //----------------------Halloween-------------------
-        if (ImGui::Button("Halloween-Bed 1900$")) {
-             if(ECS.Get<EntityManager::Money>(0).price >=1900){
-                ECS.Get<GraphicsManager::Sprite>(2).image_name = "halloweenbed";  
-                printf("changed to Halloween bed"); 
-                temp = "halloweenbed";
-                ECS.Get<EntityManager::Money>(0).price-=1900; 
-             }
+         if( isPurchased("halloweenbed")== false){
+            if (ImGui::Button("Halloween-Bed 1900$")) {
+                if(ECS.Get<EntityManager::Money>(0).price >=1900){
+                    ECS.Get<GraphicsManager::Sprite>(2).image_name = "halloweenbed";  
+                    printf("changed to Halloween bed"); 
+                    temp = "halloweenbed";
+                    ECS.Get<EntityManager::Money>(0).price-=1900; 
+                    purchasedItems.push_back("halloweenbed");
+                }
+            }
         }
         if(ImGui::IsItemHovered()) {// allows user to preview the decor before the purchase it! 
            // printf("hovered hallowe");
@@ -439,14 +457,17 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     
     if (ImGui::BeginPopup("Lamp-SubMenu")) {
         //-------------patriotlamp----------------
-        if (ImGui::Button("Patriot-Lamp 500$")) { //shadai 
-            if(ECS.Get<EntityManager::Money>(0).price >=500){
-                ECS.Get<GraphicsManager::Sprite>(3).image_name = "patriotlamp";  
-                printf("changed to patriot lamp"); 
-                temp2 = "patriotlamp";
-                ECS.Get<EntityManager::Money>(0).price-=500; 
+         if( isPurchased("patriotlamp")== false){
+            if (ImGui::Button("Patriot-Lamp 500$")) { //shadai 
+                if(ECS.Get<EntityManager::Money>(0).price >=500){
+                    ECS.Get<GraphicsManager::Sprite>(3).image_name = "patriotlamp";  
+                    printf("changed to patriot lamp"); 
+                    temp2 = "patriotlamp";
+                    ECS.Get<EntityManager::Money>(0).price-=500; 
+                    purchasedItems.push_back("patriotlamp");
+                }
             }
-        }
+         }
         if(ImGui::IsItemHovered()){
              ECS.Get<GraphicsManager::Sprite>(3).image_name = "patriotlamp"; 
         }else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
@@ -454,80 +475,94 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         }
 
        //-------------richlamp-----------------
-        if (ImGui::Button("Rich-B**** Lamp 590$")) {//shadai 
-           if(ECS.Get<EntityManager::Money>(0).price >=590){
-                /*
-                printf("changed to rich snitch lamp"); 
-                ECS.Get<GraphicsManager::Sprite>(3).image_name = "richlamp";  
-                temp2 = "richlamp";
-                ECS.Get<EntityManager::Money>(0).price-=590; 
-                */
-           }      
+        if( isPurchased("richlamp")== false){
+            if (ImGui::Button("Rich-B**** Lamp 590$")) {//shadai 
+                if(ECS.Get<EntityManager::Money>(0).price >=590){
+                        /*
+                        printf("changed to rich snitch lamp"); 
+                        ECS.Get<GraphicsManager::Sprite>(3).image_name = "richlamp";  
+                        temp2 = "richlamp";
+                        ECS.Get<EntityManager::Money>(0).price-=590; 
+                        purchasedItems.push_back("richlamp");
+                        */
+                }      
+            }
         }
         if(ImGui::IsItemHovered()){
              //ECS.Get<GraphicsManager::Sprite>(3).image_name = "richlamp"; 
         }
 
         //-------------Gamer lamp--------------------
-        if (ImGui::Button("Gaming-Lamp 550$")) {//shadai 
-         if(ECS.Get<EntityManager::Money>(0).price >=550){
-            printf("changed to gaming lamp"); 
-            ECS.Get<GraphicsManager::Sprite>(3).image_name = "gamerlamp";  
-            temp2 = "gamerlamp";
-            ECS.Get<EntityManager::Money>(0).price-=550; 
-         }
+        if( isPurchased("patriotbed2")== false){
+            if (ImGui::Button("Gaming-Lamp 550$")) {//shadai 
+                if(ECS.Get<EntityManager::Money>(0).price >=550){
+                    printf("changed to gaming lamp"); 
+                    ECS.Get<GraphicsManager::Sprite>(3).image_name = "gamerlamp";  
+                    temp2 = "gamerlamp";
+                    ECS.Get<EntityManager::Money>(0).price-=550; 
+                }
 
+            }
         }
         if(ImGui::IsItemHovered()){
              ECS.Get<GraphicsManager::Sprite>(3).image_name = "gamerlamp"; 
         }
 
         //------------------Rainbow lamp------------------
-        if (ImGui::Button("Rainbow-Lamp 560$")) { //sahdai 
-        
-            //rainbow cloud lamp 
-            /*if(ECS.Get<EntityManager::Money>(0).price >=560){
-                printf("changed to rainbow lamp"); 
-                ECS.Get<GraphicsManager::Sprite>(3).image_name = "pridelamp";  
-                temp2 = "pridelamp";
-                ECS.Get<EntityManager::Money>(0).price-=560; 
-             } 
-             */
-              
-        }
+         if( isPurchased("pridelamp")== false){
+            if (ImGui::Button("Rainbow-Lamp 560$")) { //sahdai 
+            
+                //rainbow cloud lamp 
+                /*if(ECS.Get<EntityManager::Money>(0).price >=560){
+                    printf("changed to rainbow lamp"); 
+                    ECS.Get<GraphicsManager::Sprite>(3).image_name = "pridelamp";  
+                    temp2 = "pridelamp";
+                    ECS.Get<EntityManager::Money>(0).price-=560; 
+                    purchasedItems.push_back("pridelamp");
+                } 
+                */
+                
+            }
+         }
         if(ImGui::IsItemHovered()){
              //ECS.Get<GraphicsManager::Sprite>(3).image_name = "pridelamp"; 
         }
           
         //------------Goth Lamp------------
-         if (ImGui::Button("Goth-Lamp 575$")) {//shadai 
-            //candles
-            /*if(ECS.Get<EntityManager::Money>(0).price >=565){
-                printf("changed to goth lamp"); 
-                ECS.Get<GraphicsManager::Sprite>(3).image_name = "gothlamp";  
-                temp2 = "gothlamp";
-                ECS.Get<EntityManager::Money>(0).price-=565; 
-             } 
-             */
-              
-        }
+         if( isPurchased("gothlamp")== false){
+            if (ImGui::Button("Goth-Lamp 575$")) {//shadai 
+                //candles
+                /*if(ECS.Get<EntityManager::Money>(0).price >=565){
+                    printf("changed to goth lamp"); 
+                    ECS.Get<GraphicsManager::Sprite>(3).image_name = "gothlamp";  
+                    temp2 = "gothlamp";
+                    ECS.Get<EntityManager::Money>(0).price-=565; 
+                    purchasedItems.push_back("gothlamp");
+                } 
+                */
+                
+            }
+         }
         if(ImGui::IsItemHovered()){
              //ECS.Get<GraphicsManager::Sprite>(3).image_name = "gothlamp"; 
         }
 
 
         //--------------Halloween Lamp --------------
-         if (ImGui::Button("Halloween-Lamp 600$")) { //shadai 
-            //jackolantern
-            /*if(ECS.Get<EntityManager::Money>(0).price >=600){
-                printf("changed to halloween lamp"); 
-                ECS.Get<GraphicsManager::Sprite>(3).image_name = "hallowlamp";  
-                temp2 = "hallowlamp";
-                ECS.Get<EntityManager::Money>(0).price-=600; 
-             } 
-             */
-              
-        }
+         if( isPurchased("hallowlamp")== false){
+            if (ImGui::Button("Halloween-Lamp 600$")) { //shadai 
+                //jackolantern
+                /*if(ECS.Get<EntityManager::Money>(0).price >=600){
+                    printf("changed to halloween lamp"); 
+                    ECS.Get<GraphicsManager::Sprite>(3).image_name = "hallowlamp";  
+                    temp2 = "hallowlamp";
+                    ECS.Get<EntityManager::Money>(0).price-=600; 
+                    purchasedItems.push_back("hallowlamp");
+                } 
+                */
+                
+            }
+         }
         if(ImGui::IsItemHovered()){
              //ECS.Get<GraphicsManager::Sprite>(3).image_name = "hallowlamp"; 
         }
@@ -570,14 +605,16 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
     
     if (ImGui::BeginPopup("Desk-SubMenu")) {
-
-        if (ImGui::Button("Patriot-Desk 800$")) { // shadai 
-            if(ECS.Get<EntityManager::Money>(0).price >=800){
-                printf("changed to patriot Desk"); 
-                ECS.Get<GraphicsManager::Sprite>(4).image_name = "desktv"; 
-                temp3 = "desktv";
-                ECS.Get<EntityManager::Money>(0).price-=800; 
-            }        
+         if( isPurchased("desktv")== false){
+            if (ImGui::Button("Patriot-Desk 800$")) { // shadai 
+                if(ECS.Get<EntityManager::Money>(0).price >=800){
+                    printf("changed to patriot Desk"); 
+                    ECS.Get<GraphicsManager::Sprite>(4).image_name = "desktv"; 
+                    temp3 = "desktv";
+                    ECS.Get<EntityManager::Money>(0).price-=800; 
+                    purchasedItems.push_back("desktv");
+                }        
+            }
         }
         if(ImGui::IsItemHovered()){
              ECS.Get<GraphicsManager::Sprite>(4).image_name = "desktv"; 
@@ -585,93 +622,110 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             ECS.Get<GraphicsManager::Sprite>(4).image_name = temp3; // Revert to temp when not hovered.
         }     
         //--------------richdesk-------
-        if (ImGui::Button("Rich-B*****-Desk 850$")) {//shadai 
-            /*
-            if(ECS.Get<EntityManager::Money>(0).price >=850){
-                printf("changed to gaming desk 2"); 
-                ECS.Get<GraphicsManager::Sprite>(4).image_name = "richdesk";  
-                temp3 = "richdesk";
-                ECS.Get<EntityManager::Money>(0).price-=850; 
-             } 
-             */
-              
-        }
+         if( isPurchased("richdesk")== false){
+            if (ImGui::Button("Rich-B*****-Desk 850$")) {//shadai 
+                /*
+                if(ECS.Get<EntityManager::Money>(0).price >=850){
+                    printf("changed to gaming desk 2"); 
+                    ECS.Get<GraphicsManager::Sprite>(4).image_name = "richdesk";  
+                    temp3 = "richdesk";
+                    ECS.Get<EntityManager::Money>(0).price-=850; 
+                    purchasedItems.push_back("richdesk");
+                } 
+                */
+                
+            }
+         }
         if(ImGui::IsItemHovered()){
              //ECS.Get<GraphicsManager::Sprite>(4).image_name = "richdesk"; 
         }
         
         //--------Gaming desk 1 ------------
-        if (ImGui::Button("Gaming-Desk-I 950$")) {//shadai 
-            if(ECS.Get<EntityManager::Money>(0).price >=950){
-                printf("changed to gaming Desk 1"); 
-                ECS.Get<GraphicsManager::Sprite>(4).image_name = "deskpc"; 
-                temp3 = "deskpc";
-                ECS.Get<EntityManager::Money>(0).price-=950; 
-             }        
-        }
+         if( isPurchased("deskpc")== false){
+            if (ImGui::Button("Gaming-Desk-I 950$")) {//shadai 
+                if(ECS.Get<EntityManager::Money>(0).price >=950){
+                    printf("changed to gaming Desk 1"); 
+                    ECS.Get<GraphicsManager::Sprite>(4).image_name = "deskpc"; 
+                    temp3 = "deskpc";
+                    ECS.Get<EntityManager::Money>(0).price-=950; 
+                    purchasedItems.push_back("deskpc");
+                }        
+            }
+         }
         if(ImGui::IsItemHovered()){
              ECS.Get<GraphicsManager::Sprite>(4).image_name = "deskpc";
         }
 
         //-----------Gaming desk 2------------
-        if (ImGui::Button("Gaming-Desk-II 875$")) { //shadai 
-            //Console
-            if(ECS.Get<EntityManager::Money>(0).price >=875){
-                printf("changed to gaming desk2"); 
-                ECS.Get<GraphicsManager::Sprite>(4).image_name = "deskconsole"; 
-                temp3 = "deskconsole";
-                ECS.Get<EntityManager::Money>(0).price-=875; 
-            }        
+        if( isPurchased("deskconsole")== false){
+            if (ImGui::Button("Gaming-Desk-II 875$")) { //shadai 
+                //Console
+                if(ECS.Get<EntityManager::Money>(0).price >=875){
+                    printf("changed to gaming desk2"); 
+                    ECS.Get<GraphicsManager::Sprite>(4).image_name = "deskconsole"; 
+                    temp3 = "deskconsole";
+                    ECS.Get<EntityManager::Money>(0).price-=875; 
+                    purchasedItems.push_back("deskconsole");
+                }        
+            }
         }
         if(ImGui::IsItemHovered()){
              ECS.Get<GraphicsManager::Sprite>(4).image_name = "deskconsole"; 
         }
         
         //------------Rainbow desk----------------------
-
-        if (ImGui::Button("Rainbow-Desk 860$")) { //shadai 
-             /*
-            if(ECS.Get<EntityManager::Money>(0).price >=850){
-                printf("changed to rainbow desk"); 
-                ECS.Get<GraphicsManager::Sprite>(4).image_name = "richdesk";  
-                temp3 = "richdesk";
-                ECS.Get<EntityManager::Money>(0).price-=850; 
-             } 
-             */
-              
+         if( isPurchased("richdesk")== false){
+            if (ImGui::Button("Rainbow-Desk 860$")) { //shadai 
+                /*
+                if(ECS.Get<EntityManager::Money>(0).price >=850){
+                    printf("changed to rainbow desk"); 
+                    ECS.Get<GraphicsManager::Sprite>(4).image_name = "richdesk";  
+                    temp3 = "richdesk";
+                    ECS.Get<EntityManager::Money>(0).price-=850; 
+                    purchasedItems.push_back("richdesk");
+                } 
+                */
+                
+            }
         }
         if(ImGui::IsItemHovered()){
              //ECS.Get<GraphicsManager::Sprite>(4).image_name = "richdesk"; 
         }
         //------------goth desk---------------
-         if (ImGui::Button("Goth-Desk 870$")) { // shadai 
-            //maybe - ritual - skull withe pencils paper, a thick book 
-            /*
-            if(ECS.Get<EntityManager::Money>(0).price >=870){
-                printf("changed to goth desk"); 
-                ECS.Get<GraphicsManager::Sprite>(4).image_name = "gothdesk";  
-                temp3 = "gothdesk";
-                ECS.Get<EntityManager::Money>(0).price-=870; 
-             } 
-             */
-              
-        }
+         if( isPurchased("gothdesk")== false){
+            if (ImGui::Button("Goth-Desk 870$")) { // shadai 
+                //maybe - ritual - skull withe pencils paper, a thick book 
+                /*
+                if(ECS.Get<EntityManager::Money>(0).price >=870){
+                    printf("changed to goth desk"); 
+                    ECS.Get<GraphicsManager::Sprite>(4).image_name = "gothdesk";  
+                    temp3 = "gothdesk";
+                    ECS.Get<EntityManager::Money>(0).price-=870; 
+                    purchasedItems.push_back("gothdesk");
+                } 
+                */
+                
+            }
+         }
         if(ImGui::IsItemHovered()){
              //ECS.Get<GraphicsManager::Sprite>(4).image_name = "gothdesk"; 
         }
         //----------Halloween desk--------------
-         if (ImGui::Button("Halloween-Desk")) { //shadai 
-            //potion brew
-           /*
-            if(ECS.Get<EntityManager::Money>(0).price >=1000){
-                printf("changed to halloween desk"); 
-                ECS.Get<GraphicsManager::Sprite>(4).image_name = "hallowdesk";  
-                temp3 = "hallowdesk";
-                ECS.Get<EntityManager::Money>(0).price-=1000; 
-             } 
-             */
-              
-        }
+         if( isPurchased("hallowdesk")== false){
+            if (ImGui::Button("Halloween-Desk")) { //shadai 
+                //potion brew
+            /*
+                if(ECS.Get<EntityManager::Money>(0).price >=1000){
+                    printf("changed to halloween desk"); 
+                    ECS.Get<GraphicsManager::Sprite>(4).image_name = "hallowdesk";  
+                    temp3 = "hallowdesk";
+                    ECS.Get<EntityManager::Money>(0).price-=1000; 
+                    purchasedItems.push_back("hallowdesk");
+                } 
+                */
+                
+            }
+         }
         if(ImGui::IsItemHovered()){
              //ECS.Get<GraphicsManager::Sprite>(4).image_name = "hallowdesk"; 
         }
@@ -715,27 +769,24 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
     
     if (ImGui::BeginPopup("Dresser-SubMenu")) {
-        if (ImGui::Button("Boring-Dresser")) {
-            //books stacked
-            ECS.Get<GraphicsManager::Sprite>(5).image_name = "boringdresser";  
-            printf("changed to default dresser"); 
-        } 
-
-        if (ImGui::Button("Patriot-Dresser")) { // shadai 
-          
-            
-            if(ECS.Get<EntityManager::Money>(0).price >=1000){
-                printf("changed to patriot dresser"); 
-                ECS.Get<GraphicsManager::Sprite>(5).image_name = "patriotdresser";
-                temp4 = "patriotdesk";
-                ECS.Get<EntityManager::Money>(0).price-=1000; 
-            } 
-             
-              
+        if( isPurchased("patriotdresser")== false){
+            if (ImGui::Button("Patriot-Dresser 700$")) { // shadai 
+                if(ECS.Get<EntityManager::Money>(0).price >=700){
+                        printf("changed to patriotdresser"); 
+                        ECS.Get<GraphicsManager::Sprite>(5).image_name = "patriotdresser";  
+                        temp4 = "patriotdresser";
+                        ECS.Get<EntityManager::Money>(0).price-=700; 
+                        purchasedItems.push_back("patriotdresser");
+                } 
+                    
+                
+            }
         }
         if(ImGui::IsItemHovered()){
              ECS.Get<GraphicsManager::Sprite>(5).image_name = "patriotdresser"; 
-        }
+        }else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
+            ECS.Get<GraphicsManager::Sprite>(5).image_name = temp4; // Revert to temp when not hovered.
+        }  
         //--------rich snitch--------
         if (ImGui::Button("Rich-Snitch-Dresser")) {//shadai 
             // jewlery 
@@ -997,7 +1048,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
 void GuiManager::SetTemp()
 {
-    std::cout << "checking: " <<  ECS.Get<GraphicsManager::Sprite>(2).image_name << std::endl;
+   // std::cout << "checking: " <<  ECS.Get<GraphicsManager::Sprite>(2).image_name << std::endl;
     temp =  ECS.Get<GraphicsManager::Sprite>(2).image_name ; // bed
     temp2 =  ECS.Get<GraphicsManager::Sprite>(3).image_name ; //lamp
     temp3 = ECS.Get<GraphicsManager::Sprite>(4).image_name; //desk

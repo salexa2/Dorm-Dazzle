@@ -17,13 +17,29 @@ public:
         void Start( GLFWwindow* window, WGPUDevice device,  WGPUTextureFormat swapchainformat);
         void Shutdown();
         void Draw(WGPURenderPassEncoder render_pass);
+
+
         std::string temp;//bed
         std::string temp2; //lamp
+        std::string temp3; //desk
+        std::string temp4; //dresser
+        std::string temp5; //fridge
+        std::string temp6; //floor
+
+        std::vector<std::string> purchasedItems;
+
 
         void SetTemp();
 
         void InitEnergyBar(); //public helper for energy bar
         void SaveTime();
+
+                void loadPurchasedItems(const std::string& filename);
+                void savePurchasedItems(const std::string& filename, const std::vector<std::string>& stringList);
+                bool isPurchased(std::string item); 
+                void saveMoney(const std::string& filename);
+                void loadMoney(const std::string& filename);             
+
 
 
 private:

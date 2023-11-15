@@ -7,7 +7,7 @@
    LoadTexture("fox", "assets/fox.png")
 
    --BED TEXTURES--
-   LoadTexture("bed", "assets/bed.png")
+   LoadTexture("boringbed", "assets/bed.png")
    LoadTexture("patriotbed", "assets/patriotbed.png")
    LoadTexture("patriotbed2", "assets/patriotbed2.png") --size 206% on the website or save the json file and modify the sprite but DONT move it
    LoadTexture("richsnitchbed", "assets/richsnitchbed.png")
@@ -24,7 +24,7 @@
 
    --------DESK TEXTURES-------
    LoadTexture("boringdesk","assets/boringdesk.png")
-   LoadTexture("pcdesk","assets/deskpc.png")
+   LoadTexture("deskpc","assets/deskpc.png")
    LoadTexture("deskconsole","assets/deskconsole.png")
    LoadTexture("desktv","assets/desktv.png")
 
@@ -37,10 +37,9 @@
   LoadTexture("patriotdresser","assets/patriotdresser.png")
    ---------FRIDGE TEXTURES---------------
    
-   LoadTexture("ramen", "assets/fridgeramen.png")
-   LoadTexture("food", "assets/fridgefood.png")
-   LoadTexture("microwave", "assets/microwave.png")
-   LoadTexture("towel", "assets/boringtowel.png")
+   LoadTexture("fridgefood", "assets/fridgefood.png")
+   LoadTexture("fridgemicrowave", "assets/microwave.png")
+   LoadTexture("fridgetowel", "assets/boringtowel.png")
    --------FLOOR TEXTURES---------------
    LoadTexture("boringfloor", "assets/boringfloor.png")
    LoadTexture("gamefloor", "assets/gamefloor.png")
@@ -73,7 +72,7 @@
    --print("e0:",e0)
 
   
-   GetSprite(bed).image_name = "bed"
+   GetSprite(bed).image_name = "boringbed"
    GetSprite(bed).position.x= 50
    GetSprite(bed).position.y = -36
    GetSprite(bed).position.z = 0
@@ -116,7 +115,7 @@
    GetScript(Rug).name = "floor"
 
    
-   GetSprite(fridge).image_name = "towel"
+   GetSprite(fridge).image_name = "fridgetowel"
    GetSprite(fridge).position.x= -3
    GetSprite(fridge).position.y = 55
    GetSprite(fridge).position.z = 0

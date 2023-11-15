@@ -13,19 +13,19 @@
     },
     {
         "entity": 3,
-        "image": "patriotlamp"
+        "image": "boringlamp"
     },
     {
         "entity": 5,
-        "image": "patriotdresser"
+        "image": "boringdresser"
     },
     {
         "entity": 7,
-        "image": "patriotfloor"
+        "image": "boringfloor"
     },
     {
         "entity": 6,
-        "image": "microwave"
+        "image": "fridgetowel"
     },
     {
         "entity": 0,

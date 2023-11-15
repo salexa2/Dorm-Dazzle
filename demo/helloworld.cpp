@@ -26,8 +26,10 @@ int main( int argc, const char* argv[] ) {
     GLOBAL_ENGINE.scriptManager.scriptResults["startup"]();
    
     GLOBAL_ENGINE.graphicsManager.LoadSprite("sprites.json");
-    GLOBAL_ENGINE.graphicsManager.guiManager.SetTemp();
 
+    GLOBAL_ENGINE.graphicsManager.guiManager.SetTemp(); // sets the default items temp variables 
+    GLOBAL_ENGINE.graphicsManager.guiManager.loadPurchasedItems("inventory.json");
+    GLOBAL_ENGINE.graphicsManager.guiManager.loadMoney("money.json");
     GLOBAL_ENGINE.RunGameLoop( [&]( Engine& ) {
 
        

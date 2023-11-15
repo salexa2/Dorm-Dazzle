@@ -232,11 +232,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         ECS.Get<EntityManager::Health>(0).percent = maxStamina;
     }
 
-     ImGui::SetNextWindowSize(ImVec2(200, 30));
-     ImGui::SetWindowPos(ImVec2(500, 0));
-    float currentStamina = ECS.Get<EntityManager::Health>(0).percent; // Get the player's current stamina value
-    float maxStamina = 40; // Get the maximum stamina value
-    ImGui::ProgressBar(currentStamina / maxStamina, ImVec2(-1, 0), "Max: 40"); 
+    
     ImGui::End();
    //-----------------------------------------------------------------
 
@@ -278,41 +274,49 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
              ECS.Get<GraphicsManager::Sprite>(2).image_name = temp; // Revert to temp when not hovered.
         }
         //-------------------Patriotbed2------------------------
-        if (ImGui::Button("Patriot-Bed-II 1050$")) {
-             if(ECS.Get<EntityManager::Money>(0).price >=1050){
-                ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed2";   
-                printf("changed to patriot bed2");
-                temp = "patriotbed2";
-                ECS.Get<EntityManager::Money>(0).price-=1050; 
-             }
-             else{
-                printf("Can't afford patriotbed2");
-             }
+        if( isPurchased("patriotbed2")== false){
+            if (ImGui::Button("Patriot-Bed-II 1050$")) {
+                if(ECS.Get<EntityManager::Money>(0).price >=1050){
+                    ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed2";   
+                    printf("changed to patriot bed2");
+                    temp = "patriotbed2";
+                    ECS.Get<EntityManager::Money>(0).price-=1050; 
+                }
+                else{
+                    printf("Can't afford patriotbed2");
+                }
 
+            }
         }
         if (ImGui::IsItemHovered()) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed2";    
         }
         //--------------------richsnitch---------------------
-        if (ImGui::Button("Rich-B**** 1800$")) {
-            if(ECS.Get<EntityManager::Money>(0).price >=1800){
-                ECS.Get<GraphicsManager::Sprite>(2).image_name = "richsnitchbed";   
-                printf("changed to rich snitch");
-                temp = "richsnitchbed";
-                ECS.Get<EntityManager::Money>(0).price-=1800; 
+        if( isPurchased("richsnitchbed")== false){
+            if (ImGui::Button("Rich-B**** 1800$")) {
+                if(ECS.Get<EntityManager::Money>(0).price >=1800){
+                    ECS.Get<GraphicsManager::Sprite>(2).image_name = "richsnitchbed";   
+                    printf("changed to rich snitch");
+                    temp = "richsnitchbed";
+                    ECS.Get<EntityManager::Money>(0).price-=1800; 
+                }
             }
-        }if (ImGui::IsItemHovered()) {
+        }
+        if (ImGui::IsItemHovered()) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "richsnitchbed";    
         }
         //--------------------------Gamerbed-----------------------
-         if (ImGui::Button("Gamer-Bed 1400$")) {
-             if(ECS.Get<EntityManager::Money>(0).price >=1150){
-                ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed";   
-                printf("changed to gamer bed");
-                temp = "gamerbed";
-                ECS.Get<EntityManager::Money>(0).price-=1150; 
-             }
-        }if (ImGui::IsItemHovered()) {
+        if( isPurchased("gamerbed")== false){
+            if (ImGui::Button("Gamer-Bed 1400$")) {
+                if(ECS.Get<EntityManager::Money>(0).price >=1150){
+                    ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed";   
+                    printf("changed to gamer bed");
+                    temp = "gamerbed";
+                    ECS.Get<EntityManager::Money>(0).price-=1150; 
+                }
+            }
+        }
+        if (ImGui::IsItemHovered()) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed";    
         }
         //----------------------Gamerbed2------------------------

@@ -45,6 +45,14 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     ImGui_ImplGlfw_InitForOther(window, true);
     WGPUTextureFormat ob = WGPUTextureFormat_Undefined; 
     ImGui_ImplWGPU_Init(device,3,swapchainformat, ob);    
+    
+    //default items in inventory
+    purchasedItems.push_back("boringbed");
+    purchasedItems.push_back("boringlamp");
+    purchasedItems.push_back("boringdesk");
+    purchasedItems.push_back("boringdresser");
+    purchasedItems.push_back("fridgetowel"); 
+    purchasedItems.push_back("boringfloor");
 }
 
 float GuiManager::LoadEnergy() {
@@ -61,14 +69,6 @@ float GuiManager::LoadEnergy() {
         return -1; //error
     }
 
-    ImGui_ImplWGPU_Init(device,3,swapchainformat, ob);
-    //default items in inventory
-    purchasedItems.push_back("boringbed");
-    purchasedItems.push_back("boringlamp");
-    purchasedItems.push_back("boringdesk");
-    purchasedItems.push_back("boringdresser");
-    purchasedItems.push_back("fridgetowel"); 
-    purchasedItems.push_back("boringfloor");
 
 }
 

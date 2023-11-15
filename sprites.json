@@ -5,7 +5,7 @@
     },
     {
         "entity": 2,
-        "image": "boringbed"
+        "image": "gamerbed2"
     },
     {
         "entity": 4,
@@ -13,7 +13,7 @@
     },
     {
         "entity": 3,
-        "image": "boringlamp"
+        "image": "gamerlamp"
     },
     {
         "entity": 5,
@@ -21,7 +21,7 @@
     },
     {
         "entity": 7,
-        "image": "boringfloor"
+        "image": "gamefloor"
     },
     {
         "entity": 6,

@@ -64,63 +64,63 @@
    
    GetSprite(e0).image_name = "room"
    GetSprite(e0).position.x= 10
-   GetSprite(e0).position.y = 20
+   GetSprite(e0).position.y = 0
    GetSprite(e0).position.z = 0
-   GetSprite(e0).scale.x = 140
-   GetSprite(e0).scale.y = 115
+   GetSprite(e0).scale.x = 200
+   GetSprite(e0).scale.y = 200
    GetScript(e0).name = "room"
    --print("e0:",e0)
 
   
    GetSprite(bed).image_name = "boringbed"
-   GetSprite(bed).position.x= 50
-   GetSprite(bed).position.y = -36
+   GetSprite(bed).position.x= 65
+   GetSprite(bed).position.y = -41--up = higher value
    GetSprite(bed).position.z = 0
-   GetSprite(bed).scale.x = 80
-   GetSprite(bed).scale.y = 80
+   GetSprite(bed).scale.x = 145
+   GetSprite(bed).scale.y = 145
    GetScript(bed).name = "bed"--print("bed:",bed)
 
    GetSprite(desk).image_name = "boringdesk"
-   GetSprite(desk).position.x= -30
-   GetSprite(desk).position.y =15
+   GetSprite(desk).position.x= -45
+   GetSprite(desk).position.y =-3
    GetSprite(desk).position.z = 0
-   GetSprite(desk).scale.x = 30
-   GetSprite(desk).scale.y = 30
+   GetSprite(desk).scale.x = 48
+   GetSprite(desk).scale.y = 48
    GetScript(desk).name = "desk"
 
    GetSprite(lamp).image_name = "boringlamp"
-   GetSprite(lamp).position.x= -55
-   GetSprite(lamp).position.y =15
+   GetSprite(lamp).position.x= -84
+   GetSprite(lamp).position.y =-2
    GetSprite(lamp).position.z = 0
-   GetSprite(lamp).scale.x = 20
-   GetSprite(lamp).scale.y = 20
+   GetSprite(lamp).scale.x = 30
+   GetSprite(lamp).scale.y = 30
    GetScript(lamp).name = "lamp"
 
 
    GetSprite(dresser).image_name = "boringdresser"
-   GetSprite(dresser).position.x= -20
-   GetSprite(dresser).position.y = 40
+   GetSprite(dresser).position.x= -32
+   GetSprite(dresser).position.y = 15
    GetSprite(dresser).position.z = 0
-   GetSprite(dresser).scale.x = 25
-   GetSprite(dresser).scale.y = 25
+   GetSprite(dresser).scale.x = 38
+   GetSprite(dresser).scale.y = 38
    GetScript(dresser).name = "dresser"
 
 
    GetSprite(Rug).image_name = "boringfloor"
-   GetSprite(Rug).position.x= 15
-   GetSprite(Rug).position.y = -50
+   GetSprite(Rug).position.x= 7
+   GetSprite(Rug).position.y = -52
    GetSprite(Rug).position.z = 0
-   GetSprite(Rug).scale.x = 90
-   GetSprite(Rug).scale.y = 90
+   GetSprite(Rug).scale.x = 115
+   GetSprite(Rug).scale.y = 115
    GetScript(Rug).name = "floor"
 
    
    GetSprite(fridge).image_name = "fridgetowel"
-   GetSprite(fridge).position.x= -3
-   GetSprite(fridge).position.y = 55
+   GetSprite(fridge).position.x= -9
+   GetSprite(fridge).position.y = 25
    GetSprite(fridge).position.z = 0
-   GetSprite(fridge).scale.x = 15
-   GetSprite(fridge).scale.y = 15
+   GetSprite(fridge).scale.x = 23
+   GetSprite(fridge).scale.y = 23
    GetScript(fridge).name = "fridge"
    
    --OUR FOX ENTITY WILL BE THE GAMER SO ANY COMPONENTS REVOLVING THE USER JUST ATTACH TO THE FOX ENTITY

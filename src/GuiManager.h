@@ -25,6 +25,9 @@ class GuiManager{
                 std::string temp4; //dresser
                 std::string temp5; //fridge
                 std::string temp6; //floor
+                float maxStamina;
+                float currentStamina;
+                float replenish_rate;
 
                 std::vector<std::string> purchasedItems;
                
@@ -37,6 +40,12 @@ class GuiManager{
                 bool isPurchased(std::string item); 
                 void saveMoney(const std::string& filename);
                 void loadMoney(const std::string& filename);
+
+                void InitEnergyBar(); //public helper for energy bar
+                void SaveTime();
+                float LoadEnergy();
+                time_t LoadTime(); //helper function for reading last closed time
+                void SaveEnergy(); //helper function for writing current energy at shutdown
 
 
         private:

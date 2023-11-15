@@ -8,12 +8,9 @@
 #include "GraphicsManager.cpp"
 #include <chrono>
 #include <thread>
-#include <ctime>
 #include <nlohmann/json.hpp>
 
-// time variables for progress bar update
-std::chrono::system_clock::time_point start_time;
-std::chrono::system_clock::time_point end_time;
+
 
 std::string saveFilePathI = "inventory.json"; 
 std::string saveFilePathB = "money.json"; 
@@ -33,26 +30,12 @@ GuiManager::GuiManager()
 
 void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat swapchainformat)
 {
-    
-    //initialize time things...
-    maxStamina = 40.0f;
-    replenish_rate = 1.0f;
-    start_time = std::chrono::system_clock::now(); //set init start time to when gui manager starts
-
     IMGUI_CHECKVERSION();
     ImGui::CreateContext(); 
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOther(window, true);
     WGPUTextureFormat ob = WGPUTextureFormat_Undefined; 
     ImGui_ImplWGPU_Init(device,3,swapchainformat, ob);    
-    
-    //default items in inventory
-    purchasedItems.push_back("boringbed");
-    purchasedItems.push_back("boringlamp");
-    purchasedItems.push_back("boringdesk");
-    purchasedItems.push_back("boringdresser");
-    purchasedItems.push_back("fridgetowel"); 
-    purchasedItems.push_back("boringfloor");
 }
 
 float GuiManager::LoadEnergy() {
@@ -69,106 +52,28 @@ float GuiManager::LoadEnergy() {
         return -1; //error
     }
 
+    ImGui_ImplWGPU_Init(device,3,swapchainformat, ob);
+    //default items in inventory
+    purchasedItems.push_back("boringbed");
+    purchasedItems.push_back("boringlamp");
+    purchasedItems.push_back("boringdesk");
+    purchasedItems.push_back("boringdresser");
+    purchasedItems.push_back("fridgetowel"); 
+    purchasedItems.push_back("boringfloor");
 
 }
 
-time_t GuiManager::LoadTime() {
-    //read time saved to file into 
-
-    std::ifstream timeFile("time.txt");
-    if (timeFile.is_open()) {
-        std::string timeString;
-        std::getline(timeFile, timeString);
-        timeFile.close();
-
-        // convert string to time_t to read to file
-        std::tm time = {};
-        std::istringstream stringTime(timeString);
-        stringTime >> std::get_time(&time, "%a %b %d %H:%M:%S %Y");
-
-        return std::mktime(&time);    
-    }
-    else {
-        std::cerr << "Unable to read from time.txt." << std::endl;
-        return NULL;
-    }
-}
-
-void GuiManager::InitEnergyBar(){
-    
-    time_t lastLoad = LoadTime();
-    time_t now = std::chrono::system_clock::to_time_t(start_time);
-    double diff = difftime(now, lastLoad);
-    std::cout << "Time between last shut down and now = " << diff << std::endl;
-
-    //set up progress bar at start up...
-    //get last energy
-    float lastEnergy = LoadEnergy();
-    std::cout << "Energy at last load = " << lastEnergy << std::endl;
-    //set health -> the progress bar
-    ECS.Get<EntityManager::Health>(0).percent = lastEnergy; //set to last loaded energy   
-
-    //if time is greater than 30 minutes, reset to max
-    // or if last energy is already the max stamina -> then it will be set to max stamina so cool beans
-    if (diff > 1800) {
-       ECS.Get<EntityManager::Health>(0).percent = maxStamina;
-    } else {
-        double time_away = diff;        
-        //for every 30 seconds, add 1 (until max is reached)
-        while (time_away >= 30 || ECS.Get<EntityManager::Health>(0).percent < maxStamina)
-        {
-            time_away -= 30;
-            ECS.Get<EntityManager::Health>(0).percent += 1;
-        }
-    }
-}
 
 void GuiManager::Shutdown()
 {
-
-    SaveEnergy(); //save energy at shutdown
-   // ImGui_ImplOpenGL3_Shutdown();
-
    
     savePurchasedItems(saveFilePathI, purchasedItems);
     saveMoney(saveFilePathB);
-
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
 
-void GuiManager::SaveEnergy() {
-    std::ofstream energyFile("energy.txt");
 
-    if (energyFile.is_open()) {
-        std::cout << "Current energy: " << ECS.Get<EntityManager::Health>(0).percent << std::endl;
-        energyFile << ECS.Get<EntityManager::Health>(0).percent;
-        energyFile.close();
-        std::cout << "Saved current energy level to file." << std::endl;
-    }
-    else {
-        std::cerr << "Unable to open energy file to write current status." << std::endl;
-    }
-}
-
-void GuiManager::SaveTime() //called by engine for more exact shutdown time
-{
-    // save time of shutdown to file
-    // write to file for storage
-    std::ofstream timeFile("time.txt");
-
-    if (timeFile.is_open())
-    {
-        auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-        timeFile << std::ctime(&timenow);
-        timeFile.close();
-        std::cout << "Current time has been written to time.txt" << std::endl;
-    }
-    else
-    {
-        std::cerr << "Unable to open file to write current time." << std::endl;
-    }
-}
 
 void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 {
@@ -202,33 +107,13 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
    //every 2 minutes add an energy?
    //add energy when player is away, so get the time before they quit, save it, then get the time when they get on, get the difference and increase energy
    //if the sum of the difference and the current energy exceeds 40, just set the energy to 40. 
- 
+  
     ImGui::Begin("Energy");
-    ImGui::SetNextWindowSize(ImVec2(200, 30));
-    ImGui::SetWindowPos(ImVec2(500, 0));
-
-
-    //udpate progress bar
-    ImGui::ProgressBar(ECS.Get<EntityManager::Health>(0).percent / maxStamina, ImVec2(-1, 0), "");
-
-    //calculate current time
-    end_time = std::chrono::system_clock::now();
-
-    //if time is >= 2 minutes -> update energy and reset start time
-    auto time_elapsed = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time);
-
-    //replenish over time
-    //if (time_elapsed.count() >= 120) { //2 minutes
-    if (time_elapsed.count() >= 30) { //30 seconds -> update every 30 seconds
-        ECS.Get<EntityManager::Health>(0).percent += replenish_rate;
-        start_time = std::chrono::system_clock::now(); //update to start counter over
-    }
-
-    //clamp to maxStamina
-    if (ECS.Get<EntityManager::Health>(0).percent > maxStamina) {
-        ECS.Get<EntityManager::Health>(0).percent = maxStamina;
-    }
-
+     ImGui::SetNextWindowSize(ImVec2(200, 30));
+     ImGui::SetWindowPos(ImVec2(500, 0));
+    float currentStamina = ECS.Get<EntityManager::Health>(0).percent; // Get the player's current stamina value
+    float maxStamina = 40; // Get the maximum stamina value
+    ImGui::ProgressBar(currentStamina / maxStamina, ImVec2(-1, 0), "Max: 40"); 
     ImGui::End();
    //-----------------------------------------------------------------
 
@@ -867,8 +752,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
      if (ImGui::Button("Favor - 5 Energy")) {
         if(ECS.Get<EntityManager::Health>(0).percent>=5){
             ECS.Get<EntityManager::Money>(0).price+=200;
-            ECS.Get<EntityManager::Health>(0).percent-=5;
-            //currentStamina -= 5;
+            ECS.Get<EntityManager::Health>(0).percent-=5; 
         }
         //5 energy
         //100 crumbs
@@ -877,8 +761,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
      if (ImGui::Button("Work-Study - 10 Energy")) {
         if(ECS.Get<EntityManager::Health>(0).percent>=10){
             ECS.Get<EntityManager::Money>(0).price+=400;
-            ECS.Get<EntityManager::Health>(0).percent-=10;
-            //currentStamina -= 10;
+            ECS.Get<EntityManager::Health>(0).percent-=10; 
         }
         //10 energy
         //400 crumbs
@@ -886,8 +769,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
      if (ImGui::Button("Part-Time-Job - 15 Energy")) {
         if(ECS.Get<EntityManager::Health>(0).percent>=15){
             ECS.Get<EntityManager::Money>(0).price+=700;
-            ECS.Get<EntityManager::Health>(0).percent-=15;
-            //currentStamina -= 15;
+            ECS.Get<EntityManager::Health>(0).percent-=15; 
         }
         //15 energy
         //700 crumbs
@@ -896,7 +778,6 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         if(ECS.Get<EntityManager::Health>(0).percent>=35){
             ECS.Get<EntityManager::Money>(0).price+=1200;
             ECS.Get<EntityManager::Health>(0).percent-=35;
-            //currentStamina -= 35;
         }
         //35 energy
         //1200 crumbs

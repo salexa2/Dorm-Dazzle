@@ -32,7 +32,6 @@
    
   ---------DRESSER TEXTURES-------------
   LoadTexture("boringdresser","assets/boringdresser.png")
-  LoadTexture("animedresser","assets/animedresser.png")
   LoadTexture("gamingdresser","assets/gamingdresser.png")
   LoadTexture("patriotdresser","assets/patriotdresser.png")
    ---------FRIDGE TEXTURES---------------

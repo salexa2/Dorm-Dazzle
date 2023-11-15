@@ -5,7 +5,7 @@
     },
     {
         "entity": 2,
-        "image": "gamerbed2"
+        "image": "boringbed"
     },
     {
         "entity": 4,
@@ -13,15 +13,15 @@
     },
     {
         "entity": 3,
-        "image": "gamerlamp"
+        "image": "boringlamp"
     },
     {
         "entity": 5,
-        "image": "boringdresser"
+        "image": "patriotdresser"
     },
     {
         "entity": 7,
-        "image": "gamefloor"
+        "image": "boringfloor"
     },
     {
         "entity": 6,

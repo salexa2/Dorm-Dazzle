@@ -34,9 +34,6 @@ public:
     void Shutdown();
     void ExitGame();
 
-private:
-    void SaveTime();
-
 };
 
  inline Engine GLOBAL_ENGINE;

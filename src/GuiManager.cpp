@@ -75,7 +75,7 @@ time_t GuiManager::LoadTime() {
     }
 }
 
-void GuiManager::InitProgressBar(){
+void GuiManager::InitEnergyBar(){
     
     time_t lastLoad = LoadTime();
     time_t now = std::chrono::system_clock::to_time_t(start_time);
@@ -106,7 +106,7 @@ void GuiManager::InitProgressBar(){
 
 void GuiManager::Shutdown()
 {
-    SaveEnergy();
+    SaveEnergy(); //save energy at shutdown
    // ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
@@ -123,6 +123,25 @@ void GuiManager::SaveEnergy() {
     }
     else {
         std::cerr << "Unable to open energy file to write current status." << std::endl;
+    }
+}
+
+void GuiManager::SaveTime() //called by engine for more exact shutdown time
+{
+    // save time of shutdown to file
+    // write to file for storage
+    std::ofstream timeFile("time.txt");
+
+    if (timeFile.is_open())
+    {
+        auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+        timeFile << std::ctime(&timenow);
+        timeFile.close();
+        std::cout << "Current time has been written to time.txt" << std::endl;
+    }
+    else
+    {
+        std::cerr << "Unable to open file to write current time." << std::endl;
     }
 }
 

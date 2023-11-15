@@ -3,10 +3,6 @@
 #include <thread>
 #include <chrono>
 
-#include <iostream> //for printing (JM)
-#include <fstream>
-#include <ctime>
-
 using namespace std;
 
 // Constructor
@@ -29,7 +25,7 @@ void Engine::Start()
 void Engine::Shutdown()
 {
 
-    SaveTime();
+    graphicsManager.guiManager.SaveTime(); // save time at close
 
     soundManager.ShutDown(); // JM
 
@@ -37,25 +33,7 @@ void Engine::Shutdown()
     // inputManager.Shutdown();
 }
 
-void Engine::SaveTime()
-{
-    // save time of shutdown to file
 
-    // write to file for storage
-    std::ofstream timeFile("time.txt");
-
-    if (timeFile.is_open())
-    {
-        auto timenow = chrono::system_clock::to_time_t(chrono::system_clock::now());
-        timeFile << std::ctime(&timenow);
-        timeFile.close();
-        std::cout << "Current time has been written to time.txt" << std::endl;
-    }
-    else
-    {
-        std::cerr << "Unable to open file to write current time." << std::endl;
-    }
-}
 
 void Engine::ExitGame()
 {
@@ -67,7 +45,7 @@ void Engine::RunGameLoop(const UpdateCallBack &callback)
 {
 
     // gui progress bar initialization
-    GLOBAL_ENGINE.graphicsManager.guiManager.InitProgressBar();
+    GLOBAL_ENGINE.graphicsManager.guiManager.InitEnergyBar();
 
     while (true)
     {

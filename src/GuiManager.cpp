@@ -10,6 +10,7 @@
 #include <thread>
 #include <ctime>
 
+// time variables for progress bar update
 std::chrono::system_clock::time_point start_time;
 std::chrono::system_clock::time_point end_time;
 
@@ -28,8 +29,6 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     maxStamina = 40.0f;
     replenish_rate = 1.0f;
     start_time = std::chrono::system_clock::now(); //set init start time to when gui manager starts
-
-
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext(); 
@@ -51,32 +50,7 @@ float GuiManager::LoadEnergy() {
     else {
         std::cerr << "Unable to read from energy file." << std::endl;
         return -1; //error
-
     }
-}
-
-void GuiManager::InitProgressBar(){
-    
-    time_t lastLoad = LoadTime();
-    time_t now = std::chrono::system_clock::to_time_t(start_time);
-    double diff = difftime(now, lastLoad);
-
-    std::cout << "Time between last shut down and now = " << diff << std::endl;
-
-    //set up progress bar at start up...
-    //get last energy
-    // float lastEnergy = LoadEnergy();
-    float lastEnergy = LoadEnergy();
-    std::cout << "Energy at last load = " << lastEnergy << std::endl;
-    //set health -> the progress bar
-    ECS.Get<EntityManager::Health>(0).percent = lastEnergy; //set to last loaded energy   
-
-    //if time is greater than 30 minutes, reset to max
-    // or if last energy is already the max stamina
-    if (diff > 1800) {
-       ECS.Get<EntityManager::Health>(0).percent = maxStamina;
-    }
-
 }
 
 time_t GuiManager::LoadTime() {
@@ -87,9 +61,8 @@ time_t GuiManager::LoadTime() {
         std::string timeString;
         std::getline(timeFile, timeString);
         timeFile.close();
-        //std::cout << "The time at last shut down was " << timeString << std::endl;
 
-        // convert string to time_t
+        // convert string to time_t to read to file
         std::tm time = {};
         std::istringstream stringTime(timeString);
         stringTime >> std::get_time(&time, "%a %b %d %H:%M:%S %Y");
@@ -99,6 +72,35 @@ time_t GuiManager::LoadTime() {
     else {
         std::cerr << "Unable to read from time.txt." << std::endl;
         return NULL;
+    }
+}
+
+void GuiManager::InitProgressBar(){
+    
+    time_t lastLoad = LoadTime();
+    time_t now = std::chrono::system_clock::to_time_t(start_time);
+    double diff = difftime(now, lastLoad);
+    std::cout << "Time between last shut down and now = " << diff << std::endl;
+
+    //set up progress bar at start up...
+    //get last energy
+    float lastEnergy = LoadEnergy();
+    std::cout << "Energy at last load = " << lastEnergy << std::endl;
+    //set health -> the progress bar
+    ECS.Get<EntityManager::Health>(0).percent = lastEnergy; //set to last loaded energy   
+
+    //if time is greater than 30 minutes, reset to max
+    // or if last energy is already the max stamina -> then it will be set to max stamina so cool beans
+    if (diff > 1800) {
+       ECS.Get<EntityManager::Health>(0).percent = maxStamina;
+    } else {
+        double time_away = diff;        
+        //for every 30 seconds, add 1 (until max is reached)
+        while (time_away >= 30 || ECS.Get<EntityManager::Health>(0).percent < maxStamina)
+        {
+            time_away -= 30;
+            ECS.Get<EntityManager::Health>(0).percent += 1;
+        }
     }
 }
 
@@ -115,7 +117,6 @@ void GuiManager::SaveEnergy() {
 
     if (energyFile.is_open()) {
         std::cout << "Current energy: " << ECS.Get<EntityManager::Health>(0).percent << std::endl;
-
         energyFile << ECS.Get<EntityManager::Health>(0).percent;
         energyFile.close();
         std::cout << "Saved current energy level to file." << std::endl;

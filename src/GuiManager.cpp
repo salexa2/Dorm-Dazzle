@@ -56,6 +56,7 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     purchasedItems.push_back("boringfloor");
 }
 
+
 float GuiManager::LoadEnergy() {
     std::ifstream energyFile("energy.txt");
 
@@ -69,14 +70,11 @@ float GuiManager::LoadEnergy() {
         std::cerr << "Unable to read from energy file." << std::endl;
         return -1; //error
     }
-
-
 }
 
 time_t GuiManager::LoadTime()
 {
     //read time saved to file into 
-
     std::ifstream timeFile("time.txt");
     if (timeFile.is_open()) {
         std::string timeString;
@@ -132,10 +130,14 @@ void GuiManager::InitEnergyBar()
     } else {
         double time_away = diff;        
         //for every 30 seconds, add 1 (until max is reached)
-        while (time_away >= 30 || ECS.Get<EntityManager::Health>(0).percent < maxStamina)
+        while (time_away >= 30)
         {
             time_away -= 30;
             ECS.Get<EntityManager::Health>(0).percent += 1;
+            // if max, diff -> 0 to end loop
+            if(ECS.Get<EntityManager::Health>(0).percent >= maxStamina){
+                time_away = 0;
+            }
         }
     }
 }
@@ -222,7 +224,8 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
     //replenish over time
     //if (time_elapsed.count() >= 120) { //2 minutes
-    if (time_elapsed.count() >= 30) { //30 seconds -> update every 30 seconds
+    // if (time_elapsed.count() >= 30) { //30 seconds -> update every 30 seconds
+    if (time_elapsed.count() >= 5) { //5 seconds -> for testing
         ECS.Get<EntityManager::Health>(0).percent += replenish_rate;
         start_time = std::chrono::system_clock::now(); //update to start counter over
     }

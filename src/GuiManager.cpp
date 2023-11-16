@@ -212,10 +212,14 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     ImGui::Begin("Energy");
     ImGui::SetNextWindowSize(ImVec2(200, 30));
     ImGui::SetWindowPos(ImVec2(500, 0));
-
+    
+    //code to create label for progress bar
+    int health_val = ECS.Get<EntityManager::Health>(0).percent; //casting to int for "rouding down"
+    std::string energy_string = std::to_string(health_val);
+    const char* energy = energy_string.c_str(); // casting to const char* bc that is what ImGui needs apparently
 
     //udpate progress bar
-    ImGui::ProgressBar(ECS.Get<EntityManager::Health>(0).percent / maxStamina, ImVec2(-1, 0), "");
+    ImGui::ProgressBar(ECS.Get<EntityManager::Health>(0).percent / maxStamina, ImVec2(-1, 0), energy);
 
     //calculate current time
     end_time = std::chrono::system_clock::now();

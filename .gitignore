@@ -12,5 +12,5 @@ Thumbs.db
 /vsxmake2022
 
 # generated files
-*.txt
-*.json
+/time.txt
+/*.json

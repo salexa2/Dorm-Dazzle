@@ -53,7 +53,8 @@ class GuiManager{
                 void SaveEnergy(); //helper function for writing current energy at shutdown
         
 
-                void ChangedItemSound(); //plays "twinkle when item is changed"
+                void ChangedItemSound(); //plays "chime" when item is changed
+                void PurchasedItemSound(); //plays "twinkle" when item is purchaced
 
 };
 

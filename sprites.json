@@ -13,15 +13,15 @@
     },
     {
         "entity": 3,
-        "image": "patriotlamp"
+        "image": "boringlamp"
     },
     {
         "entity": 5,
-        "image": "patriotdresser"
+        "image": "boringdresser"
     },
     {
         "entity": 7,
-        "image": "gamefloor"
+        "image": "boringfloor"
     },
     {
         "entity": 6,

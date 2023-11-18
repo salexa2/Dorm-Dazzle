@@ -171,6 +171,10 @@ void GuiManager::Shutdown()
 }
 
 void GuiManager::ChangedItemSound(){
+    GLOBAL_ENGINE.soundManager.PlaySound("chime");
+}
+
+void GuiManager::PurchasedItemSound(){
     GLOBAL_ENGINE.soundManager.PlaySound("twinkle");
 }
 
@@ -262,7 +266,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                             printf("purchased patriot bed\n"); 
                             ECS.Get<EntityManager::Money>(0).price-=1000; 
                             purchasedItems.push_back("patriotbed");
-                            ChangedItemSound();                            
+                            PurchasedItemSound();                            
                     }else{
                                 printf("Can't afford patriot bed!\n");
                     }
@@ -285,6 +289,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp = "patriotbed2";
                     ECS.Get<EntityManager::Money>(0).price-=1050; 
                     purchasedItems.push_back("patriotbed2");
+                    PurchasedItemSound();
                 }
                 else{
                     printf("Can't afford patriotbed2");
@@ -304,6 +309,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp = "richsnitchbed";
                     ECS.Get<EntityManager::Money>(0).price-=1800; 
                      purchasedItems.push_back("richsnitchbed");
+                     PurchasedItemSound();
                 }
             }
         }
@@ -319,6 +325,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp = "gamerbed";
                     ECS.Get<EntityManager::Money>(0).price-=1150; 
                      purchasedItems.push_back("gamerbed");
+                     PurchasedItemSound();
                 }
             }
         }
@@ -334,6 +341,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp = "gamerbed2";
                     ECS.Get<EntityManager::Money>(0).price-=1250; 
                     purchasedItems.push_back("gamerbed2");
+                    PurchasedItemSound();
                 }
 
             }
@@ -350,6 +358,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp =  "pridebed";
                     ECS.Get<EntityManager::Money>(0).price-=1500; 
                     purchasedItems.push_back("pridebed");
+                    PurchasedItemSound();
                 }
             // printf("temp:  ",temp);
             }
@@ -366,6 +375,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp = "gothbed";
                     ECS.Get<EntityManager::Money>(0).price-=1300; 
                     purchasedItems.push_back("gothbed");
+                    PurchasedItemSound();
                 }
             }
         }
@@ -381,6 +391,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp = "gothbed2";
                     ECS.Get<EntityManager::Money>(0).price-=1500;
                     purchasedItems.push_back("gothbed2");
+                    PurchasedItemSound();
                 }
             }
         }
@@ -398,6 +409,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp = "halloweenbed";
                     ECS.Get<EntityManager::Money>(0).price-=1900; 
                     purchasedItems.push_back("halloweenbed");
+                    PurchasedItemSound();
                 }
             }
         }
@@ -465,6 +477,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp2 = "patriotlamp";
                     ECS.Get<EntityManager::Money>(0).price-=500; 
                     purchasedItems.push_back("patriotlamp");
+                    PurchasedItemSound();
                 }
             }
          }
@@ -484,6 +497,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                         temp2 = "richlamp";
                         ECS.Get<EntityManager::Money>(0).price-=590; 
                         purchasedItems.push_back("richlamp");
+                        PurchacedItemSound();
                         */
                 }      
             }
@@ -501,6 +515,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp2 = "gamerlamp";
                     ECS.Get<EntityManager::Money>(0).price-=550; 
                     purchasedItems.push_back("gamerlamp");
+                    PurchasedItemSound();
                 }
 
             }
@@ -520,6 +535,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp2 = "pridelamp";
                     ECS.Get<EntityManager::Money>(0).price-=560; 
                     purchasedItems.push_back("pridelamp");
+                    PurchacedItemSound();
                 } 
                 */
                 
@@ -614,6 +630,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp3 = "desktv";
                     ECS.Get<EntityManager::Money>(0).price-=800; 
                     purchasedItems.push_back("desktv");
+                    PurchasedItemSound();
                 }        
             }
         }
@@ -650,6 +667,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp3 = "deskpc";
                     ECS.Get<EntityManager::Money>(0).price-=950; 
                     purchasedItems.push_back("deskpc");
+                    PurchasedItemSound();
                 }        
             }
          }
@@ -667,6 +685,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp3 = "deskconsole";
                     ECS.Get<EntityManager::Money>(0).price-=875; 
                     purchasedItems.push_back("deskconsole");
+                    PurchasedItemSound();
                 }        
             }
         }
@@ -779,6 +798,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                         temp4 = "patriotdresser";
                         ECS.Get<EntityManager::Money>(0).price-=700; 
                         purchasedItems.push_back("patriotdresser");
+                        PurchasedItemSound();
                 } 
                     
                 
@@ -815,6 +835,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     temp4 = "gamingdresser";
                     ECS.Get<EntityManager::Money>(0).price-=750; 
                     purchasedItems.push_back("gamingdresser");
+                    PurchasedItemSound();
                 } 
             }
         }
@@ -916,6 +937,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                         temp5 = "fridgefood";
                         ECS.Get<EntityManager::Money>(0).price-=1200; 
                         purchasedItems.push_back("fridgefood");
+                        PurchasedItemSound();
                 }
                
             } 
@@ -937,6 +959,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                         temp5 = "fridgemicrowave";
                         ECS.Get<EntityManager::Money>(0).price-=1300; 
                         purchasedItems.push_back("fridgemicrowave");
+                        PurchasedItemSound();
                 }
                
             } 
@@ -982,6 +1005,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 temp6 = "patriotfloor";
                 ECS.Get<EntityManager::Money>(0).price-=400; 
                 purchasedItems.push_back("patriotfloor");
+                PurchasedItemSound();
             }
         }
         if(ImGui::IsItemHovered()){
@@ -1014,6 +1038,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 temp6 = "gamefloor";
                 ECS.Get<EntityManager::Money>(0).price-=480; 
                 purchasedItems.push_back("gamefloor");
+                PurchasedItemSound();
             }
         }
         if(ImGui::IsItemHovered()){

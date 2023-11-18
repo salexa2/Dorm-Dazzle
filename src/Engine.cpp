@@ -49,9 +49,12 @@ void Engine::RunGameLoop(const UpdateCallBack &callback)
 
     while (true)
     {
+        
+        const auto t1 = std::chrono::steady_clock::now();
+
         inputManager.Update();
-        UpdateCallBack();
-        //
+        // UpdateCallBack();
+       
         callback(*this);
         if (glfwWindowShouldClose(graphicsManager.window) == true)
         {
@@ -60,7 +63,7 @@ void Engine::RunGameLoop(const UpdateCallBack &callback)
         graphicsManager.Draw();
         //  GLOBAL_ENGINE.graphicsManager.guiManager.Draw(GLOBAL_ENGINE.graphicsManager.render_pass);
 
-        const auto t1 = std::chrono::steady_clock::now();
+        // const auto t1 = std::chrono::steady_clock::now();
         const auto t2 = std::chrono::steady_clock::now();
         const auto sub = t1 - t2;
         const auto sixty = std::chrono::duration<double>(sub);

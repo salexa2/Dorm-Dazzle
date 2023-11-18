@@ -17,6 +17,7 @@
    LoadTexture("gothbed", "assets/gothbed.png")
    LoadTexture("gothbed2", "assets/gothbed2.png")
    LoadTexture("halloweenbed", "assets/halloweenbed.png")
+   LoadTexture("christmasbed", "assets/christmasbed.png")
    --LAMP TEXTURES--
    LoadTexture("boringlamp", "assets/boringlamp.png")
    LoadTexture("gamerlamp", "assets/gamerlamp.png")
@@ -47,7 +48,8 @@
 
    --Load Sounds-------
    LoadSound("twinkle", "assets/sounds/twinkle.wav")
-   PlaySound("twinkle") -- play sound
+   LoadSound("chime", "assets/sounds/windchime.wav")
+   --PlaySound("twinkle") -- play sound
 
    e1 = CreateEntity() --EID = 0
    e0 = CreateEntity() --EID =1

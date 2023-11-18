@@ -5,11 +5,15 @@
     },
     {
         "entity": 2,
+<<<<<<< HEAD
         "image": "richsnitchbed"
+=======
+        "image": "pridebed"
+>>>>>>> 5d55948bdd8cbda247cb563bee8fb4cbdf9be9e8
     },
     {
         "entity": 4,
-        "image": "boringdesk"
+        "image": "desktv"
     },
     {
         "entity": 3,
@@ -17,7 +21,7 @@
     },
     {
         "entity": 5,
-        "image": "patriotdresser"
+        "image": "boringdresser"
     },
     {
         "entity": 7,

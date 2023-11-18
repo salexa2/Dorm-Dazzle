@@ -46,7 +46,8 @@
 
    --Load Sounds-------
    LoadSound("twinkle", "assets/sounds/twinkle.wav")
-   PlaySound("twinkle") -- play sound
+   LoadSound("chime", "assets/sounds/windchime.wav")
+   --PlaySound("twinkle") -- play sound
 
    e1 = CreateEntity() --EID = 0
    e0 = CreateEntity() --EID =1

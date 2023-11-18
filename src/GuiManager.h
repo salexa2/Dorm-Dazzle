@@ -43,17 +43,18 @@ class GuiManager{
 
                 void InitEnergyBar(); //public helper for energy bar
                 void SaveTime();
-                float LoadEnergy();
-                time_t LoadTime(); //helper function for reading last closed time
-                void SaveEnergy(); //helper function for writing current energy at shutdown
+               
 
 
         private:
               
+                float LoadEnergy();
+                time_t LoadTime(); //helper function for reading last closed time
+                void SaveEnergy(); //helper function for writing current energy at shutdown
+        
 
-
-
-
+                void ChangedItemSound(); //plays "chime" when item is changed
+                void PurchasedItemSound(); //plays "twinkle" when item is purchaced
 
 };
 

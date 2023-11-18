@@ -10,3 +10,7 @@ Thumbs.db
 /.vs
 /.vscode
 /vsxmake2022
+
+# generated files
+*.txt
+*.json

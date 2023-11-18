@@ -46,6 +46,18 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     ImGui_ImplGlfw_InitForOther(window, true);
     WGPUTextureFormat ob = WGPUTextureFormat_Undefined; 
     ImGui_ImplWGPU_Init(device,3,swapchainformat, ob);    
+
+    //set unpurchased items here
+    unpurchasedItems.push_back("patriotbed");
+    unpurchasedItems.push_back("patriotbed2");
+    unpurchasedItems.push_back("richsnitchbed");
+    unpurchasedItems.push_back("gamerbed");
+    unpurchasedItems.push_back("gamerbed2");
+    unpurchasedItems.push_back("pridebed");
+    unpurchasedItems.push_back("gothbed");
+    unpurchasedItems.push_back("gothbed2");
+    unpurchasedItems.push_back("halloweenbed");
+    unpurchasedItems.push_back("christmasbed");
     
     //default items in inventory
     purchasedItems.push_back("boringbed");
@@ -183,19 +195,21 @@ void GuiManager::PurchasedItemSound(){
 
 void GuiManager::DormShopSetter(std::string item_name){
 
-    if( isPurchased(item_name)== false){
+    if(isPurchased(item_name)== false){ //only build buttons non-inventoried elements
         
         //build button name 
         //TODO: update pricing!!!!
         std::string button_name_str = item_name + " 1000$";
         const char* button_name = button_name_str.c_str();
         
-        if (ImGui::Button(button_name)) {
+        if (ImGui::Button(button_name)) { 
+
+            //button was clicked
         // if (ImGui::Button("Patriot-Bed 1000$" )) {
             if( isPurchased(item_name)== false){
                         //if item not already purchased 
                 if(ECS.Get<EntityManager::Money>(0).price >=1000){
-                        ECS.Get<GraphicsManager::Sprite>(2).image_name = item_name;
+                        ECS.Get<GraphicsManager::Sprite>(2).image_name = item_name; //set image
                         curr_bed = item_name;
                         printf("purchased %s\n", item_name.c_str()); 
                         ECS.Get<EntityManager::Money>(0).price-=1000; 
@@ -206,9 +220,13 @@ void GuiManager::DormShopSetter(std::string item_name){
                 }
             }
         }
-    }
-    //CheckHovered(item_name); //not sure if this is right...
 
+        // CheckHovered(item_name); //not sure if this is right...
+
+        if (ImGui::IsItemHovered()) {
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = item_name;    
+        }
+    }
 }
 
 void GuiManager::CheckHovered(std::string item_name){
@@ -296,68 +314,77 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
          ImGui::OpenPopup("Bed-SubMenu");
     }
     if (ImGui::BeginPopup("Bed-SubMenu")) {
-        //-------------------patriotbed-----------------
-        DormShopSetter("patriotbed");
-        if (ImGui::IsItemHovered()) {
-            ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed";    
-        }
-        else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
-             ECS.Get<GraphicsManager::Sprite>(2).image_name = curr_bed; // Revert to temp when not hovered.
+        
+        for (int i = 0; i < unpurchasedItems.size(); i++)
+        {
+            //hover is lowkey broken...
+            std::string item_name = unpurchasedItems[i];
+            DormShopSetter(item_name);
         }
         
-        //-------------------Patriotbed2------------------------
-        DormShopSetter("patriotbed2");
-        if (ImGui::IsItemHovered()) {
-            ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed2";    
-        }
+
+        // //-------------------patriotbed-----------------
+        // DormShopSetter("patriotbed");
+        // // if (ImGui::IsItemHovered()) {
+        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed";    
+        // // }
+        // // else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
+        // //      ECS.Get<GraphicsManager::Sprite>(2).image_name = curr_bed; // Revert to temp when not hovered.
+        // // }
         
-        //--------------------richsnitch---------------------
-        DormShopSetter("richsnitchbed");
-        if (ImGui::IsItemHovered()) {
-            ECS.Get<GraphicsManager::Sprite>(2).image_name = "richsnitchbed";    
-        }
+        // //-------------------Patriotbed2------------------------
+        // DormShopSetter("patriotbed2");
+        // // if (ImGui::IsItemHovered()) {
+        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed2";    
+        // // }
+        
+        // //--------------------richsnitch---------------------
+        // DormShopSetter("richsnitchbed");
+        // // if (ImGui::IsItemHovered()) {
+        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "richsnitchbed";    
+        // // }
     
-        //--------------------------Gamerbed-----------------------
-        DormShopSetter("gamerbed");
-        if (ImGui::IsItemHovered()) {
-            ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed";    
-        }
+        // //--------------------------Gamerbed-----------------------
+        // DormShopSetter("gamerbed");
+        // // if (ImGui::IsItemHovered()) {
+        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed";    
+        // // }
     
-        //----------------------Gamerbed2------------------------
-        DormShopSetter("gamerbed2");
-        if (ImGui::IsItemHovered()) {
-            ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed2";    
-        }
+        // //----------------------Gamerbed2------------------------
+        // DormShopSetter("gamerbed2");
+        // // if (ImGui::IsItemHovered()) {
+        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed2";    
+        // // }
     
-        //-----------------rainbowbed------------------------------
-        DormShopSetter("pridebed");         
-        if (ImGui::IsItemHovered()) {
-            ECS.Get<GraphicsManager::Sprite>(2).image_name = "pridebed";    
-        }
+        // //-----------------rainbowbed------------------------------
+        // DormShopSetter("pridebed");         
+        // // if (ImGui::IsItemHovered()) {
+        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "pridebed";    
+        // // }
     
-        //---------------Gothbed-----------------------------
-        DormShopSetter("gothbed");
-        if(ImGui::IsItemHovered()) {
-            ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed";    
-        }
+        // //---------------Gothbed-----------------------------
+        // DormShopSetter("gothbed");
+        // // if(ImGui::IsItemHovered()) {
+        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed";    
+        // // }
     
-        //-----------------Gothbed2---------------------------
-        DormShopSetter("gothbed2");
-        if (ImGui::IsItemHovered()) {
-            ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed2";    
-        }
+        // //-----------------Gothbed2---------------------------
+        // DormShopSetter("gothbed2");
+        // // if (ImGui::IsItemHovered()) {
+        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed2";    
+        // // }
       
-        //----------------------Halloween-------------------
-        DormShopSetter("halloweenbed");
-        if(ImGui::IsItemHovered()) {// allows user to preview the decor before the purchase it! 
-            ECS.Get<GraphicsManager::Sprite>(2).image_name = "halloweenbed";     
+        // //----------------------Halloween-------------------
+        // DormShopSetter("halloweenbed");
+        // // if(ImGui::IsItemHovered()) {// allows user to preview the decor before the purchase it! 
+        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "halloweenbed";     
              
-        }
-        //----------------Christmas---------------------------
-        DormShopSetter("christmasbed");
-        if(ImGui::IsItemHovered()) {// allows user to preview the decor before the purchase it! 
-            ECS.Get<GraphicsManager::Sprite>(2).image_name = "christmasbed";
-        }
+        // // }
+        // // //----------------Christmas---------------------------
+        // DormShopSetter("christmasbed");
+        // // if(ImGui::IsItemHovered()) {// allows user to preview the decor before the purchase it! 
+        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "christmasbed";
+        // // }
 
         if (ImGui::Button("Gym-Rat-Bed 1300$")) {
         
@@ -379,13 +406,16 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             printf("changed to nerdy bed"); 
             //temp = "nerdybed";
         }
+
+        //set to current after all buttons are createe
+        //ECS.Get<GraphicsManager::Sprite>(2).image_name = curr_bed; //set to currently set bed
+
     ImGui::EndPopup();
     }
 
   //---------lamp-------------
     if (ImGui::BeginMenuBar()){ImGui::EndMenuBar();}
     if(ImGui::Button("LAMPS")) {
-        
          printf("lamp select\n");
          ImGui::SetNextWindowSize(ImVec2(400, 100));
          ImGui::OpenPopup("Lamp-SubMenu");

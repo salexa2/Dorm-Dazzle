@@ -30,6 +30,7 @@ class GuiManager{
                 float replenish_rate;
 
                 std::vector<std::string> purchasedItems;
+                std::vector<std::string> unpurchasedItems;
                
 
 

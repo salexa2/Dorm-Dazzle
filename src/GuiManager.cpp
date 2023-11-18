@@ -1,6 +1,6 @@
 #include "GuiManager.h"
 #include <iostream>
-#include "GuiManager.h"
+// #include "GuiManager.h"
 #include <imgui.h>
 
 #include <backends/imgui_impl_wgpu.h>
@@ -11,11 +11,11 @@
 #include <thread>
 #include <nlohmann/json.hpp>
 
+#include "Engine.h" //to play sounds when changed
 
 // time variables for progress bar update
 std::chrono::system_clock::time_point start_time;
 std::chrono::system_clock::time_point end_time;
-
 
 std::string saveFilePathI = "inventory.json"; 
 std::string saveFilePathB = "money.json"; 
@@ -56,7 +56,6 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     purchasedItems.push_back("boringfloor");
     purchasedItems.push_back("fridgetowel");
 }
-
 
 float GuiManager::LoadEnergy() {
     std::ifstream energyFile("energy.txt");
@@ -162,9 +161,6 @@ void GuiManager::SaveTime()
     }
 }
 
-
-
-
 void GuiManager::Shutdown()
 {
     SaveEnergy(); //save energy at shutdown
@@ -174,7 +170,9 @@ void GuiManager::Shutdown()
     ImGui::DestroyContext();
 }
 
-
+void GuiManager::ChangedItemSound(){
+    GLOBAL_ENGINE.soundManager.PlaySound("twinkle");
+}
 
 void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 {
@@ -204,11 +202,8 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     RUG
     WINDOW DECOR -- plants(venus fly trap, catus, potted plant, clover, weed, christmasstocking)
     */
-   //-----------JENNIFER ENERGY GRAPHICS IS HERE-----------
-   //every 2 minutes add an energy?
-   //add energy when player is away, so get the time before they quit, save it, then get the time when they get on, get the difference and increase energy
-   //if the sum of the difference and the current energy exceeds 40, just set the energy to 40. 
-  
+
+    //------------------------------ENERGY BAR-----------------------------//
     ImGui::Begin("Energy");
     ImGui::SetNextWindowSize(ImVec2(200, 30));
     ImGui::SetWindowPos(ImVec2(500, 0));
@@ -242,7 +237,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
     
     ImGui::End();
-   //-----------------------------------------------------------------
+   //-----------------------------------------------------------------//
 
     ImGui::SetNextWindowSize(ImVec2(200, 400));
     ImGui::Begin("Dorm Shop!"); 
@@ -267,7 +262,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                             printf("purchased patriot bed\n"); 
                             ECS.Get<EntityManager::Money>(0).price-=1000; 
                             purchasedItems.push_back("patriotbed");
-
+                            ChangedItemSound();                            
                     }else{
                                 printf("Can't afford patriot bed!\n");
                     }
@@ -1105,6 +1100,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
     
     ImGui::End(); //end dormshop window
+    
     //-------------money------------------
     ImGui::Begin("Bread!"); 
     ImGui::SetCursorPos(ImVec2(5, 50));
@@ -1149,13 +1145,10 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     ImGui::Begin("Inventory!"); 
 
       if (ImGui::BeginMenuBar()){ImGui::EndMenuBar();}
-
-      
         if (ImGui::Button("BEDS")) {      
          ImGui::OpenPopup("Bed-Inventory");
         }
         if (ImGui::BeginPopup("Bed-Inventory")) {
-       
             for(int i = 0; i< purchasedItems.size(); i++){
                 std::string tempstri = purchasedItems[i];
                 if(purchasedItems[i].find("bed") != std::string::npos){
@@ -1165,6 +1158,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                         printf("Word contains Bed!\n");
                         ECS.Get<GraphicsManager::Sprite>(2).image_name = purchasedItems[i];
                         temp = purchasedItems[i];
+                        ChangedItemSound();
                     }
                 }
             }
@@ -1270,16 +1264,8 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
             ImGui::EndPopup();
         }
-        
-        
-         
 
     ImGui::End(); 
-
-
-
-
-
     ImGui::EndFrame(); 
     ImGui::Render(); 
     ImGui_ImplWGPU_RenderDrawData(ImGui::GetDrawData(),render_pass);

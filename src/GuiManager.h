@@ -55,6 +55,7 @@ class GuiManager{
 
                 void ChangedItemSound(); //plays "chime" when item is changed
                 void PurchasedItemSound(); //plays "twinkle" when item is purchaced
+                void DormShopSetter(std::string name);
 
 };
 

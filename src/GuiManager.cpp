@@ -178,6 +178,32 @@ void GuiManager::PurchasedItemSound(){
     GLOBAL_ENGINE.soundManager.PlaySound("twinkle");
 }
 
+//have item map
+    //{item_name: price}
+
+void GuiManager::DormShopSetter(std::string item_name){
+
+    if( isPurchased(item_name)== false){
+            if (ImGui::Button("Patriot-Bed 1000$" )) {
+                if( isPurchased("patriotbed")== false){
+                            //if item not already purchased 
+                    if(ECS.Get<EntityManager::Money>(0).price >=1000){
+                            ECS.Get<GraphicsManager::Sprite>(2).image_name = item_name;
+                            temp = item_name;
+                            printf("purchased patriot bed\n"); 
+                            ECS.Get<EntityManager::Money>(0).price-=1000; 
+                            purchasedItems.push_back(item_name);
+                            PurchasedItemSound();                            
+                    }else{
+                                printf("Can't afford %s!\n", item_name);
+                    }
+                 }
+            }
+
+        } 
+
+}
+
 void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 {
     ImGui_ImplWGPU_NewFrame();
@@ -256,24 +282,25 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     }
     if (ImGui::BeginPopup("Bed-SubMenu")) {
         //-------------------patriotbed-----------------
-         if( isPurchased("patriotbed")== false){
-            if (ImGui::Button("Patriot-Bed 1000$" )) {
-                if( isPurchased("patriotbed")== false){
-                            //if item not already purchased 
-                    if(ECS.Get<EntityManager::Money>(0).price >=1000){
-                            ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed";
-                            temp = "patriotbed";
-                            printf("purchased patriot bed\n"); 
-                            ECS.Get<EntityManager::Money>(0).price-=1000; 
-                            purchasedItems.push_back("patriotbed");
-                            PurchasedItemSound();                            
-                    }else{
-                                printf("Can't afford patriot bed!\n");
-                    }
-                 }
-            }
+        DormShopSetter("patriotbed");
+        //  if( isPurchased("patriotbed")== false){
+        //     if (ImGui::Button("Patriot-Bed 1000$" )) {
+        //         if( isPurchased("patriotbed")== false){
+        //                     //if item not already purchased 
+        //             if(ECS.Get<EntityManager::Money>(0).price >=1000){
+        //                     ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed";
+        //                     temp = "patriotbed";
+        //                     printf("purchased patriot bed\n"); 
+        //                     ECS.Get<EntityManager::Money>(0).price-=1000; 
+        //                     purchasedItems.push_back("patriotbed");
+        //                     PurchasedItemSound();                            
+        //             }else{
+        //                         printf("Can't afford patriot bed!\n");
+        //             }
+        //          }
+        //     }
 
-        } 
+        // } 
         if (ImGui::IsItemHovered()) {
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed";    
         }
@@ -1177,6 +1204,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
     ImGui::End(); 
 
+    //====================INVENTORY===============================//
 
     ImGui::Begin("Inventory!"); 
 

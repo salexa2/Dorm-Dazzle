@@ -19,7 +19,7 @@ class GuiManager{
                 void Draw(WGPURenderPassEncoder render_pass);
 
 
-                std::string temp;//bed
+                std::string curr_bed;//bed
                 std::string temp2; //lamp
                 std::string temp3; //desk
                 std::string temp4; //dresser
@@ -56,7 +56,7 @@ class GuiManager{
                 void ChangedItemSound(); //plays "chime" when item is changed
                 void PurchasedItemSound(); //plays "twinkle" when item is purchaced
                 void DormShopSetter(std::string name);
-
+                void CheckHovered(std::string name);
 };
 
 #endif

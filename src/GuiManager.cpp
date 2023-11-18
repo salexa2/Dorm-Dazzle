@@ -420,17 +420,28 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         }
       
         //----------------Christmas---------------------------
-        /*
-        TIPS: GET CREATIVE WITH IT, YOU CAN UPLOAD PNGS TO THE WEBSITE TO DECORATE THE SPRITES OR YOU CAN 
-        JUST USE WHATEVERS ALREADY ON THE SITE TO MAKE SOMETHING, FOR EX: IF YOU'RE WORKING ON AN ANIME LAMP WHICH ISUGGEST GETTING A LAVA
-        LAMP FOR SEARCH UP 2D OR CARTOON OR ISOMETRIC LAVA LAMP PNGS. SAME WITH ADDING PATTERNS AND SUCH!, REMEMBER DO NOT MOVE THE SPRITE
-        IN THE JSON FILE, WE WANNA MAKE SURE ALL THE SPRITES HAVE THE SAME POSITION! 
-        */
-        if (ImGui::Button("Christmas-Bed 1900$")) {
-        
-            printf("changed to Christmas bed");
-            //temp = "christmasbed";
+        if( isPurchased("christmasbed")== false){
+            if (ImGui::Button("Christmas-Bed 1900$")) {
+                if(ECS.Get<EntityManager::Money>(0).price >=1900){
+                    ECS.Get<GraphicsManager::Sprite>(2).image_name = "christmasbed";  
+                    printf("changed to Christmas bed"); 
+                    temp = "christmasbed";
+                    ECS.Get<EntityManager::Money>(0).price-=1900; 
+                    purchasedItems.push_back("christmasbed");
+                    PurchasedItemSound();
+                }
+            }
         }
+        if(ImGui::IsItemHovered()) {// allows user to preview the decor before the purchase it! 
+           // printf("hovered hallowe");
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "christmasbed";     
+             
+        }
+        // if (ImGui::Button("Christmas-Bed 1900$")) {
+        
+        //     printf("changed to Christmas bed");
+        //     //temp = "christmasbed";
+        // }
         if (ImGui::Button("Gym-Rat-Bed 1300$")) {
         
             printf("changed to Gym Rat bed"); 

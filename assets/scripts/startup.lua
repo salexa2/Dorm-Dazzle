@@ -17,6 +17,7 @@
    LoadTexture("gothbed", "assets/gothbed.png")
    LoadTexture("gothbed2", "assets/gothbed2.png")
    LoadTexture("halloweenbed", "assets/halloweenbed.png")
+   LoadTexture("christmasbed", "assets/christmasbed.png")
    --LAMP TEXTURES--
    LoadTexture("boringlamp", "assets/boringlamp.png")
    LoadTexture("gamerlamp", "assets/gamerlamp.png")

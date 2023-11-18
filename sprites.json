@@ -9,11 +9,11 @@
     },
     {
         "entity": 4,
-        "image": "boringdesk"
+        "image": "desktv"
     },
     {
         "entity": 3,
-        "image": "boringlamp"
+        "image": "patriotlamp"
     },
     {
         "entity": 5,
@@ -21,11 +21,11 @@
     },
     {
         "entity": 7,
-        "image": "boringfloor"
+        "image": "gamefloor"
     },
     {
         "entity": 6,
-        "image": "fridgemicrowave"
+        "image": "fridgetowel"
     },
     {
         "entity": 0,

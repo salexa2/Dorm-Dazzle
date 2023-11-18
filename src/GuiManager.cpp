@@ -1178,6 +1178,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                         printf("Word contains lamp!\n");
                         ECS.Get<GraphicsManager::Sprite>(3).image_name = purchasedItems[i];
                         temp2 = purchasedItems[i];
+                        ChangedItemSound();
                     }
                 }
             }
@@ -1198,6 +1199,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                         printf("Word contains desk!\n");
                         ECS.Get<GraphicsManager::Sprite>(4).image_name = purchasedItems[i];
                         temp3 = purchasedItems[i];
+                        ChangedItemSound();
                     }
                 }
             }
@@ -1218,6 +1220,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                         printf("Word contains dresser!\n");
                         ECS.Get<GraphicsManager::Sprite>(5).image_name = purchasedItems[i];
                         temp4 = purchasedItems[i];
+                        ChangedItemSound();
                     }
                 }
             }
@@ -1238,6 +1241,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                         printf("Word contains fridge!\n");
                         ECS.Get<GraphicsManager::Sprite>(6).image_name = purchasedItems[i];
                         temp5 = purchasedItems[i];
+                        ChangedItemSound();
                     }
                 }
             }
@@ -1258,6 +1262,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                         printf("Word contains floor!\n");
                         ECS.Get<GraphicsManager::Sprite>(7).image_name = purchasedItems[i];
                         temp6 = purchasedItems[i];
+                        ChangedItemSound();
                     }
                 }
             }

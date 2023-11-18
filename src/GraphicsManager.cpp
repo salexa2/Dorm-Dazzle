@@ -91,26 +91,8 @@ fn fragment_shader_main( in: VertexOutput ) -> @location(0) vec4f {
     return color;
 })";
 
-
-
-
-
-
-
-
-
-
-
- 
- 
- 
- 
  //------------FUNCTIONS---------------------------
- GraphicsManager::GraphicsManager(){
-   
-
-}
-
+ GraphicsManager::GraphicsManager(){}
 
 void GraphicsManager::Start(){ 
     glfwInit();
@@ -413,9 +395,6 @@ void GraphicsManager::Draw()
         // inside the loop
     } );
     
-  
-    
-
     if (sprites.empty()) {
         printf("skipped rendering");
         // Skip rendering if there are no sprites.
@@ -434,7 +413,7 @@ void GraphicsManager::Draw()
         .loadOp = WGPULoadOp_Clear,
         .storeOp = WGPUStoreOp_Store,
         // Choose the background color.
-        .clearValue = WGPUColor{255, 83, 1, 0 }
+        .clearValue = WGPUColor{0, 0, 0, 0 }
         }})
     }) );
 

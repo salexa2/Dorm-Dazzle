@@ -13,7 +13,7 @@
    LoadTexture("richsnitchbed", "assets/richsnitchbed.png")
    LoadTexture("gamerbed", "assets/gamerbed.png")
    LoadTexture("gamerbed2", "assets/gamerbed2.png")
-   LoadTexture("pridebed", "assets/pridebed.png")
+   LoadTexture("stonerbed", "assets/stonerbed.png")
    LoadTexture("gothbed", "assets/gothbed.png")
    LoadTexture("gothbed2", "assets/gothbed2.png")
    LoadTexture("halloweenbed", "assets/halloweenbed.png")
@@ -22,6 +22,7 @@
    LoadTexture("boringlamp", "assets/boringlamp.png")
    LoadTexture("gamerlamp", "assets/gamerlamp.png")
    LoadTexture("patriotlamp", "assets/patriotlamp.png")
+   LoadTexture("richlamp", "assets/richlamp.png")
 
    --------DESK TEXTURES-------
    LoadTexture("boringdesk","assets/boringdesk.png")

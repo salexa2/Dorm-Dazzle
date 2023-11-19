@@ -350,21 +350,20 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed2";    
         }
         //-----------------rainbowbed------------------------------
-         if( isPurchased("pridebed")== false){
-            if (ImGui::Button("Rainbow-Bed 1500$")) {
+         if( isPurchased("stonerbed")== false){
+            if (ImGui::Button("Stoner-Bed 1500$")) {
                 if(ECS.Get<EntityManager::Money>(0).price >=1500){
-                    ECS.Get<GraphicsManager::Sprite>(2).image_name = "pridebed";   
-                    printf("changed to pride bed");
-                    temp =  "pridebed";
+                    ECS.Get<GraphicsManager::Sprite>(2).image_name = "stonerbed";   
+                    printf("changed to stoner bed");
+                    temp =  "stonerbed";
                     ECS.Get<EntityManager::Money>(0).price-=1500; 
                     purchasedItems.push_back("pridebed");
-                    PurchasedItemSound();
                 }
             // printf("temp:  ",temp);
             }
          }
         if (ImGui::IsItemHovered()) {
-            ECS.Get<GraphicsManager::Sprite>(2).image_name = "pridebed";    
+            ECS.Get<GraphicsManager::Sprite>(2).image_name = "stonerbed";    
         }
         //---------------Gothbed-----------------------------
         if( isPurchased("gothbed")== false){
@@ -502,19 +501,17 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         if( isPurchased("richlamp")== false){
             if (ImGui::Button("Rich-B**** Lamp 590$")) {//shadai 
                 if(ECS.Get<EntityManager::Money>(0).price >=590){
-                        /*
                         printf("changed to rich snitch lamp"); 
                         ECS.Get<GraphicsManager::Sprite>(3).image_name = "richlamp";  
                         temp2 = "richlamp";
                         ECS.Get<EntityManager::Money>(0).price-=590; 
                         purchasedItems.push_back("richlamp");
-                        PurchacedItemSound();
-                        */
+                        
                 }      
             }
         }
         if(ImGui::IsItemHovered()){
-             //ECS.Get<GraphicsManager::Sprite>(3).image_name = "richlamp"; 
+             ECS.Get<GraphicsManager::Sprite>(3).image_name = "richlamp"; 
         }
 
         //-------------Gamer lamp--------------------
@@ -536,24 +533,22 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         }
 
         //------------------Rainbow lamp------------------
-         if( isPurchased("pridelamp")== false){
-            if (ImGui::Button("Rainbow-Lamp 560$")) { //sahdai 
+         if( isPurchased("stonerlamp")== false){
+            if (ImGui::Button("Stoner-Lamp 560$")) { //sahdai 
             
-                //rainbow cloud lamp 
                 /*if(ECS.Get<EntityManager::Money>(0).price >=560){
-                    printf("changed to rainbow lamp"); 
-                    ECS.Get<GraphicsManager::Sprite>(3).image_name = "pridelamp";  
-                    temp2 = "pridelamp";
+                    printf("changed to stonerlamp"); 
+                    ECS.Get<GraphicsManager::Sprite>(3).image_name = "stonerlamp";  
+                    temp2 = "stonerlamp";
                     ECS.Get<EntityManager::Money>(0).price-=560; 
                     purchasedItems.push_back("pridelamp");
-                    PurchacedItemSound();
                 } 
                 */
                 
             }
          }
         if(ImGui::IsItemHovered()){
-             //ECS.Get<GraphicsManager::Sprite>(3).image_name = "pridelamp"; 
+             //ECS.Get<GraphicsManager::Sprite>(3).image_name = "stonerlamp"; 
         }
           
         //------------Goth Lamp------------

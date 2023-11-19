@@ -18,17 +18,26 @@
    LoadTexture("gothbed2", "assets/gothbed2.png")
    LoadTexture("halloweenbed", "assets/halloweenbed.png")
    LoadTexture("christmasbed", "assets/christmasbed.png")
+   LoadTexture("gymratbed", "assets/gymratbed.png")
+   LoadTexture("animebed", "assets/animebed.png")
+   
    --LAMP TEXTURES--
    LoadTexture("boringlamp", "assets/boringlamp.png")
    LoadTexture("gamerlamp", "assets/gamerlamp.png")
    LoadTexture("patriotlamp", "assets/patriotlamp.png")
    LoadTexture("richlamp", "assets/richlamp.png")
+   LoadTexture("christmaslamp", "assets/christmaslamp.png")
+   LoadTexture("gymratlamp", "assets/gymratlamp.png")
+   LoadTexture("animelamp", "assets/animelamp.png")
 
    --------DESK TEXTURES-------
    LoadTexture("boringdesk","assets/boringdesk.png")
    LoadTexture("deskpc","assets/deskpc.png")
    LoadTexture("deskconsole","assets/deskconsole.png")
    LoadTexture("desktv","assets/desktv.png")
+   LoadTexture("christmasdesk", "assets/christmasdesk.png")
+   LoadTexture("gymratdesk", "assets/gymratdesk.png")
+   LoadTexture("animedesk", "assets/animedesk.png")
 
 
    
@@ -36,15 +45,23 @@
   LoadTexture("boringdresser","assets/boringdresser.png")
   LoadTexture("gamingdresser","assets/gamingdresser.png")
   LoadTexture("patriotdresser","assets/patriotdresser.png")
+  LoadTexture("christmasdresser", "assets/christmasdresser.png")
+  LoadTexture("gymratdresser", "assets/gymratdresser.png")
+  LoadTexture("animedresser", "assets/animedresser.png")
+
    ---------FRIDGE TEXTURES---------------
    
    LoadTexture("fridgefood", "assets/fridgefood.png")
    LoadTexture("fridgemicrowave", "assets/microwave.png")
    LoadTexture("fridgetowel", "assets/boringtowel.png")
+   
    --------FLOOR TEXTURES---------------
    LoadTexture("boringfloor", "assets/boringfloor.png")
    LoadTexture("gamefloor", "assets/gamefloor.png")
    LoadTexture("patriotfloor", "assets/patriotfloor.png")
+   LoadTexture("christmasfloor", "assets/christmasfloor.png")
+   LoadTexture("gymratfloor", "assets/gymratfloor.png")
+   LoadTexture("animefloor", "assets/animefloor.png")
 
    --Load Sounds-------
    LoadSound("twinkle", "assets/sounds/twinkle.wav")

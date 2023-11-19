@@ -20,11 +20,11 @@ class GuiManager{
 
 
                 std::string curr_bed;//bed
-                std::string temp2; //lamp
-                std::string temp3; //desk
-                std::string temp4; //dresser
-                std::string temp5; //fridge
-                std::string temp6; //floor
+                std::string curr_lamp; //lamp
+                std::string curr_desk; //desk
+                std::string curr_dresser; //dresser
+                std::string curr_fridge; //fridge
+                std::string curr_floor; //floor
                 float maxStamina;
                 float currentStamina;
                 float replenish_rate;

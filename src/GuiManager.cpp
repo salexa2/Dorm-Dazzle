@@ -24,11 +24,11 @@ std::string saveFilePathB = "money.json";
 GuiManager::GuiManager()
 {
     curr_bed = "";
-    temp2 = "";
-    temp3 = "";
-    temp4 = "";
-    temp5 = "";
-    temp6 = "";
+    curr_lamp = "";
+    curr_desk = "";
+    curr_dresser = "";
+    curr_fridge = "";
+    curr_floor = "";
   ///  std::cout << "help: " << ECS.Get<GraphicsManager::Sprite>(2).image_name << std::endl;
 
 }
@@ -321,70 +321,6 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             std::string item_name = unpurchasedItems[i];
             DormShopSetter(item_name);
         }
-        
-
-        // //-------------------patriotbed-----------------
-        // DormShopSetter("patriotbed");
-        // // if (ImGui::IsItemHovered()) {
-        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed";    
-        // // }
-        // // else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
-        // //      ECS.Get<GraphicsManager::Sprite>(2).image_name = curr_bed; // Revert to temp when not hovered.
-        // // }
-        
-        // //-------------------Patriotbed2------------------------
-        // DormShopSetter("patriotbed2");
-        // // if (ImGui::IsItemHovered()) {
-        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "patriotbed2";    
-        // // }
-        
-        // //--------------------richsnitch---------------------
-        // DormShopSetter("richsnitchbed");
-        // // if (ImGui::IsItemHovered()) {
-        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "richsnitchbed";    
-        // // }
-    
-        // //--------------------------Gamerbed-----------------------
-        // DormShopSetter("gamerbed");
-        // // if (ImGui::IsItemHovered()) {
-        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed";    
-        // // }
-    
-        // //----------------------Gamerbed2------------------------
-        // DormShopSetter("gamerbed2");
-        // // if (ImGui::IsItemHovered()) {
-        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "gamerbed2";    
-        // // }
-    
-        // //-----------------rainbowbed------------------------------
-        // DormShopSetter("pridebed");         
-        // // if (ImGui::IsItemHovered()) {
-        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "pridebed";    
-        // // }
-    
-        // //---------------Gothbed-----------------------------
-        // DormShopSetter("gothbed");
-        // // if(ImGui::IsItemHovered()) {
-        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed";    
-        // // }
-    
-        // //-----------------Gothbed2---------------------------
-        // DormShopSetter("gothbed2");
-        // // if (ImGui::IsItemHovered()) {
-        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "gothbed2";    
-        // // }
-      
-        // //----------------------Halloween-------------------
-        // DormShopSetter("halloweenbed");
-        // // if(ImGui::IsItemHovered()) {// allows user to preview the decor before the purchase it! 
-        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "halloweenbed";     
-             
-        // // }
-        // // //----------------Christmas---------------------------
-        // DormShopSetter("christmasbed");
-        // // if(ImGui::IsItemHovered()) {// allows user to preview the decor before the purchase it! 
-        // //     ECS.Get<GraphicsManager::Sprite>(2).image_name = "christmasbed";
-        // // }
 
         if (ImGui::Button("Gym-Rat-Bed 1300$")) {
         
@@ -429,7 +365,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 if(ECS.Get<EntityManager::Money>(0).price >=500){
                     ECS.Get<GraphicsManager::Sprite>(3).image_name = "patriotlamp";  
                     printf("changed to patriot lamp"); 
-                    temp2 = "patriotlamp";
+                    curr_lamp = "patriotlamp";
                     ECS.Get<EntityManager::Money>(0).price-=500; 
                     purchasedItems.push_back("patriotlamp");
                     PurchasedItemSound();
@@ -439,7 +375,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         if(ImGui::IsItemHovered()){
              ECS.Get<GraphicsManager::Sprite>(3).image_name = "patriotlamp"; 
         }else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
-            ECS.Get<GraphicsManager::Sprite>(3).image_name = temp2; // Revert to temp when not hovered.
+            ECS.Get<GraphicsManager::Sprite>(3).image_name = curr_lamp; // Revert to temp when not hovered.
         }
 
        //-------------richlamp-----------------
@@ -467,7 +403,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 if(ECS.Get<EntityManager::Money>(0).price >=550){
                     printf("changed to gaming lamp"); 
                     ECS.Get<GraphicsManager::Sprite>(3).image_name = "gamerlamp";  
-                    temp2 = "gamerlamp";
+                    curr_lamp = "gamerlamp";
                     ECS.Get<EntityManager::Money>(0).price-=550; 
                     purchasedItems.push_back("gamerlamp");
                     PurchasedItemSound();
@@ -582,7 +518,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 if(ECS.Get<EntityManager::Money>(0).price >=800){
                     printf("changed to patriot Desk"); 
                     ECS.Get<GraphicsManager::Sprite>(4).image_name = "desktv"; 
-                    temp3 = "desktv";
+                    curr_desk = "desktv";
                     ECS.Get<EntityManager::Money>(0).price-=800; 
                     purchasedItems.push_back("desktv");
                     PurchasedItemSound();
@@ -592,7 +528,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         if(ImGui::IsItemHovered()){
              ECS.Get<GraphicsManager::Sprite>(4).image_name = "desktv"; 
         }else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
-            ECS.Get<GraphicsManager::Sprite>(4).image_name = temp3; // Revert to temp when not hovered.
+            ECS.Get<GraphicsManager::Sprite>(4).image_name = curr_desk; // Revert to temp when not hovered.
         }     
         //--------------richdesk-------
          if( isPurchased("richdesk")== false){
@@ -619,7 +555,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 if(ECS.Get<EntityManager::Money>(0).price >=950){
                     printf("changed to gaming Desk 1"); 
                     ECS.Get<GraphicsManager::Sprite>(4).image_name = "deskpc"; 
-                    temp3 = "deskpc";
+                    curr_desk = "deskpc";
                     ECS.Get<EntityManager::Money>(0).price-=950; 
                     purchasedItems.push_back("deskpc");
                     PurchasedItemSound();
@@ -637,7 +573,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 if(ECS.Get<EntityManager::Money>(0).price >=875){
                     printf("changed to gaming desk2"); 
                     ECS.Get<GraphicsManager::Sprite>(4).image_name = "deskconsole"; 
-                    temp3 = "deskconsole";
+                    curr_desk = "deskconsole";
                     ECS.Get<EntityManager::Money>(0).price-=875; 
                     purchasedItems.push_back("deskconsole");
                     PurchasedItemSound();
@@ -750,7 +686,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 if(ECS.Get<EntityManager::Money>(0).price >=700){
                         printf("changed to patriotdresser"); 
                         ECS.Get<GraphicsManager::Sprite>(5).image_name = "patriotdresser";  
-                        temp4 = "patriotdresser";
+                        curr_dresser = "patriotdresser";
                         ECS.Get<EntityManager::Money>(0).price-=700; 
                         purchasedItems.push_back("patriotdresser");
                         PurchasedItemSound();
@@ -762,7 +698,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         if(ImGui::IsItemHovered()){
              ECS.Get<GraphicsManager::Sprite>(5).image_name = "patriotdresser"; 
         }else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
-            ECS.Get<GraphicsManager::Sprite>(5).image_name = temp4; // Revert to temp when not hovered.
+            ECS.Get<GraphicsManager::Sprite>(5).image_name = curr_dresser; // Revert to temp when not hovered.
         }  
         //--------rich snitch--------
         if( isPurchased("richdresser")== false){
@@ -787,7 +723,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 if(ECS.Get<EntityManager::Money>(0).price >=750){
                     ECS.Get<GraphicsManager::Sprite>(5).image_name = "gamingdresser";
                     printf("changed to gaming Desk"); 
-                    temp4 = "gamingdresser";
+                    curr_dresser = "gamingdresser";
                     ECS.Get<EntityManager::Money>(0).price-=750; 
                     purchasedItems.push_back("gamingdresser");
                     PurchasedItemSound();
@@ -889,7 +825,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 if(ECS.Get<EntityManager::Money>(0).price >=1200){
                         ECS.Get<GraphicsManager::Sprite>(6).image_name = "fridgefood";  
                         printf("changed to food"); 
-                        temp5 = "fridgefood";
+                        curr_fridge = "fridgefood";
                         ECS.Get<EntityManager::Money>(0).price-=1200; 
                         purchasedItems.push_back("fridgefood");
                         PurchasedItemSound();
@@ -901,7 +837,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     // ECS.Get<GraphicsManager::Sprite>(5).image_name = "fridgefood"; 
         }
        else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
-            ECS.Get<GraphicsManager::Sprite>(6).image_name = temp5; // Revert to temp when not hovered.
+            ECS.Get<GraphicsManager::Sprite>(6).image_name = curr_fridge; // Revert to temp when not hovered.
         }  
        //---------microwave--------
 
@@ -911,7 +847,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 if(ECS.Get<EntityManager::Money>(0).price >=1300){
                         ECS.Get<GraphicsManager::Sprite>(6).image_name = "fridgemicrowave";  
                         printf("changed to microwave"); 
-                        temp5 = "fridgemicrowave";
+                        curr_fridge = "fridgemicrowave";
                         ECS.Get<EntityManager::Money>(0).price-=1300; 
                         purchasedItems.push_back("fridgemicrowave");
                         PurchasedItemSound();
@@ -957,7 +893,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 ECS.Get<GraphicsManager::Sprite>(7).image_name = "patriotfloor"; 
                 //green rug 
                 printf("changed to patriot floor"); 
-                temp6 = "patriotfloor";
+                curr_floor = "patriotfloor";
                 ECS.Get<EntityManager::Money>(0).price-=400; 
                 purchasedItems.push_back("patriotfloor");
                 PurchasedItemSound();
@@ -990,7 +926,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             if (ImGui::Button("Gaming-Floor 480$")) { //Shadai 
                ECS.Get<GraphicsManager::Sprite>(7).image_name = "gamefloor"; 
                 printf("changed to game floor"); 
-                temp6 = "gamefloor";
+                curr_floor = "gamefloor";
                 ECS.Get<EntityManager::Money>(0).price-=480; 
                 purchasedItems.push_back("gamefloor");
                 PurchasedItemSound();
@@ -1157,7 +1093,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     
                         printf("Word contains lamp!\n");
                         ECS.Get<GraphicsManager::Sprite>(3).image_name = purchasedItems[i];
-                        temp2 = purchasedItems[i];
+                        curr_lamp = purchasedItems[i];
                         ChangedItemSound();
                     }
                 }
@@ -1178,7 +1114,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     
                         printf("Word contains desk!\n");
                         ECS.Get<GraphicsManager::Sprite>(4).image_name = purchasedItems[i];
-                        temp3 = purchasedItems[i];
+                        curr_desk = purchasedItems[i];
                         ChangedItemSound();
                     }
                 }
@@ -1199,7 +1135,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     
                         printf("Word contains dresser!\n");
                         ECS.Get<GraphicsManager::Sprite>(5).image_name = purchasedItems[i];
-                        temp4 = purchasedItems[i];
+                        curr_dresser = purchasedItems[i];
                         ChangedItemSound();
                     }
                 }
@@ -1220,7 +1156,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     
                         printf("Word contains fridge!\n");
                         ECS.Get<GraphicsManager::Sprite>(6).image_name = purchasedItems[i];
-                        temp5 = purchasedItems[i];
+                        curr_fridge = purchasedItems[i];
                         ChangedItemSound();
                     }
                 }
@@ -1241,7 +1177,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                     
                         printf("Word contains floor!\n");
                         ECS.Get<GraphicsManager::Sprite>(7).image_name = purchasedItems[i];
-                        temp6 = purchasedItems[i];
+                        curr_floor = purchasedItems[i];
                         ChangedItemSound();
                     }
                 }
@@ -1261,11 +1197,11 @@ void GuiManager::SetTemp()
 {
    // std::cout << "checking: " <<  ECS.Get<GraphicsManager::Sprite>(2).image_name << std::endl;
     curr_bed =  ECS.Get<GraphicsManager::Sprite>(2).image_name ; // bed
-    temp2 =  ECS.Get<GraphicsManager::Sprite>(3).image_name ; //lamp
-    temp3 = ECS.Get<GraphicsManager::Sprite>(4).image_name; //desk
-    temp4 =  ECS.Get<GraphicsManager::Sprite>(5).image_name;  //dresser
-    temp5 = ECS.Get<GraphicsManager::Sprite>(6).image_name; //fridge
-    temp6 = ECS.Get<GraphicsManager::Sprite>(7).image_name; //floor
+    curr_lamp =  ECS.Get<GraphicsManager::Sprite>(3).image_name ; //lamp
+    curr_desk = ECS.Get<GraphicsManager::Sprite>(4).image_name; //desk
+    curr_dresser =  ECS.Get<GraphicsManager::Sprite>(5).image_name;  //dresser
+    curr_fridge = ECS.Get<GraphicsManager::Sprite>(6).image_name; //fridge
+    curr_floor = ECS.Get<GraphicsManager::Sprite>(7).image_name; //floor
 }
 //using json = nlohmann::json;
 

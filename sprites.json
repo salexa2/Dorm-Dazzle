@@ -5,23 +5,23 @@
     },
     {
         "entity": 2,
-        "image": "boringbed"
+        "image": "christmasbed"
     },
     {
         "entity": 4,
-        "image": "boringdesk"
+        "image": "christmasdesk"
     },
     {
         "entity": 3,
-        "image": "boringlamp"
+        "image": "christmaslamp"
     },
     {
         "entity": 5,
-        "image": "boringdresser"
+        "image": "christmasdresser"
     },
     {
         "entity": 7,
-        "image": "boringfloor"
+        "image": "christmasfloor"
     },
     {
         "entity": 6,

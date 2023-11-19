@@ -1345,6 +1345,8 @@ void GuiManager::Draw(WGPURenderPassEncoder render_pass)
         if (ImGui::IsItemHovered())
         {
             // ECS.Get<GraphicsManager::Sprite>(7).image_name = "patriotfloor";
+        }else{
+            ECS.Get<GraphicsManager::Sprite>(7).image_name = temp6;
         }
 
         //---------rich snitch floor------------
@@ -1448,19 +1450,57 @@ void GuiManager::Draw(WGPURenderPassEncoder render_pass)
             // ECS.Get<GraphicsManager::Sprite>(7).image_name = "hallowfloor";
         }
 
-        //----------Christmas floor-------------
-        if (ImGui::Button("Christmas-Floor"))
-        { // jen
-            // tiny tree + presents
-        }
-        if (ImGui::Button("Gym-Rat-Floor"))
+         if (isPurchased("christmasfloor") == false)
         {
-            // yoga mat with exercise ball //jen
+            if (ImGui::Button("Christmas Floor 500$"))
+            { // Shadai
+                ECS.Get<GraphicsManager::Sprite>(7).image_name = "christmasfloor";
+                printf("changed to game floor");
+                temp6 = "christmasfloor";
+                ECS.Get<EntityManager::Money>(0).price -= 500;
+                purchasedItems.push_back("christmasfloor");
+                PurchasedItemSound();
+            }
         }
-        if (ImGui::Button("Anime-Floor"))
-        { // jen/dai
-            // random manga panel
+        if (ImGui::IsItemHovered())
+        {
+            ECS.Get<GraphicsManager::Sprite>(7).image_name = "christmasfloor";
         }
+
+         if (isPurchased("gymratfloor") == false)
+        {
+            if (ImGui::Button("Gym Rat Floor 420$"))
+            { // Shadai
+                ECS.Get<GraphicsManager::Sprite>(7).image_name = "gymratfloor";
+                printf("changed to game floor");
+                temp6 = "gymratfloor";
+                ECS.Get<EntityManager::Money>(0).price -= 420;
+                purchasedItems.push_back("gymratfloor");
+                PurchasedItemSound();
+            }
+        }
+        if (ImGui::IsItemHovered())
+        {
+            ECS.Get<GraphicsManager::Sprite>(7).image_name = "gymratfloor";
+        }
+
+         if (isPurchased("animefloor") == false)
+        {
+            if (ImGui::Button("Anime Floor 480$"))
+            { // Shadai
+                ECS.Get<GraphicsManager::Sprite>(7).image_name = "animefloor";
+                printf("changed to Anime floor");
+                temp6 = "animefloor";
+                ECS.Get<EntityManager::Money>(0).price -= 480;
+                purchasedItems.push_back("animefloor");
+                PurchasedItemSound();
+            }
+        }
+        if (ImGui::IsItemHovered())
+        {
+            ECS.Get<GraphicsManager::Sprite>(7).image_name = "animefloor";
+        }
+       
         if (ImGui::Button("Cat-Lady-Floor"))
         { // jen
             // fluffy Rug + Cat???

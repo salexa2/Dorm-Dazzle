@@ -29,8 +29,6 @@
    LoadTexture("deskpc","assets/deskpc.png")
    LoadTexture("deskconsole","assets/deskconsole.png")
    LoadTexture("desktv","assets/desktv.png")
-
-
    
   ---------DRESSER TEXTURES-------------
   LoadTexture("boringdresser","assets/boringdresser.png")

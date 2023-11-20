@@ -260,7 +260,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     ImGui::SetWindowPos(ImVec2(500, 0));
     
     //code to create label for progress bar
-    float health_val = ECS.Get<EntityManager::Health>(0).percent; //casting to int for "rouding down"
+    int health_val = ECS.Get<EntityManager::Health>(0).percent; //casting to int for lopping off the excessive 0's
     std::string energy_string = std::to_string(health_val);
     const char* energy = energy_string.c_str(); // casting to const char* bc that is what ImGui needs apparently
 
@@ -588,7 +588,6 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
                 std::string tempstri = purchasedItems[i];
                 if(purchasedItems[i].find("fridge") != std::string::npos){
                     if (ImGui::Button(tempstri.c_str())) {//Shadai 
-                    
                         printf("Word contains fridge!\n");
                         ECS.Get<GraphicsManager::Sprite>(6).image_name = purchasedItems[i];
                         curr_fridge = purchasedItems[i];

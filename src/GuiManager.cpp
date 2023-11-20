@@ -198,12 +198,13 @@ void GuiManager::DormShopSetter(const char * button_name, std::string item_name,
                     PurchasedItemSound();   
             }                         
          }
-         if (ImGui::IsItemHovered()) {
-             ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name;    
-         }
+        
     }
-    
-    
+    //needs to be outside of isPurchaced check
+    if (ImGui::IsItemHovered()) {
+        ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name;    
+    }
+
 }
 //
 void GuiManager::CheckHovered(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum){
@@ -217,13 +218,14 @@ void GuiManager::CheckHovered(const char * button_name, std::string item_name, s
                 PurchasedItemSound();                            
             }
         }
-        if (ImGui::IsItemHovered()) {
-        ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name;    
-        }else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
-            ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = curritem; // Revert to temp when not hovered.
-        }
-    }   
-    
+        
+    }
+    if (ImGui::IsItemHovered()) { //outside of isPurchased 
+        ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name;
+    }
+    else { // DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
+        ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = curritem; // Revert to temp when not hovered.
+    }
 }
 
 void GuiManager::Draw(  WGPURenderPassEncoder render_pass)

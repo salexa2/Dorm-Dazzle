@@ -29,17 +29,21 @@
    LoadTexture("deskpc","assets/deskpc.png")
    LoadTexture("deskconsole","assets/deskconsole.png")
    LoadTexture("desktv","assets/desktv.png")
+   LoadTexture("richdesk","assets/richdesk.png")
    
   ---------DRESSER TEXTURES-------------
   LoadTexture("boringdresser","assets/boringdresser.png")
   LoadTexture("gamingdresser","assets/gamingdresser.png")
   LoadTexture("patriotdresser","assets/patriotdresser.png")
+  LoadTexture("richdresser","assets/richdresser.png")
+
    ---------FRIDGE TEXTURES---------------
    
    LoadTexture("fridgefood", "assets/fridgefood.png")
    LoadTexture("fridgemicrowave", "assets/microwave.png")
-   LoadTexture("fridgeramen", "assets/fridgeramen.png")
    LoadTexture("fridgetowel", "assets/boringtowel.png")
+   LoadTexture("fridgecoffee", "assets/fridgecoffee.png")
+   
    --------FLOOR TEXTURES---------------
    LoadTexture("boringfloor", "assets/boringfloor.png")
    LoadTexture("gamefloor", "assets/gamefloor.png")
@@ -81,13 +85,7 @@
    GetSprite(bed).scale.y = 145
    GetScript(bed).name = "bed"--print("bed:",bed)
 
-   GetSprite(desk).image_name = "boringdesk"
-   GetSprite(desk).position.x= -45
-   GetSprite(desk).position.y =-3
-   GetSprite(desk).position.z = 0
-   GetSprite(desk).scale.x = 48
-   GetSprite(desk).scale.y = 48
-   GetScript(desk).name = "desk"
+   
 
    GetSprite(lamp).image_name = "boringlamp"
    GetSprite(lamp).position.x= -84
@@ -97,6 +95,13 @@
    GetSprite(lamp).scale.y = 30
    GetScript(lamp).name = "lamp"
 
+   GetSprite(desk).image_name = "boringdesk"
+   GetSprite(desk).position.x= -45
+   GetSprite(desk).position.y =-3
+   GetSprite(desk).position.z = 0
+   GetSprite(desk).scale.x = 48
+   GetSprite(desk).scale.y = 48
+   GetScript(desk).name = "desk"
 
    GetSprite(dresser).image_name = "boringdresser"
    GetSprite(dresser).position.x= -32

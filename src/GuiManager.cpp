@@ -52,8 +52,6 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     //iterate over it, anything not in the purchaced items list gets put in unpurchaced
 
     //all items -> in loops, if not purchaced already then make button
-
-    LoadAllItems();
     
     //default items in inventory
     purchasedItems.push_back("boringbed");
@@ -62,57 +60,9 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     purchasedItems.push_back("boringdresser");
     purchasedItems.push_back("fridgetowel"); 
     purchasedItems.push_back("boringfloor");
-    purchasedItems.push_back("fridgetowel");
 }
 
-void GuiManager::LoadAllItems(){
-    //make array of structs
 
-    struct Item items[] = {
-        {"boringdesk", 0, true}, {"boringdresser", 0, true},{"boringfloor", 0, true},
-        {"boringlamp", 0, true},{"boringtowel", 0, true}, //end of borring...
-        //beds (1000 - 1900)
-        {"patriotbed", 1000, false},
-        {"patriotbed2", 1050, false},
-        {"richsnitchbed", 1800, false},
-        {"gamerbed", 1400, false},
-        {"gamerbed2", 1150, false},
-        {"stonerbed", 1500, false},
-        {"gothbed", 1550, false},
-        {"gothbed2", 1300, false},
-        {"halloweenbed", 1900, false},
-        {"christmasbed", 1900, false},
-        
-        //lamps (500 - 600)
-        {"patriotlamp", 500, false},
-        {"gamerlamp", 550, false},
-        {"richlamp", 590, false},
-        {"stonerlamp", 560, false},
-        {"gothlamp", 575, false},
-        {"halloweenlamp", 600, false},
-
-        //dressers
-        {"patriotdresser", 700, false},
-        {"gamingdresser", 750, false},
-        //desk
-        {"deskpc", 950, false},
-        {"desktv", 800, false},
-        {"deskconsole", 875, false},
-        //floor
-        {"patriotfloor", 400, false},
-        {"gamefloor", 480, false},
-        //fridge
-        {"fridgefood", 1200, false},
-        {"fridgeramen", 1250, false},
-        {"fridgemicrowave", 1300, false},
-
-        {"coffee", 0, false}
-    };
-
-    for(int i = 0; i < sizeof(items) / sizeof(items[0]); i++){
-        allItems.push_back(items[i]);
-    }
-}
 
 float GuiManager::LoadEnergy() {
     std::ifstream energyFile("energy.txt");
@@ -218,6 +168,7 @@ void GuiManager::SaveTime()
     }
 }
 
+
 void GuiManager::Shutdown()
 {
     SaveEnergy(); //save energy at shutdown
@@ -235,55 +186,44 @@ void GuiManager::PurchasedItemSound(){
     GLOBAL_ENGINE.soundManager.PlaySound("twinkle");
 }
 
-//have item map
-    //{item_name: price, button_name}
-
-void GuiManager::DormShopSetter(Item item, int item_type){
-
-    std::string item_name = item.item_name;
-    std::string item_price = std::to_string(item.price);
-
-    if(isPurchased(item_name)== false){ //only build buttons non-inventoried elements
-        
-        //build button name 
-        //TODO: update pricing!!!!
-        std::string button_name_str = item.item_name + + " " + item_price + "$";
-        const char* button_name = button_name_str.c_str();
-        
+//regular one after you call the else function ONCE
+void GuiManager::DormShopSetter(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum){
+    if( isPurchased(item_name)== false){
         if (ImGui::Button(button_name)) { 
-
-            //button was clicked
-      
-            // if( isPurchased(item_name)== false){
-            if(item.purchaced == false){
-                        //if item not already purchased 
-                if(ECS.Get<EntityManager::Money>(0).price >= item.price){
-                        // ECS.Get<GraphicsManager::Sprite>(2).image_name = item.item_name; //set image
-                        ECS.Get<GraphicsManager::Sprite>(item_type).image_name = item.item_name; //set image
-                        curr_bed = item_name;
-                        printf("purchased %s\n", item.item_name.c_str()); 
-                        ECS.Get<EntityManager::Money>(0).price -= item.price; 
-                        purchasedItems.push_back(item.item_name);
-                        item.purchaced = true; //set purchaced to true
-                        PurchasedItemSound();                            
-                }else{
-                    printf("Can't afford %s!\n", item.item_name.c_str());
-                }
+            if(ECS.Get<EntityManager::Money>(0).price >= price){
+                    ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name; //set image
+                    curritem = item_name;
+                    ECS.Get<EntityManager::Money>(0).price -= price; 
+                    purchasedItems.push_back(item_name);
+                    PurchasedItemSound();   
+            }                         
+         }
+         if (ImGui::IsItemHovered()) {
+             ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name;    
+         }
+    }
+    
+    
+}
+//
+void GuiManager::CheckHovered(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum){
+    if(isPurchased(item_name)== false){
+        if (ImGui::Button(button_name)) { 
+            if(ECS.Get<EntityManager::Money>(0).price >= price){
+                ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name; //set image
+                curritem = item_name; 
+                ECS.Get<EntityManager::Money>(0).price -= price; 
+                purchasedItems.push_back(item_name);
+                PurchasedItemSound();                            
             }
         }
         if (ImGui::IsItemHovered()) {
-            // ECS.Get<GraphicsManager::Sprite>(2).image_name = item.item_name;    
-            ECS.Get<GraphicsManager::Sprite>(item_type).image_name = item.item_name;    
+        ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name;    
+        }else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
+            ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = curritem; // Revert to temp when not hovered.
         }
-    }
-}
-
-void GuiManager::CheckHovered(std::string item_name){
-    if (ImGui::IsItemHovered()) {
-        ECS.Get<GraphicsManager::Sprite>(2).image_name = item_name;    
-    }else{ //DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
-        ECS.Get<GraphicsManager::Sprite>(2).image_name = curr_bed; // Revert to temp when not hovered.
-    }
+    }   
+    
 }
 
 void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
@@ -300,7 +240,6 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     //goth -2 - 
     //halloween -2 - 
     //christmas- 2
-    //gym rat - 2
     //anime -2 - lava lamp
     //cat lady -2
     //nerd alert -2 
@@ -321,7 +260,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     ImGui::SetWindowPos(ImVec2(500, 0));
     
     //code to create label for progress bar
-    int health_val = ECS.Get<EntityManager::Health>(0).percent; //casting to int for "rouding down"
+    float health_val = ECS.Get<EntityManager::Health>(0).percent; //casting to int for "rouding down"
     std::string energy_string = std::to_string(health_val);
     const char* energy = energy_string.c_str(); // casting to const char* bc that is what ImGui needs apparently
 
@@ -364,14 +303,26 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     }
     if (ImGui::BeginPopup("Bed-SubMenu")) {
 
-        for (int i = 0; i < allItems.size(); i++){
-            Item item = allItems[i];
-            if(item.item_name.find("bed") != std::string::npos){
-                DormShopSetter(item, 2);
-            }
-        }
 
-    ImGui::EndPopup();
+
+       CheckHovered("Patriot-Bed 1000$","patriotbed", curr_bed, 1000, 2); 
+       DormShopSetter("Patriot-Bed-2 1050$", "patriotbed2", curr_bed, 1050, 2);
+       DormShopSetter("Rich-B**** 1800$", "richsnitchbed", curr_bed, 1800, 2);
+       DormShopSetter("Gamer-Bed 1400$", "gamerbed", curr_bed, 1400, 2);
+       DormShopSetter("Gamer-Bed-2 1150$", "gamerbed2", curr_bed, 1150, 2);
+       DormShopSetter("Stoner-Bed 1500$", "stonerbed", curr_bed, 1500, 2);
+       DormShopSetter("Goth-Bed 1550$", "gothbed", curr_bed, 1550, 2);
+       DormShopSetter("Goth-Bed-2 1300$", "gothbed2", curr_bed, 1300, 2);
+       DormShopSetter("Halloween-Bed 1900$", "halloweenbed", curr_bed, 1900, 2);
+       DormShopSetter("Christmas-Bed 1900$", "christmasbed", curr_bed, 1900, 2);
+      /*DormShopSetter("Anime-Bed 1799$", "animebed", curr_bed, 1799, 2);
+        DormShopSetter("Cat-Lady-Bed 1200$", "catbed", curr_bed, 1200, 2);
+        DormShopSetter("Nerd-Alert-Bed 1300$", "nerdbed", curr_bed, 1300, 2);
+       */
+       
+       
+
+        ImGui::EndPopup();
     }
 
   //---------lamp-------------
@@ -385,12 +336,19 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     
     if (ImGui::BeginPopup("Lamp-SubMenu")) {
 
-        for (int i = 0; i < allItems.size(); i++){
-            Item item = allItems[i];
-            if(item.item_name.find("lamp") != std::string::npos){
-                DormShopSetter(item, 3);
-            }
-        }
+       CheckHovered("Patriot-Lamp 500$","patriotlamp", curr_lamp, 500, 3); 
+       DormShopSetter("Gamer-Lamp 550$", "gamerlamp", curr_lamp, 550, 3);
+       DormShopSetter("Rich-B**** 590$", "richlamp", curr_lamp, 590, 3);
+     /* 
+       DormShopSetter("Stoner-Lamp 560$", "stonerlamp", curr_lamp, 560, 3);
+       DormShopSetter("Goth-Lamp 575$", "gothlamp", curr_lamp, 575, 3);
+       DormShopSetter("Halloween-Lamp 600$", "hallowlamp", curr_lamp, 600, 3);
+       DormShopSetter("Christmas-Lamp 600$", "christmaslamp", curr_lamp, 600, 3);
+       DormShopSetter("Anime-Lamp 580$", "animelamp", curr_lamp, 580, 3);
+       DormShopSetter("Cat-Lady-Lamp 550$", "catlamp", curr_lamp, 550, 3);
+     DormShopSetter("Nerd-Alert-Lamp 560$", "nerdlamp", curr_lamp, 560, 3);
+       */
+      
 
        ImGui::EndPopup();
     }
@@ -407,14 +365,21 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     
     if (ImGui::BeginPopup("Desk-SubMenu")) {
         
-        for (int i = 0; i < allItems.size(); i++){
-            Item item = allItems[i];
-            if(item.item_name.find("desk") != std::string::npos){
-                DormShopSetter(item, 4);
-            }
-        }
+       CheckHovered("Gamer-Desk-PC 950$","deskpc", curr_desk, 950, 4); 
+       DormShopSetter("Gamer-Desk-Console 899$", "deskconsole", curr_desk, 800, 4);
+       DormShopSetter("Patriot-Desk 800$", "desktv", curr_desk, 590, 4);
+       DormShopSetter("Rich-B****-Desk 990$", "richdesk", curr_desk, 999, 4);
+      /* DormShopSetter("Stoner-Desk 850$", "stonerdesk", curr_desk, 850, 4);
+       DormShopSetter("Goth-Desk 860$", "gothdesk", curr_desk, 860, 4);
+       DormShopSetter("Halloween-Desk 1000$", "hallowdesk", curr_desk, 590, 4);
+       DormShopSetter("Christmas-Desk 1000$", "christmasdesk", curr_desk, 1000, 4);
+       DormShopSetter("Anime-Desk 875$", "animedesk", curr_desk, 875, 4);
+       DormShopSetter("Cat-Lady-Desk 850$", "catdesk", curr_desk, 850, 4);
+       DormShopSetter("Nerd-Alert-Desk 850$", "nerddesk", curr_desk, 850, 4);
+        */
 
-         ImGui::EndPopup();
+     
+       ImGui::EndPopup();
     }
 
    
@@ -427,60 +392,65 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
          ImGui::OpenPopup("Dresser-SubMenu");
     }
     
-       if (ImGui::BeginPopup("Dresser-SubMenu")) {
-
-         for (int i = 0; i < allItems.size(); i++){
-            Item item = allItems[i];
-            if(item.item_name.find("dresser") != std::string::npos){
-                DormShopSetter(item, 5);
-            }
-        }
-
-    ImGui::EndPopup();
+    if (ImGui::BeginPopup("Dresser-SubMenu")) {
+        CheckHovered("Patriot-Dresser 700$","patriotdresser", curr_dresser, 950, 5); 
+        DormShopSetter("Gaming-Dresser 750$", "gamingdresser", curr_dresser, 800, 5);
+        DormShopSetter("Rich-B****-Dresser 790$", "richdresser", curr_dresser, 790, 5);
+       /* DormShopSetter("Stoner-Dresser 745$", "stonerdresser", curr_dresser, 745, 5);
+        DormShopSetter("Goth-Dresser 750", "gothdresser", curr_dresser, 750, 5);
+        DormShopSetter("Halloween-Dresser 800$", "hallowdresser", curr_desk, 800, 5);
+        DormShopSetter("Christmas-Dresser 800$", "christmasdresser", curr_desk, 800, 5);
+        DormShopSetter("Anime-Dresser 780$", "animedresser", curr_dresser, 780, 5);
+        DormShopSetter("Cat-Lady-Dresser 750$", "catdresser", curr_dresser, 750, 5);
+        DormShopSetter("Nerd-Alert-Dresser 750$", "nerddresser", curr_dresser, 750, 5);
+            */
+       ImGui::EndPopup();
     }
 //----------------Kitcheen-------------------
     if (ImGui::BeginMenuBar()){ImGui::EndMenuBar();}
     if(ImGui::Button("FRIDGE")) {
-        
          ImGui::OpenPopup("Fridge-SubMenu");
     }
 
     
     if (ImGui::BeginPopup("Fridge-SubMenu")) {  
 
-        for (int i = 0; i < allItems.size(); i++){
-            Item item = allItems[i];
-            if(item.item_name.find("fridge") != std::string::npos){
-                DormShopSetter(item, 6);
-            }
-        }
-
+        CheckHovered("Food 1200$","fridgefood", curr_fridge, 1200, 6); 
+        DormShopSetter("Microwave 1300$", "fridgemicrowave", curr_fridge, 1300, 6);
+        DormShopSetter("Coffee-Maker 1350$", "fridgecoffee", curr_fridge, 1350, 6);
+        /*DormShopSetter("Crock-Pot 1400$", "fridgecrock", curr_fridge, 1400, 6);
+        */
         ImGui::EndPopup();
     }
    
     //------------FLOOR--------------
-    //min =400, max = 500 
+    //min = 400, max = 500 
 
     if (ImGui::BeginMenuBar()){ImGui::EndMenuBar();}
-    if(ImGui::Button("FLOOR")) {
-        
+    if(ImGui::Button("FLOOR")) {    
          ImGui::OpenPopup("Floor-SubMenu");
     }
+    
     if (ImGui::BeginPopup("Floor-SubMenu")) {
         
-        
-        for (int i = 0; i < allItems.size(); i++){
-            Item item = allItems[i];
-            if(item.item_name.find("floor") != std::string::npos){
-                DormShopSetter(item, 7);
-            }
-        }
-
+        CheckHovered("Patriot-Floor 400$","patriotfloor", curr_floor, 400, 7); 
+        DormShopSetter("Gaming-Floor 480$", "gamefloor", curr_floor, 480, 7);
+        /* 
+        DormShopSetter("Rich-B****-Floor 490$", "richfloor", curr_floor, 490, 7);
+        DormShopSetter("Stoner-Floor 470$", "stonerfloor", curr_floor, 470, 7);
+        DormShopSetter("Goth-Floor 450$ ", "gothfloor", curr_floor, 450, 7);
+        DormShopSetter("Halloween-Floor 500$", "hallowfloor", curr_floor, 500, 7);
+        DormShopSetter("Christmas-Floor 500$", "christmasfloor", curr_floor, 500, 7);
+        DormShopSetter("Anime-Floor 480$", "animefloor", curr_floor, 480, 7);
+        DormShopSetter("Cat-Lady-Floor 460$", "catfloor", curr_floor, 460, 7);
+        DormShopSetter("Nerd-Alert-Floor 480$", "nerdfloor", curr_floor, 480, 7);
+        */
         ImGui::EndPopup();
     }
 
-    
+
     ImGui::End(); //end dormshop window
+    
     
     //-------------money------------------
     ImGui::Begin("Bread!"); 

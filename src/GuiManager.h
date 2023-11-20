@@ -36,9 +36,7 @@ class GuiManager{
                 };
 
                 std::vector<std::string> purchasedItems;
-                std::vector<std::string> unpurchasedItems;
-
-                std::vector<Item> allItems;
+               
                
 
 
@@ -52,6 +50,7 @@ class GuiManager{
 
                 void InitEnergyBar(); //public helper for energy bar
                 void SaveTime();
+              
                
 
 
@@ -60,13 +59,12 @@ class GuiManager{
                 float LoadEnergy();
                 time_t LoadTime(); //helper function for reading last closed time
                 void SaveEnergy(); //helper function for writing current energy at shutdown
-                void LoadAllItems();
 
                 void ChangedItemSound(); //plays "chime" when item is changed
                 void PurchasedItemSound(); //plays "twinkle" when item is purchaced
-                // void DormShopSetter(std::string name);
-                void DormShopSetter(Item item, int item_type);
-                void CheckHovered(std::string name);
+               
+                void DormShopSetter(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum);
+                void CheckHovered(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum);
 };
 
 #endif

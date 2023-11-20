@@ -84,7 +84,7 @@ void GuiManager::LoadAllItems(){
         {"christmasbed", 1900, false},
         
         //lamps (500 - 600)
-        {"patriotlamp", 0, false},
+        {"patriotlamp", 500, false},
         {"gamerlamp", 550, false},
         {"richlamp", 590, false},
         {"stonerlamp", 560, false},
@@ -92,19 +92,19 @@ void GuiManager::LoadAllItems(){
         {"halloweenlamp", 600, false},
 
         //dressers
-        {"patriotdresser", 0, false},
-        {"gamingdresser", 0, false},
+        {"patriotdresser", 700, false},
+        {"gamingdresser", 750, false},
         //desk
-        {"deskpc", 0, false},
-        {"desktv", 0, false},
-        {"deskconsole", 0, false},
+        {"deskpc", 950, false},
+        {"desktv", 800, false},
+        {"deskconsole", 875, false},
         //floor
-        {"patriotfloor", 0, false},
-        {"gamefloor", 0, false},
+        {"patriotfloor", 400, false},
+        {"gamefloor", 480, false},
         //fridge
-        {"fridgefood", 0, false},
-        {"fridgeramen", 0, false},
-        {"fridgemicrowave", 0, false},
+        {"fridgefood", 1200, false},
+        {"fridgeramen", 1250, false},
+        {"fridgemicrowave", 1300, false},
 
         {"coffee", 0, false}
     };

@@ -1,0 +1,34 @@
+[
+    {
+        "entity": 1,
+        "image": "room"
+    },
+    {
+        "entity": 2,
+        "image": "boringbed"
+    },
+    {
+        "entity": 4,
+        "image": "boringdesk"
+    },
+    {
+        "entity": 3,
+        "image": "boringlamp"
+    },
+    {
+        "entity": 5,
+        "image": "boringdresser"
+    },
+    {
+        "entity": 7,
+        "image": "boringfloor"
+    },
+    {
+        "entity": 6,
+        "image": "fridgetowel"
+    },
+    {
+        "entity": 0,
+        "image": "fox"
+    }
+]

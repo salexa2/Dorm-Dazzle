@@ -39,6 +39,7 @@
    
    LoadTexture("fridgefood", "assets/fridgefood.png")
    LoadTexture("fridgemicrowave", "assets/microwave.png")
+   LoadTexture("fridgeramen", "assets/fridgeramen.png")
    LoadTexture("fridgetowel", "assets/boringtowel.png")
    --------FLOOR TEXTURES---------------
    LoadTexture("boringfloor", "assets/boringfloor.png")

@@ -29,8 +29,16 @@ class GuiManager{
                 float currentStamina;
                 float replenish_rate;
 
+                struct Item{
+                        std::string item_name;
+                        int price;
+                        bool purchaced;
+                };
+
                 std::vector<std::string> purchasedItems;
                 std::vector<std::string> unpurchasedItems;
+
+                std::vector<Item> allItems;
                
 
 
@@ -52,11 +60,12 @@ class GuiManager{
                 float LoadEnergy();
                 time_t LoadTime(); //helper function for reading last closed time
                 void SaveEnergy(); //helper function for writing current energy at shutdown
-        
+                void LoadAllItems();
 
                 void ChangedItemSound(); //plays "chime" when item is changed
                 void PurchasedItemSound(); //plays "twinkle" when item is purchaced
-                void DormShopSetter(std::string name);
+                // void DormShopSetter(std::string name);
+                void DormShopSetter(Item item, int item_type);
                 void CheckHovered(std::string name);
 };
 

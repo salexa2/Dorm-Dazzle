@@ -29,8 +29,6 @@
    LoadTexture("deskpc","assets/deskpc.png")
    LoadTexture("deskconsole","assets/deskconsole.png")
    LoadTexture("desktv","assets/desktv.png")
-
-
    
   ---------DRESSER TEXTURES-------------
   LoadTexture("boringdresser","assets/boringdresser.png")
@@ -40,6 +38,7 @@
    
    LoadTexture("fridgefood", "assets/fridgefood.png")
    LoadTexture("fridgemicrowave", "assets/microwave.png")
+   LoadTexture("fridgeramen", "assets/fridgeramen.png")
    LoadTexture("fridgetowel", "assets/boringtowel.png")
    --------FLOOR TEXTURES---------------
    LoadTexture("boringfloor", "assets/boringfloor.png")

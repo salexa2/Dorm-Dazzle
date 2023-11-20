@@ -5,19 +5,15 @@
     },
     {
         "entity": 2,
-<<<<<<< HEAD
-        "image": "richsnitchbed"
-=======
-        "image": "pridebed"
->>>>>>> 5d55948bdd8cbda247cb563bee8fb4cbdf9be9e8
+        "image": "boringbed"
     },
     {
         "entity": 4,
-        "image": "desktv"
+        "image": "boringdesk"
     },
     {
         "entity": 3,
-        "image": "richlamp"
+        "image": "boringlamp"
     },
     {
         "entity": 5,

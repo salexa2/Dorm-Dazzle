@@ -19,17 +19,26 @@ class GuiManager{
                 void Draw(WGPURenderPassEncoder render_pass);
 
 
-                std::string temp;//bed
-                std::string temp2; //lamp
-                std::string temp3; //desk
-                std::string temp4; //dresser
-                std::string temp5; //fridge
-                std::string temp6; //floor
+                std::string curr_bed;//bed
+                std::string curr_lamp; //lamp
+                std::string curr_desk; //desk
+                std::string curr_dresser; //dresser
+                std::string curr_fridge; //fridge
+                std::string curr_floor; //floor
                 float maxStamina;
                 float currentStamina;
                 float replenish_rate;
 
+                struct Item{
+                        std::string item_name;
+                        int price;
+                        bool purchaced;
+                };
+
                 std::vector<std::string> purchasedItems;
+                std::vector<std::string> unpurchasedItems;
+
+                std::vector<Item> allItems;
                
 
 
@@ -51,11 +60,13 @@ class GuiManager{
                 float LoadEnergy();
                 time_t LoadTime(); //helper function for reading last closed time
                 void SaveEnergy(); //helper function for writing current energy at shutdown
-        
+                void LoadAllItems();
 
                 void ChangedItemSound(); //plays "chime" when item is changed
                 void PurchasedItemSound(); //plays "twinkle" when item is purchaced
-
+                // void DormShopSetter(std::string name);
+                void DormShopSetter(Item item, int item_type);
+                void CheckHovered(std::string name);
 };
 
 #endif

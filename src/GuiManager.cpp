@@ -186,19 +186,24 @@ void GuiManager::PurchasedItemSound(){
     GLOBAL_ENGINE.soundManager.PlaySound("twinkle");
 }
 
+void GuiManager::NoMoneySound(){
+    GLOBAL_ENGINE.soundManager.PlaySound("buzzer");
+}
+
 //regular one after you call the else function ONCE
 void GuiManager::DormShopSetter(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum){
     if( isPurchased(item_name)== false){
         if (ImGui::Button(button_name)) { 
-            if(ECS.Get<EntityManager::Money>(0).price >= price){
+            if(ECS.Get<EntityManager::Money>(0).price >= price){ //has enough money
                     ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name; //set image
                     curritem = item_name;
                     ECS.Get<EntityManager::Money>(0).price -= price; 
                     purchasedItems.push_back(item_name);
                     PurchasedItemSound();   
-            }                         
-         }
-        
+            } else {
+                NoMoneySound(); //not enough money
+            }
+         } 
     }
     //needs to be outside of isPurchaced check
     if (ImGui::IsItemHovered()) {
@@ -216,6 +221,8 @@ void GuiManager::CheckHovered(const char * button_name, std::string item_name, s
                 ECS.Get<EntityManager::Money>(0).price -= price; 
                 purchasedItems.push_back(item_name);
                 PurchasedItemSound();                            
+            }  else {
+                NoMoneySound(); //not enough money
             }
         }
         

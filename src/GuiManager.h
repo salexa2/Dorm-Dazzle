@@ -62,7 +62,8 @@ class GuiManager{
 
                 void ChangedItemSound(); //plays "chime" when item is changed
                 void PurchasedItemSound(); //plays "twinkle" when item is purchaced
-               
+                void NoMoneySound(); //plays "buzzer" when player doesn't have enough money to buy
+
                 void DormShopSetter(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum);
                 void CheckHovered(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum);
 };

@@ -277,8 +277,8 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
     //replenish over time
     //if (time_elapsed.count() >= 120) { //2 minutes
-    // if (time_elapsed.count() >= 30) { //30 seconds -> update every 30 seconds
-    if (time_elapsed.count() >= 5) { //5 seconds -> for testing
+    if (time_elapsed.count() >= 30) { //30 seconds -> update every 30 seconds
+    // if (time_elapsed.count() >= 5) { //5 seconds -> for testing
         ECS.Get<EntityManager::Health>(0).percent += replenish_rate;
         start_time = std::chrono::system_clock::now(); //update to start counter over
     }

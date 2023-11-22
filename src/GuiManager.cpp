@@ -186,19 +186,24 @@ void GuiManager::PurchasedItemSound(){
     GLOBAL_ENGINE.soundManager.PlaySound("twinkle");
 }
 
+void GuiManager::NoMoneySound(){
+    GLOBAL_ENGINE.soundManager.PlaySound("buzzer");
+}
+
 //regular one after you call the else function ONCE
 void GuiManager::DormShopSetter(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum){
     if( isPurchased(item_name)== false){
         if (ImGui::Button(button_name)) { 
-            if(ECS.Get<EntityManager::Money>(0).price >= price){
+            if(ECS.Get<EntityManager::Money>(0).price >= price){ //has enough money
                     ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name; //set image
                     curritem = item_name;
                     ECS.Get<EntityManager::Money>(0).price -= price; 
                     purchasedItems.push_back(item_name);
                     PurchasedItemSound();   
-            }                         
-         }
-        
+            } else {
+                NoMoneySound(); //not enough money
+            }
+         } 
     }
     //needs to be outside of isPurchaced check
     if (ImGui::IsItemHovered()) {
@@ -216,6 +221,8 @@ void GuiManager::CheckHovered(const char * button_name, std::string item_name, s
                 ECS.Get<EntityManager::Money>(0).price -= price; 
                 purchasedItems.push_back(item_name);
                 PurchasedItemSound();                            
+            }  else {
+                NoMoneySound(); //not enough money
             }
         }
         
@@ -277,8 +284,8 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 
     //replenish over time
     //if (time_elapsed.count() >= 120) { //2 minutes
-    // if (time_elapsed.count() >= 30) { //30 seconds -> update every 30 seconds
-    if (time_elapsed.count() >= 5) { //5 seconds -> for testing
+    if (time_elapsed.count() >= 30) { //30 seconds -> update every 30 seconds
+    // if (time_elapsed.count() >= 5) { //5 seconds -> for testing
         ECS.Get<EntityManager::Health>(0).percent += replenish_rate;
         start_time = std::chrono::system_clock::now(); //update to start counter over
     }

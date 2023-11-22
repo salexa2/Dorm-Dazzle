@@ -34,18 +34,9 @@ bool SoundManager::PlaySoundLooping(const std::string& name){
 		return false;
 	}
 
-	// SoLoud::Wav wav = ; //get the wav file to loop
-
-	// sound_map[name].setLoopPoint(sound_map[name].getLength()); //set the loop point...
-	sound_map[name].setLooping(1);
+	sound_map[name].setLooping(1); //set loop
 	soloud.play(sound_map[name]); //play the sound...
 
-
-
-	// //set looping
-	// soloud.setLooping(sound_map[name], 1); //not sure what the 1 is for?
-	// //play sound
-	// soloud.play(sound_map[name]);
 	return true;
 }
 

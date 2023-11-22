@@ -48,9 +48,7 @@ void Engine::RunGameLoop(const UpdateCallBack &callback)
     GLOBAL_ENGINE.graphicsManager.guiManager.InitEnergyBar();
 
     //start bgm
-    // GLOBAL_ENGINE.soundManager.PlaySound("bgm"); //non looping for sound test
     GLOBAL_ENGINE.soundManager.PlaySoundLooping("bgm");
-
     
     while (true)
     {

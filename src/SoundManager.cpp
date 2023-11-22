@@ -28,6 +28,27 @@ bool SoundManager::PlaySound(const std::string& name) {
 	return true;
 }
 
+bool SoundManager::PlaySoundLooping(const std::string& name){
+	if(sound_map.count(name) == 0){
+		printf("Sound is not loaded.");
+		return false;
+	}
+
+	// SoLoud::Wav wav = ; //get the wav file to loop
+
+	// sound_map[name].setLoopPoint(sound_map[name].getLength()); //set the loop point...
+	sound_map[name].setLooping(1);
+	soloud.play(sound_map[name]); //play the sound...
+
+
+
+	// //set looping
+	// soloud.setLooping(sound_map[name], 1); //not sure what the 1 is for?
+	// //play sound
+	// soloud.play(sound_map[name]);
+	return true;
+}
+
 bool SoundManager::DeleteSound(const std::string& name) {
 	sound_map.erase(name);
 

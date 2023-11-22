@@ -20,6 +20,7 @@ public:
 
 	bool LoadSound(const std::string& name, const std::string& path);
 	bool PlaySound(const std::string& name);
+	bool PlaySoundLooping(const std::string& name);
 	bool DeleteSound(const std::string& name);
 };
 

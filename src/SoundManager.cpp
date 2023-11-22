@@ -28,6 +28,18 @@ bool SoundManager::PlaySound(const std::string& name) {
 	return true;
 }
 
+bool SoundManager::PlaySoundLooping(const std::string& name){
+	if(sound_map.count(name) == 0){
+		printf("Sound is not loaded.");
+		return false;
+	}
+
+	sound_map[name].setLooping(1); //set loop
+	soloud.play(sound_map[name]); //play the sound...
+
+	return true;
+}
+
 bool SoundManager::DeleteSound(const std::string& name) {
 	sound_map.erase(name);
 

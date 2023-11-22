@@ -66,6 +66,7 @@
    LoadSound("twinkle", "assets/sounds/twinkle.wav")
    LoadSound("chime", "assets/sounds/windchime.wav")
    LoadSound("buzzer", "assets/sounds/buzzer.wav")
+   LoadSound("bgm", "assets/sounds/DormSimBGM.wav")
    --PlaySound("twinkle") -- play sound
 
    e1 = CreateEntity() --EID = 0

@@ -3,8 +3,10 @@
 
 
    print("This is a start up Lua function.")
+
    LoadTexture("room", "assets/dormroom.png")
    LoadTexture("fox", "assets/fox.png")
+   LoadTexture("bg", "assets/bg.jpg")
 
    --BED TEXTURES--
    LoadTexture("boringbed", "assets/bed.png")
@@ -23,6 +25,8 @@
    LoadTexture("gamerlamp", "assets/gamerlamp.png")
    LoadTexture("patriotlamp", "assets/patriotlamp.png")
    LoadTexture("richlamp", "assets/richlamp.png")
+   LoadTexture("stonerlamp", "assets/stonerlamp.png")
+   LoadTexture("gothlamp", "assets/gothlamp.png")
 
    --------DESK TEXTURES-------
    LoadTexture("boringdesk","assets/boringdesk.png")
@@ -30,12 +34,17 @@
    LoadTexture("deskconsole","assets/deskconsole.png")
    LoadTexture("desktv","assets/desktv.png")
    LoadTexture("richdesk","assets/richdesk.png")
+   LoadTexture("stonerdesk","assets/stonerdesk.png")
+   LoadTexture("gothdesk","assets/gothdesk.png")
    
   ---------DRESSER TEXTURES-------------
   LoadTexture("boringdresser","assets/boringdresser.png")
   LoadTexture("gamingdresser","assets/gamingdresser.png")
   LoadTexture("patriotdresser","assets/patriotdresser.png")
   LoadTexture("richdresser","assets/richdresser.png")
+  LoadTexture("stonerdresser","assets/stonerdresser.png")
+  LoadTexture("gothdresser","assets/gothdresser.png")
+  
 
    ---------FRIDGE TEXTURES---------------
    
@@ -43,11 +52,15 @@
    LoadTexture("fridgemicrowave", "assets/microwave.png")
    LoadTexture("fridgetowel", "assets/boringtowel.png")
    LoadTexture("fridgecoffee", "assets/fridgecoffee.png")
+   LoadTexture("fridgecrock", "assets/fridgecrock.png")
    
    --------FLOOR TEXTURES---------------
    LoadTexture("boringfloor", "assets/boringfloor.png")
    LoadTexture("gamefloor", "assets/gamefloor.png")
    LoadTexture("patriotfloor", "assets/patriotfloor.png")
+   LoadTexture("richfloor", "assets/richfloor.png")
+   LoadTexture("stonerfloor", "assets/stonerfloor.png")
+   LoadTexture("gothfloor", "assets/gothfloor.png")
 
    --Load Sounds-------
    LoadSound("twinkle", "assets/sounds/twinkle.wav")
@@ -66,7 +79,6 @@
    window = CreateEntity() -- EID= 7
    Wall = CreateEntity() --8
  
-   
    GetSprite(e0).image_name = "room"
    GetSprite(e0).position.x= 10
    GetSprite(e0).position.y = 0
@@ -85,7 +97,13 @@
    GetSprite(bed).scale.y = 145
    GetScript(bed).name = "bed"--print("bed:",bed)
 
-   
+   GetSprite(desk).image_name = "boringdesk"
+   GetSprite(desk).position.x= -45
+   GetSprite(desk).position.y =-3
+   GetSprite(desk).position.z = 0
+   GetSprite(desk).scale.x = 48
+   GetSprite(desk).scale.y = 48
+   GetScript(desk).name = "desk"
 
    GetSprite(lamp).image_name = "boringlamp"
    GetSprite(lamp).position.x= -84
@@ -94,14 +112,6 @@
    GetSprite(lamp).scale.x = 30
    GetSprite(lamp).scale.y = 30
    GetScript(lamp).name = "lamp"
-
-   GetSprite(desk).image_name = "boringdesk"
-   GetSprite(desk).position.x= -45
-   GetSprite(desk).position.y =-3
-   GetSprite(desk).position.z = 0
-   GetSprite(desk).scale.x = 48
-   GetSprite(desk).scale.y = 48
-   GetScript(desk).name = "desk"
 
    GetSprite(dresser).image_name = "boringdresser"
    GetSprite(dresser).position.x= -32

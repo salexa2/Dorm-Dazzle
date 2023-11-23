@@ -4,7 +4,6 @@
 
    print("This is a start up Lua function.")
    
-   LoadTexture("bg", "assets/bg.jpg")
    LoadTexture("room", "assets/dormroom.png")
    LoadTexture("fox", "assets/fox.png")
 
@@ -22,6 +21,7 @@
    LoadTexture("christmasbed", "assets/christmasbed.png")
    LoadTexture("animebed", "assets/animebed.png")
    LoadTexture("catbed", "assets/catbed.png")
+   LoadTexture("pinkbed", "assets/pinkbed.png")
 
    --LAMP TEXTURES--
    LoadTexture("boringlamp", "assets/boringlamp.png")
@@ -60,6 +60,10 @@
   LoadTexture("christdresser","assets/christdresser.png")
   LoadTexture("animedresser","assets/animedresser.png")
   LoadTexture("catdresser","assets/catdresser.png")
+  LoadTexture("nerddresser","assets/nerddresser.png")
+  LoadTexture("jockdresser","assets/jockdresser.png")
+  LoadTexture("allydresser","assets/allydresser.png")
+
 
    ---------FRIDGE TEXTURES---------------
    
@@ -81,6 +85,28 @@
    LoadTexture("animefloor", "assets/animefloor.png")
    LoadTexture("catfloor", "assets/catfloor.png")
 
+   ------WALL TEXTURES---------
+   LoadTexture("boringwall", "assets/boringwall.png")
+   LoadTexture("patriotwall", "assets/patriotwall.png")
+   LoadTexture("gamerwall", "assets/gamerwall.png")
+   LoadTexture("richwall", "assets/richwall.png")
+   LoadTexture("stonerwall", "assets/stonerwall.png")
+   LoadTexture("gothwall", "assets/gothwall.png")
+   LoadTexture("gothwall2", "assets/gothwall2.png")
+   LoadTexture("hallowwall", "assets/hallowwall.png")
+   LoadTexture("christwall", "assets/christwall.png")
+   LoadTexture("animewall", "assets/animewall.png")
+   LoadTexture("catwall", "assets/catwall.png")
+   LoadTexture("nerdwall", "assets/nerdwall.png")
+   LoadTexture("undertwall", "assets/undertwall.png")
+   LoadTexture("marvelwall", "assets/marvelwall.png")
+
+    ------WINDOW TEXTURES---------
+   LoadTexture("boringsill", "assets/boringwindow.png")
+   LoadTexture("cactussill", "assets/cactuswindow.png")
+   LoadTexture("rosesill", "assets/rosesill.png")
+   LoadTexture("aloesill", "assets/aloesill.png")
+   LoadTexture("bonseisill", "assets/bonseisill.png")
 
    --Load Sounds-------
    LoadSound("twinkle", "assets/sounds/twinkle.wav")
@@ -97,20 +123,18 @@
    desk = CreateEntity()--EID = 4
    dresser = CreateEntity() --EID = 5
    fridge = CreateEntity()-- EID= 6
-   Rug = CreateEntity() --9
-   window = CreateEntity() -- EID= 7
-   Wall = CreateEntity() --8
-   bg = CreateEntity()
-   print(bg)
+   Rug = CreateEntity() --7
+   window = CreateEntity() -- EID= 8
+   Wall = CreateEntity() --9
 
 
    GetSprite(e0).image_name = "room"
    GetSprite(e0).position.x= 10
    GetSprite(e0).position.y = 0
-   GetSprite(e0).position.z = 0
+   GetSprite(e0).position.z = 1
    GetSprite(e0).scale.x = 200
    GetSprite(e0).scale.y = 200
-   GetSprite(e0).z = 0
+   GetSprite(e0).z = 1
    GetScript(e0).name = "room"
    --print("e0:",e0)
    
@@ -171,16 +195,30 @@
    GetSprite(fridge).scale.x = 23
    GetSprite(fridge).scale.y = 23
    GetSprite(fridge).z = 0
-   GetScript(fridge).name = "fridge"
+
+
+   GetSprite(Wall).image_name = "boringwall"
+   GetSprite(Wall).position.x= -50
+   GetSprite(Wall).position.y = 40
+   GetSprite(Wall).position.z = 0
+   GetSprite(Wall).scale.x = 60
+   GetSprite(Wall).scale.y = 60
+   GetSprite(Wall).z = 0
+
+   GetSprite(window).image_name = "boringsill"
+   GetSprite(window).position.x= 25
+   GetSprite(window).position.y = 20
+   GetSprite(window).position.z = 0
+   GetSprite(window).scale.x = 40
+   GetSprite(window).scale.y = 40
+   GetSprite(window).z = 0
+
+
+
    
    --OUR FOX ENTITY WILL BE THE GAMER SO ANY COMPONENTS REVOLVING THE USER JUST ATTACH TO THE FOX ENTITY
-   GetSprite(e1).image_name = "fox"
-   GetSprite(e1).position.x= -90
-   GetSprite(e1).position.y = -80
-   GetSprite(e1).position.z = 0
-   GetSprite(e1).scale.x = 25
-   GetSprite(e1).scale.y = 25
-   GetScript(e1).name = "fox"
+   
+   GetScript(e1).name = "player"
    GetMoney(e1).price = 10000
    GetHealth(e1).percent = 40
  

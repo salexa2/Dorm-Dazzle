@@ -44,8 +44,8 @@ int main( int argc, const char* argv[] ) {
         
          GLOBAL_ENGINE.scriptManager.UpdateEngine();
 
-        GLOBAL_ENGINE.scriptManager.LoadScript("fox", "assets/scripts/fox.lua");
-        GLOBAL_ENGINE.scriptManager.scriptResults["fox"](); 
+       // GLOBAL_ENGINE.scriptManager.LoadScript("fox", "assets/scripts/fox.lua");
+      //  GLOBAL_ENGINE.scriptManager.scriptResults["fox"](); 
        
          
     } );

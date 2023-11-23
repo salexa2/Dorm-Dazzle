@@ -25,6 +25,8 @@ class GuiManager{
                 std::string curr_dresser; //dresser
                 std::string curr_fridge; //fridge
                 std::string curr_floor; //floor
+                std::string curr_wall; //wall
+                std::string curr_window;
                 float maxStamina;
                 float currentStamina;
                 float replenish_rate;

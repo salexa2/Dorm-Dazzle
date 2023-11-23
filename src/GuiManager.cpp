@@ -30,6 +30,8 @@ GuiManager::GuiManager()
     curr_dresser = "";
     curr_fridge = "";
     curr_floor = "";
+    curr_wall = "";
+    curr_window = "";
   ///  std::cout << "help: " << ECS.Get<GraphicsManager::Sprite>(2).image_name << std::endl;
 
 }
@@ -60,6 +62,8 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     purchasedItems.push_back("boringdresser");
     purchasedItems.push_back("fridgetowel"); 
     purchasedItems.push_back("boringfloor");
+    purchasedItems.push_back("boringwall");
+    purchasedItems.push_back("boringsill");
 }
 
 
@@ -192,11 +196,13 @@ void GuiManager::NoMoneySound(){
 
 //regular one after you call the else function ONCE
 void GuiManager::DormShopSetter(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum){
+   
     if( isPurchased(item_name)== false){
         if (ImGui::Button(button_name)) { 
             if(ECS.Get<EntityManager::Money>(0).price >= price){ //has enough money
-                    ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name; //set image
-                    curritem = item_name;
+                      curritem = item_name;
+                      ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name; //set image
+                  
                     ECS.Get<EntityManager::Money>(0).price -= price; 
                     purchasedItems.push_back(item_name);
                     PurchasedItemSound();   
@@ -206,8 +212,11 @@ void GuiManager::DormShopSetter(const char * button_name, std::string item_name,
          } 
     }
     //needs to be outside of isPurchaced check
-    if (ImGui::IsItemHovered()) {
-        ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name;    
+    if (ImGui::IsItemHovered()&& !isPurchased(item_name)) {
+
+        ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name;  
+ 
+
     }
 
 }
@@ -216,8 +225,9 @@ void GuiManager::CheckHovered(const char * button_name, std::string item_name, s
     if(isPurchased(item_name)== false){
         if (ImGui::Button(button_name)) { 
             if(ECS.Get<EntityManager::Money>(0).price >= price){
-                ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name; //set image
-                curritem = item_name; 
+                 curritem = item_name; 
+                 ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name; //set image
+               
                 ECS.Get<EntityManager::Money>(0).price -= price; 
                 purchasedItems.push_back(item_name);
                 PurchasedItemSound();                            
@@ -227,7 +237,7 @@ void GuiManager::CheckHovered(const char * button_name, std::string item_name, s
         }
         
     }
-    if (ImGui::IsItemHovered()) { //outside of isPurchased 
+    if (ImGui::IsItemHovered() && !isPurchased(item_name)) { //outside of isPurchased 
         ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name;
     }
     else { // DO NOT PUT THIS else MULTIPLE TIMES, JUST THIS RIGHT HERE IS ENOUGH
@@ -264,9 +274,9 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     */
 
     //------------------------------ENERGY BAR-----------------------------//
+    ImGui::SetNextWindowSize(ImVec2(800, 70)); 
     ImGui::Begin("Energy");
-    ImGui::SetNextWindowSize(ImVec2(200, 30));
-    ImGui::SetWindowPos(ImVec2(500, 0));
+    ImGui::SetWindowPos(ImVec2(400, 0));
     
     //code to create label for progress bar
     int health_val = ECS.Get<EntityManager::Health>(0).percent; //casting to int for lopping off the excessive 0's
@@ -299,11 +309,11 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     ImGui::End();
    //-----------------------------------------------------------------//
 
-    ImGui::SetNextWindowSize(ImVec2(200, 400));
+    ImGui::SetNextWindowSize(ImVec2(300, 300));
     ImGui::Begin("Dorm Shop!"); 
-    
+    ImGui::SetWindowPos(ImVec2(1300, 0));
     if (ImGui::BeginMenuBar()){ImGui::EndMenuBar();}
-    ImGui::Text("Explore each of the \nfurnature categories.");
+    ImGui::Text("Explore each of the \nfurniture categories.");
 
    //-------------BEDS---------------------------
     if (ImGui::Button("BED")) {      
@@ -326,6 +336,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
        DormShopSetter("Christmas-Bed 1900$", "christmasbed", curr_bed, 1900, 2);
        DormShopSetter("Anime-Bed 1799$", "animebed", curr_bed, 1799, 2);
        DormShopSetter("Cat-Lady-Bed 1200$", "catbed", curr_bed, 1200, 2);
+       DormShopSetter("Pink-Bed 1000$", "pinkbed", curr_bed, 1000, 2);
      
        
 
@@ -406,17 +417,12 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         DormShopSetter("Christmas-Dresser 800$", "christdresser", curr_desk, 800, 5);
         DormShopSetter("Anime-Dresser 780$", "animedresser", curr_dresser, 780, 5);  
         DormShopSetter("Cat-Lady-Dresser 750$", "catdresser", curr_dresser, 750, 5);
-       /* 
-  
+        DormShopSetter("Nerd-Dresser 780$", "nerddresser", curr_dresser, 780, 5);
+        DormShopSetter("Jock-Dresser 780$", "jockdresser", curr_dresser, 780, 5);
+        DormShopSetter("Ally-Dresser 780$", "allydresser", curr_dresser, 780, 5);
+     
        
-       
-        
-      
-        DormShopSetter("Nerd-Alert-Dresser 750$", "nerddresser", curr_dresser, 750, 5); //printer
-        undertail
-        pride 
-        dumbells
-            */
+    
        ImGui::EndPopup();
     }
 //----------------Kitcheen-------------------
@@ -452,9 +458,49 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         DormShopSetter("Goth-Floor 450$ ", "gothfloor", curr_floor, 450, 7); 
         DormShopSetter("Halloween-Floor 500$", "hallowfloor", curr_floor, 500, 7);
         DormShopSetter("Christmas-Floor 500$", "christfloor", curr_floor, 500, 7); 
-         DormShopSetter("Anime-Floor 480$", "animefloor", curr_floor, 480, 7);
-         DormShopSetter("Cat-Lady-Floor 460$", "catfloor", curr_floor, 460, 7);
+        DormShopSetter("Anime-Floor 480$", "animefloor", curr_floor, 480, 7);
+        DormShopSetter("Cat-Lady-Floor 460$", "catfloor", curr_floor, 460, 7);
       
+        ImGui::EndPopup();
+    }
+
+   if (ImGui::BeginMenuBar()){ImGui::EndMenuBar();}
+    if(ImGui::Button("WALL")) {    
+         ImGui::OpenPopup("Wall-SubMenu");
+    }
+    
+    if (ImGui::BeginPopup("Wall-SubMenu")) {
+        CheckHovered("Patriot-Wall 200$","patriotwall", curr_wall, 200, 9);  
+        DormShopSetter("Gaming-Wall 250$", "gamerwall", curr_wall, 250, 9);
+        DormShopSetter("Rich-B****-Wall 290$", "richwall", curr_wall, 290, 9);
+        DormShopSetter("Stoner-Wall 250$", "stonerwall", curr_wall, 250, 9); 
+        DormShopSetter("Goth-Wall 270$ ", "gothwall", curr_wall, 270, 9); 
+        DormShopSetter("Goth-Wall-II 270$ ", "gothwall2", curr_wall, 270, 9);   
+        DormShopSetter("Halloween-Wall 300$", "hallowwall", curr_wall, 300, 9); 
+        DormShopSetter("Christmas-Wall 300$", "christwall", curr_wall, 300, 9); 
+        DormShopSetter("Anime-Wall 280$", "animewall", curr_wall, 280, 9); 
+        DormShopSetter("Cat-Lady-Wall 260$", "catwall", curr_wall, 260, 9);
+        DormShopSetter("Nerd-Wall 260$", "nerdwall", curr_wall, 260, 9);
+        DormShopSetter("Undertale-Wall 350$", "undertwall", curr_wall, 350, 9);
+        DormShopSetter("Marvel-Wall 350$", "marvelwall", curr_wall, 350, 9);
+    
+        ImGui::EndPopup();
+    }
+
+    if(ImGui::Button("WINDOW")) {    
+         ImGui::OpenPopup("Wind-SubMenu");
+    }
+    
+    if (ImGui::BeginPopup("Wind-SubMenu")) {
+        CheckHovered("Cactus 100$", "cactussill", curr_window, 100, 8);
+        
+        DormShopSetter("Rose-Sill 150$", "rosesill", curr_window, 150, 8);
+        DormShopSetter("Aloe-Sill 150$", "aloesill", curr_window, 150, 8);
+        DormShopSetter("Bonsei-Sill 200$", "bonseisill", curr_window, 200, 8);
+   
+
+ 
+    
         ImGui::EndPopup();
     }
 
@@ -463,7 +509,9 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     
     
     //-------------money------------------
+    ImGui::SetNextWindowSize(ImVec2(300, 300));
     ImGui::Begin("Bread!"); 
+     ImGui::SetWindowPos(ImVec2(1300,600));
     ImGui::SetCursorPos(ImVec2(5, 50));
     ImGui::Text("Crumbs: $%.2f", ECS.Get<EntityManager::Money>(0).price);
      if (ImGui::Button("Favor - 5 Energy")) {
@@ -503,9 +551,9 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     ImGui::End(); 
 
     //====================INVENTORY===============================//
-
+     ImGui::SetNextWindowSize(ImVec2(300, 300));
     ImGui::Begin("Inventory!"); 
-
+     ImGui::SetWindowPos(ImVec2(1300, 300));
       if (ImGui::BeginMenuBar()){ImGui::EndMenuBar();}
         if (ImGui::Button("BEDS")) {      
          ImGui::OpenPopup("Bed-Inventory");
@@ -630,6 +678,49 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
             ImGui::EndPopup();
         }
 
+         if (ImGui::Button("WALLS")) {      
+         ImGui::OpenPopup("Wall-Inventory");
+        }
+        if (ImGui::BeginPopup("Wall-Inventory")) {
+       
+            for(int i = 0; i< purchasedItems.size(); i++){
+                std::string tempstri = purchasedItems[i];
+                if(purchasedItems[i].find("wall") != std::string::npos){
+                    if (ImGui::Button(tempstri.c_str())) {//Shadai 
+                    
+                        printf("Word contains wall!\n");
+                        ECS.Get<GraphicsManager::Sprite>(9).image_name = purchasedItems[i];
+                        curr_wall = purchasedItems[i];
+                        ChangedItemSound();
+                    }
+                }
+            }
+
+            ImGui::EndPopup();
+        }
+
+        if (ImGui::Button("WINDOWS")) {      
+         ImGui::OpenPopup("Window-Inventory");
+        }
+
+        if (ImGui::BeginPopup("Window-Inventory")) {
+       
+            for(int i = 0; i< purchasedItems.size(); i++){
+                std::string tempstri = purchasedItems[i];
+                if(purchasedItems[i].find("sill") != std::string::npos){
+                    if (ImGui::Button(tempstri.c_str())) {//Shadai 
+                    
+                        printf("Word contains window!\n");
+                        ECS.Get<GraphicsManager::Sprite>(8).image_name = purchasedItems[i];
+                        curr_window = purchasedItems[i];
+                        ChangedItemSound();
+                    }
+                }
+            }
+
+            ImGui::EndPopup();
+        }
+
     ImGui::End(); 
     ImGui::EndFrame(); 
     ImGui::Render(); 
@@ -646,6 +737,8 @@ void GuiManager::SetTemp()
     curr_dresser =  ECS.Get<GraphicsManager::Sprite>(5).image_name;  //dresser
     curr_fridge = ECS.Get<GraphicsManager::Sprite>(6).image_name; //fridge
     curr_floor = ECS.Get<GraphicsManager::Sprite>(7).image_name; //floor
+    curr_wall = ECS.Get<GraphicsManager::Sprite>(9).image_name;
+    curr_window= ECS.Get<GraphicsManager::Sprite>(8).image_name;
 }
 //using json = nlohmann::json;
 

@@ -47,9 +47,11 @@ void Engine::RunGameLoop(const UpdateCallBack &callback)
     // gui progress bar initialization
     GLOBAL_ENGINE.graphicsManager.guiManager.InitEnergyBar();
 
+    //start bgm
+    GLOBAL_ENGINE.soundManager.PlaySoundLooping("bgm");
+    
     while (true)
     {
-        
         const auto t1 = std::chrono::steady_clock::now();
 
         inputManager.Update();

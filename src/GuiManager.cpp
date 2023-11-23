@@ -324,11 +324,9 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
        DormShopSetter("Goth-Bed-2 1300$", "gothbed2", curr_bed, 1300, 2);
        DormShopSetter("Halloween-Bed 1900$", "halloweenbed", curr_bed, 1900, 2);
        DormShopSetter("Christmas-Bed 1900$", "christmasbed", curr_bed, 1900, 2);
-      /*DormShopSetter("Anime-Bed 1799$", "animebed", curr_bed, 1799, 2);
-        DormShopSetter("Cat-Lady-Bed 1200$", "catbed", curr_bed, 1200, 2);
-        DormShopSetter("Nerd-Alert-Bed 1300$", "nerdbed", curr_bed, 1300, 2);
-       */
-       
+       DormShopSetter("Anime-Bed 1799$", "animebed", curr_bed, 1799, 2);
+       DormShopSetter("Cat-Lady-Bed 1200$", "catbed", curr_bed, 1200, 2);
+     
        
 
         ImGui::EndPopup();
@@ -349,16 +347,12 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
        DormShopSetter("Gamer-Lamp 550$", "gamerlamp", curr_lamp, 550, 3);
        DormShopSetter("Rich-B**** 590$", "richlamp", curr_lamp, 590, 3);
        DormShopSetter("Stoner-Lamp 560$", "stonerlamp", curr_lamp, 560, 3);
-       DormShopSetter("Goth-Lamp 575$", "gothlamp", curr_lamp, 575, 3);
-     /* 
-       ;
-       
+       DormShopSetter("Goth-Lamp 575$", "gothlamp", curr_lamp, 575, 3); 
        DormShopSetter("Halloween-Lamp 600$", "hallowlamp", curr_lamp, 600, 3);
        DormShopSetter("Christmas-Lamp 600$", "christmaslamp", curr_lamp, 600, 3);
-       DormShopSetter("Anime-Lamp 580$", "animelamp", curr_lamp, 580, 3);
+       DormShopSetter("Anime-Lamp 580$", "animelamp", curr_lamp, 580, 3); 
        DormShopSetter("Cat-Lady-Lamp 550$", "catlamp", curr_lamp, 550, 3);
-     DormShopSetter("Nerd-Alert-Lamp 560$", "nerdlamp", curr_lamp, 560, 3);
-       */
+   
       
 
        ImGui::EndPopup();
@@ -382,15 +376,12 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
        DormShopSetter("Rich-B****-Desk 990$", "richdesk", curr_desk, 999, 4);
        DormShopSetter("Stoner-Desk 850$", "stonerdesk", curr_desk, 850, 4);
        DormShopSetter("Goth-Desk 860$", "gothdesk", curr_desk, 860, 4);
-      /*
-      
-       DormShopSetter("Halloween-Desk 1000$", "hallowdesk", curr_desk, 590, 4);
-       DormShopSetter("Christmas-Desk 1000$", "christmasdesk", curr_desk, 1000, 4);
-       DormShopSetter("Anime-Desk 875$", "animedesk", curr_desk, 875, 4);
+       DormShopSetter("Halloween-Desk 1000$", "hallowdesk", curr_desk, 590, 4); 
+       DormShopSetter("Christmas-Desk 1000$", "christdesk", curr_desk, 1000, 4); 
+       DormShopSetter("Anime-Desk 875$", "animedesk", curr_desk, 875, 4); 
        DormShopSetter("Cat-Lady-Desk 850$", "catdesk", curr_desk, 850, 4);
-       DormShopSetter("Nerd-Alert-Desk 850$", "nerddesk", curr_desk, 850, 4);
-        */
-
+       //nerd books bulletin board
+    
      
        ImGui::EndPopup();
     }
@@ -410,15 +401,21 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         DormShopSetter("Gaming-Dresser 750$", "gamingdresser", curr_dresser, 800, 5);
         DormShopSetter("Rich-B****-Dresser 790$", "richdresser", curr_dresser, 790, 5);
         DormShopSetter("Stoner-Dresser 745$", "stonerdresser", curr_dresser, 745, 5);     
-         DormShopSetter("Goth-Dresser 750", "gothdresser", curr_dresser, 750, 5);
-
+        DormShopSetter("Goth-Dresser 750", "gothdresser", curr_dresser, 750, 5);
+        DormShopSetter("Halloween-Dresser 800$", "hallowdresser", curr_desk, 800, 5);
+        DormShopSetter("Christmas-Dresser 800$", "christdresser", curr_desk, 800, 5);
+        DormShopSetter("Anime-Dresser 780$", "animedresser", curr_dresser, 780, 5);  
+        DormShopSetter("Cat-Lady-Dresser 750$", "catdresser", curr_dresser, 750, 5);
        /* 
   
-        DormShopSetter("Halloween-Dresser 800$", "hallowdresser", curr_desk, 800, 5);
-        DormShopSetter("Christmas-Dresser 800$", "christmasdresser", curr_desk, 800, 5);
-        DormShopSetter("Anime-Dresser 780$", "animedresser", curr_dresser, 780, 5);
-        DormShopSetter("Cat-Lady-Dresser 750$", "catdresser", curr_dresser, 750, 5);
-        DormShopSetter("Nerd-Alert-Dresser 750$", "nerddresser", curr_dresser, 750, 5);
+       
+       
+        
+      
+        DormShopSetter("Nerd-Alert-Dresser 750$", "nerddresser", curr_dresser, 750, 5); //printer
+        undertail
+        pride 
+        dumbells
             */
        ImGui::EndPopup();
     }
@@ -452,17 +449,12 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         DormShopSetter("Gaming-Floor 480$", "gamefloor", curr_floor, 480, 7);
         DormShopSetter("Rich-B****-Floor 490$", "richfloor", curr_floor, 490, 7);
         DormShopSetter("Stoner-Floor 470$", "stonerfloor", curr_floor, 470, 7);
-        DormShopSetter("Goth-Floor 450$ ", "gothfloor", curr_floor, 450, 7);
-        /* 
-        
-       
-        
+        DormShopSetter("Goth-Floor 450$ ", "gothfloor", curr_floor, 450, 7); 
         DormShopSetter("Halloween-Floor 500$", "hallowfloor", curr_floor, 500, 7);
-        DormShopSetter("Christmas-Floor 500$", "christmasfloor", curr_floor, 500, 7);
-        DormShopSetter("Anime-Floor 480$", "animefloor", curr_floor, 480, 7);
-        DormShopSetter("Cat-Lady-Floor 460$", "catfloor", curr_floor, 460, 7);
-        DormShopSetter("Nerd-Alert-Floor 480$", "nerdfloor", curr_floor, 480, 7);
-        */
+        DormShopSetter("Christmas-Floor 500$", "christfloor", curr_floor, 500, 7); 
+         DormShopSetter("Anime-Floor 480$", "animefloor", curr_floor, 480, 7);
+         DormShopSetter("Cat-Lady-Floor 460$", "catfloor", curr_floor, 460, 7);
+      
         ImGui::EndPopup();
     }
 

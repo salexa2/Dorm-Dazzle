@@ -45,9 +45,6 @@ namespace{
 
     struct Uniforms {
        glm::mat4 projection;
-
-       
-
     };
    
 }
@@ -95,6 +92,11 @@ fn fragment_shader_main( in: VertexOutput ) -> @location(0) vec4f {
  GraphicsManager::GraphicsManager(){}
 
 void GraphicsManager::Start(){ 
+
+    //temppp
+    playMode = true;
+
+
     glfwInit();
     // We don't want GLFW to set up a graphics API.
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
@@ -496,8 +498,14 @@ void GraphicsManager::Draw()
             
     }
     
-     guiManager.Draw(render_pass); //drawing imgui here
-
+    //if not in play mode, full menu screen
+    //in play mode, side menus...
+    if(playMode == true){
+        guiManager.Draw(render_pass); //drawing imgui here
+    } else {
+        guiManager.DrawMenu(render_pass); //drawing imgui here
+    }
+    
      wgpuRenderPassEncoderEnd(render_pass);       
      WGPUCommandBuffer command = wgpuCommandEncoderFinish( encoder, nullptr );
      wgpuQueueSubmit( queue, 1, &command );

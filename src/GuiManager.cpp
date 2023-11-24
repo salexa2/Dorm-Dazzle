@@ -245,6 +245,33 @@ void GuiManager::CheckHovered(const char * button_name, std::string item_name, s
     }
 }
 
+void GuiManager::DrawMenu(WGPURenderPassEncoder render_pass){
+    ImGui_ImplWGPU_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    //menu things here
+    if (ImGui::BeginMainMenuBar()) {
+              if (ImGui::BeginMenu("File")) {
+                   if (ImGui::MenuItem("Create")) { 
+                   }
+                   if (ImGui::MenuItem("Open", "Ctrl+O")) { 
+                   }
+                   if (ImGui::MenuItem("Save", "Ctrl+S")) {
+                   }
+                   if (ImGui::MenuItem("Save as..")) { 
+                    }
+             ImGui::EndMenu();
+             }
+             ImGui::EndMainMenuBar();
+        }
+
+    ImGui::End(); 
+    ImGui::EndFrame(); 
+    ImGui::Render(); 
+    ImGui_ImplWGPU_RenderDrawData(ImGui::GetDrawData(),render_pass);
+}
+
 void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 {
     ImGui_ImplWGPU_NewFrame();

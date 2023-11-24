@@ -16,9 +16,10 @@ Engine::Engine()
 void Engine::Start()
 {
 
-    graphicsManager.Start();
     scriptManager.Start();
 
+    graphicsManager.Start();
+    
     soundManager.StartUp(); // JM
 }
 

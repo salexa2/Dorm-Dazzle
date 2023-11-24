@@ -16,12 +16,14 @@ void printMessage(Engine& engine){
 int main( int argc, const char* argv[] ) {
     std::cout << "Hello, World!\n";
 
-  
+     GLOBAL_ENGINE.scriptManager.LoadScript("startup", "assets/scripts/startup.lua");
 
     GLOBAL_ENGINE.Start();
-    GLOBAL_ENGINE.graphicsManager.guiManager.Start(GLOBAL_ENGINE.graphicsManager.window,GLOBAL_ENGINE.graphicsManager.device,GLOBAL_ENGINE.graphicsManager.swap_chain_format);
-    GLOBAL_ENGINE.scriptManager.LoadScript("startup", "assets/scripts/startup.lua");
+    // GLOBAL_ENGINE.graphicsManager.guiManager.Start(GLOBAL_ENGINE.graphicsManager.window,GLOBAL_ENGINE.graphicsManager.device,GLOBAL_ENGINE.graphicsManager.swap_chain_format);
+   
     GLOBAL_ENGINE.scriptManager.scriptResults["startup"]();
+    GLOBAL_ENGINE.graphicsManager.guiManager.Start(GLOBAL_ENGINE.graphicsManager.window,GLOBAL_ENGINE.graphicsManager.device,GLOBAL_ENGINE.graphicsManager.swap_chain_format);
+
 
   
 

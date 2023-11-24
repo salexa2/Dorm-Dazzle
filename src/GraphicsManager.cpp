@@ -94,7 +94,7 @@ fn fragment_shader_main( in: VertexOutput ) -> @location(0) vec4f {
 void GraphicsManager::Start(){ 
 
     //temppp
-    playMode = true;
+    playMode = false;
 
 
     glfwInit();
@@ -378,10 +378,10 @@ bool GraphicsManager::LoadTexture(const std::string& name, const std::string& pa
     to_ptr( WGPUExtent3D{ (uint32_t)width, (uint32_t)height, 1 } )
     );
 
-     image_map[name].texture = tex;
-     image_map[name].width = width;
-     image_map[name].height = height;
-      stbi_image_free( data );
+    image_map[name].texture = tex;
+    image_map[name].width = width;
+    image_map[name].height = height;
+    stbi_image_free( data );
 
 
    

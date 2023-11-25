@@ -50,10 +50,11 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
     WGPUTextureFormat ob = WGPUTextureFormat_Undefined; 
     ImGui_ImplWGPU_Init(device,3,swapchainformat, ob);    
 
-    //have list of all items
-    //iterate over it, anything not in the purchaced items list gets put in unpurchaced
+    ImGuiIO& io = ImGui::GetIO();
+    io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Consolas.ttf", 50.0f);
 
-    //all items -> in loops, if not purchaced already then make button
+    ImGuiStyle& style = ImGui::GetStyle();
+    auto& colors = style.Colors;
     
     //default items in inventory
     purchasedItems.push_back("boringbed");
@@ -172,7 +173,6 @@ void GuiManager::SaveTime()
     }
 }
 
-
 void GuiManager::Shutdown()
 {
     SaveEnergy(); //save energy at shutdown
@@ -245,33 +245,102 @@ void GuiManager::CheckHovered(const char * button_name, std::string item_name, s
     }
 }
 
+void GuiManager::DrawMenu(WGPURenderPassEncoder render_pass){
+
+    ImGui_ImplWGPU_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    static int index = 0;
+
+    //center menu on screen size
+    int window_width = 1600;
+    int window_height = 900;
+     // Center the window on the screen
+    ImGui::SetNextWindowPos(
+        ImVec2((window_width - 200) * 0.5f, (window_height - 150) * 0.5f),
+        ImGuiCond_Appearing
+    );
+
+    // Create your ImGui UI here
+    ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_Appearing);
+    ImGui::Begin("Menu", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse);
+    ImGui::SetWindowPos(ImVec2(500,225));
+
+
+    //draw buttons
+    MenuButtons({"Start Decorating!", "Reset Dorm", "Exit Game"}, {0, 1, 2}, index);
+
+    ImGui::End(); //end drawing menu
+
+
+    ImGui::EndFrame(); //end frame
+
+    ImGui::Render(); //render data
+
+    ImGui_ImplWGPU_RenderDrawData(ImGui::GetDrawData(),render_pass); //draw to screen
+}
+//from https://www.youtube.com/watch?v=2B_qzPHV4MQ
+void GuiManager::MenuButtons(std::vector<std::string> names, std::vector<int> indexs, int& selected_index){
+    std::vector<ImVec2> sizes = {};
+    float total_area = 0.0f;
+
+    const auto& style = ImGui::GetStyle();
+
+    for(std::string& name : names){
+        const ImVec2 label_size = ImGui::CalcTextSize(name.c_str(), 0, true);
+        // ImVec2 size = ImGui::CalcItemSize(ImVec2(), label_size.x + style.FramePadding.x * 2.0f, label_size.y + style.FramePadding.y * 2.0f);
+        ImVec2 size = {label_size.x + style.FramePadding.x * 2.0f, label_size.y + style.FramePadding.y * 2.0f};
+        size.x += 45.5f;
+        size.y += 15.0f;
+
+        sizes.push_back(size);
+        total_area += size.x;
+    }
+
+    int i;
+
+    ImGui::SameLine((ImGui::GetContentRegionAvail().x / 2) - (total_area / 2));
+    for(i = 0; i < names.size(); i++){
+        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 70);
+        ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
+
+        //create button
+            if(ImGui::Button(names[i].c_str(), sizes[i])){
+                selected_index = indexs[i];
+                switch (selected_index)
+                {
+                    case 0:
+                        printf("Start game\n");
+                        GLOBAL_ENGINE.graphicsManager.playMode = true;
+                        break;
+                    case 1:
+                        printf("Reset all values\n");
+                        ResetBoring();
+                        break;
+                    case 2:
+                        printf("Exiting game\n");
+                        GLOBAL_ENGINE.ExitGame();
+                        break;
+                    
+                    default:
+                        break;
+                }
+            }
+
+        ImGui::PopStyleVar();
+
+        if(i != names.size() - 1){
+            ImGui::SameLine();
+        }
+    }
+}
+
 void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
 {
     ImGui_ImplWGPU_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-
-    /*-----------------DORM SHOP--------------------
-        CATEGORIES/IDEAS
-    //rich-snitch - 2
-    //gamer - 2 messy and high tech
-    //pride - 2 
-    //goth -2 - 
-    //halloween -2 - 
-    //christmas- 2
-    //anime -2 - lava lamp
-    //cat lady -2
-    //nerd alert -2 
-    
-    ROOM SPRITES: 
-    BED
-    LAMP
-    HOBBY DESK
-    DRESSER DECOR- HOBBY
-   FRIDge DECOER
-    RUG
-    WINDOW DECOR -- plants(venus fly trap, catus, potted plant, clover, weed, christmasstocking)
-    */
 
     //------------------------------ENERGY BAR-----------------------------//
     ImGui::SetNextWindowSize(ImVec2(800, 70)); 
@@ -728,6 +797,29 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
    
  }
 
+void GuiManager::ResetBoring(){
+
+    // purchasedItems.push_back("boringbed");
+    // purchasedItems.push_back("boringlamp");
+    // purchasedItems.push_back("boringdesk");
+    // purchasedItems.push_back("boringdresser");
+    // purchasedItems.push_back("fridgetowel"); 
+    // purchasedItems.push_back("boringfloor");
+    // purchasedItems.push_back("boringwall");
+    // purchasedItems.push_back("boringsill");
+
+
+    ECS.Get<GraphicsManager::Sprite>(2).image_name = "boringbed"; // bed
+    ECS.Get<GraphicsManager::Sprite>(3).image_name = "boringlamp"; //lamp
+    ECS.Get<GraphicsManager::Sprite>(4).image_name = "boringdesk"; //desk
+    ECS.Get<GraphicsManager::Sprite>(5).image_name = "boringdresser";  //dresser
+    ECS.Get<GraphicsManager::Sprite>(6).image_name = "fridgetowel"; //fridge
+    ECS.Get<GraphicsManager::Sprite>(7).image_name = "boringfloor"; //floor
+    ECS.Get<GraphicsManager::Sprite>(9).image_name = "boringwall";
+    ECS.Get<GraphicsManager::Sprite>(8).image_name = "boringsill";
+
+    SetTemp(); //reset temp variables
+}
 void GuiManager::SetTemp()
 {
    // std::cout << "checking: " <<  ECS.Get<GraphicsManager::Sprite>(2).image_name << std::endl;

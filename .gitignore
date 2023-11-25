@@ -11,5 +11,7 @@ Thumbs.db
 /.vscode
 /vsxmake2022
 
+/src/imgui.h
+
 *.txt
 *.json

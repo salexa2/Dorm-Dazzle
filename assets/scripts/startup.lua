@@ -6,6 +6,7 @@
    
    LoadTexture("room", "assets/dormroom.png")
    LoadTexture("fox", "assets/fox.png")
+   LoadTexture("title", "assets/DormDeco_title.png") --loading title for imGui...
 
    --BED TEXTURES--
    LoadTexture("boringbed", "assets/bed.png")

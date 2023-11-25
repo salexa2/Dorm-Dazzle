@@ -55,14 +55,6 @@ void GuiManager::Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat 
 
     ImGuiStyle& style = ImGui::GetStyle();
     auto& colors = style.Colors;
-
-    //set styling?
-
-
-    //have list of all items
-    //iterate over it, anything not in the purchaced items list gets put in unpurchaced
-
-    //all items -> in loops, if not purchaced already then make button
     
     //default items in inventory
     purchasedItems.push_back("boringbed");
@@ -180,7 +172,6 @@ void GuiManager::SaveTime()
         std::cerr << "Unable to open file to write current time." << std::endl;
     }
 }
-
 
 void GuiManager::Shutdown()
 {
@@ -325,6 +316,7 @@ void GuiManager::MenuButtons(std::vector<std::string> names, std::vector<int> in
                         break;
                     case 1:
                         printf("Reset all values\n");
+                        ResetBoring();
                         break;
                     case 2:
                         printf("Exiting game\n");
@@ -805,6 +797,29 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
    
  }
 
+void GuiManager::ResetBoring(){
+
+    // purchasedItems.push_back("boringbed");
+    // purchasedItems.push_back("boringlamp");
+    // purchasedItems.push_back("boringdesk");
+    // purchasedItems.push_back("boringdresser");
+    // purchasedItems.push_back("fridgetowel"); 
+    // purchasedItems.push_back("boringfloor");
+    // purchasedItems.push_back("boringwall");
+    // purchasedItems.push_back("boringsill");
+
+
+    ECS.Get<GraphicsManager::Sprite>(2).image_name = "boringbed"; // bed
+    ECS.Get<GraphicsManager::Sprite>(3).image_name = "boringlamp"; //lamp
+    ECS.Get<GraphicsManager::Sprite>(4).image_name = "boringdesk"; //desk
+    ECS.Get<GraphicsManager::Sprite>(5).image_name = "boringdresser";  //dresser
+    ECS.Get<GraphicsManager::Sprite>(6).image_name = "fridgetowel"; //fridge
+    ECS.Get<GraphicsManager::Sprite>(7).image_name = "boringfloor"; //floor
+    ECS.Get<GraphicsManager::Sprite>(9).image_name = "boringwall";
+    ECS.Get<GraphicsManager::Sprite>(8).image_name = "boringsill";
+
+    SetTemp(); //reset temp variables
+}
 void GuiManager::SetTemp()
 {
    // std::cout << "checking: " <<  ECS.Get<GraphicsManager::Sprite>(2).image_name << std::endl;

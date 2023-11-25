@@ -44,6 +44,7 @@ class GuiManager{
 
 
                 void SetTemp();
+                void ResetBoring();
 
                 void loadPurchasedItems(const std::string& filename);
                 void savePurchasedItems(const std::string& filename, const std::vector<std::string>& stringList);

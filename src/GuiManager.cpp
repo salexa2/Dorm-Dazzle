@@ -307,41 +307,14 @@ void GuiManager::MenuButtons(std::vector<std::string> names, std::vector<int> in
         total_area += size.x;
     }
 
+    int i;
+
     ImGui::SameLine((ImGui::GetContentRegionAvail().x / 2) - (total_area / 2));
-    for(int i = 0; i < names.size(); i++){
+    for(i = 0; i < names.size(); i++){
         ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 70);
         ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
 
-        if(selected_index == indexs[i]){
-            ImGui::PushStyleColor(ImGuiCol_Button, ImColor(0,189,0,255).Value);
-            ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImColor(0,189,0,255).Value);
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImColor(0,189,0,255).Value);
-
-            //create button
-            if(ImGui::Button(names[i].c_str(), sizes[i])){
-                
-                selected_index = indexs[i];
-                switch (selected_index)
-                {
-                    case 0:
-                        printf("Start game\n");
-                        GLOBAL_ENGINE.graphicsManager.playMode = true;
-                        break;
-                    case 1:
-                        printf("Reset all values\n");
-                        break;
-                    case 2:
-                        printf("Exiting game\n");
-                        break;
-                    
-                    default:
-                        break;
-                }
-            }
-
-            ImGui::PopStyleColor(3);
-        }else {
-             //create button
+        //create button
             if(ImGui::Button(names[i].c_str(), sizes[i])){
                 selected_index = indexs[i];
                 switch (selected_index)
@@ -355,13 +328,13 @@ void GuiManager::MenuButtons(std::vector<std::string> names, std::vector<int> in
                         break;
                     case 2:
                         printf("Exiting game\n");
+                        GLOBAL_ENGINE.ExitGame();
                         break;
                     
                     default:
                         break;
                 }
             }
-        }
 
         ImGui::PopStyleVar();
 

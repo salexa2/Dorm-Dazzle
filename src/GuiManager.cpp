@@ -337,7 +337,7 @@ void GuiManager::MenuButtons(std::vector<std::string> names, std::vector<int> in
     }
 }
 
-void GuiManager::DrawEnergy(){
+void GuiManager::EnergyDrawer(){
 
     ImGui::SetNextWindowSize(ImVec2(800, 70)); 
     ImGui::Begin("Energy");
@@ -371,16 +371,9 @@ void GuiManager::DrawEnergy(){
     }
     ImGui::End();
 }
-void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
-{
-    ImGui_ImplWGPU_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
 
-    //------------------------------ENERGY BAR-----------------------------//
-    DrawEnergy();
-
-    ImGui::SetNextWindowSize(ImVec2(300, 300));
+void GuiManager::DormShopDrawer(){
+ ImGui::SetNextWindowSize(ImVec2(300, 300));
     ImGui::Begin("Dorm Shop!"); 
     ImGui::SetWindowPos(ImVec2(1300, 0));
     if (ImGui::BeginMenuBar()){ImGui::EndMenuBar();}
@@ -417,7 +410,7 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
          ImGui::SetNextWindowSize(ImVec2(400, 100));
          ImGui::OpenPopup("Lamp-SubMenu");
     }
-    
+
     if (ImGui::BeginPopup("Lamp-SubMenu")) {
 
        CheckHovered("Patriot-Lamp 500$","patriotlamp", curr_lamp, 500, 3); 
@@ -564,230 +557,298 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
         DormShopSetter("Aloe-Sill 150$", "aloesill", curr_window, 150, 8);
         DormShopSetter("Bonsei-Sill 200$", "bonseisill", curr_window, 200, 8);
    
+        ImGui::EndPopup();
+    }
+    ImGui::End(); //end dormshop window
+}
 
- 
-    
+void GuiManager::BreadDrawer()
+{
+    ImGui::SetNextWindowSize(ImVec2(300, 300));
+    ImGui::Begin("Bread!");
+    ImGui::SetWindowPos(ImVec2(1300, 600));
+    ImGui::SetCursorPos(ImVec2(5, 50));
+    ImGui::Text("Crumbs: $%.2f", ECS.Get<EntityManager::Money>(0).price);
+    if (ImGui::Button("Favor - 5 Energy"))
+    {
+        if (ECS.Get<EntityManager::Health>(0).percent >= 5)
+        {
+            ECS.Get<EntityManager::Money>(0).price += 200;
+            ECS.Get<EntityManager::Health>(0).percent -= 5;
+        }
+        // 5 energy
+        // 100 crumbs
+    }
+    if (ImGui::Button("Work-Study - 10 Energy"))
+    {
+        if (ECS.Get<EntityManager::Health>(0).percent >= 10)
+        {
+            ECS.Get<EntityManager::Money>(0).price += 400;
+            ECS.Get<EntityManager::Health>(0).percent -= 10;
+        }
+        // 10 energy
+        // 400 crumbs
+    }
+    if (ImGui::Button("Part-Time-Job - 15 Energy"))
+    {
+        if (ECS.Get<EntityManager::Health>(0).percent >= 15)
+        {
+            ECS.Get<EntityManager::Money>(0).price += 700;
+            ECS.Get<EntityManager::Health>(0).percent -= 15;
+        }
+        // 15 energy
+        // 700 crumbs
+    }
+    if (ImGui::Button("Internship - 35 Energy"))
+    {
+        if (ECS.Get<EntityManager::Health>(0).percent >= 35)
+        {
+            ECS.Get<EntityManager::Money>(0).price += 1200;
+            ECS.Get<EntityManager::Health>(0).percent -= 35;
+        }
+        // 35 energy
+        // 1200 crumbs
+    }
+
+    ImGui::End();
+}
+
+void GuiManager::InvDrawer()
+{
+    ImGui::SetNextWindowSize(ImVec2(300, 300));
+    ImGui::Begin("Inventory!");
+    ImGui::SetWindowPos(ImVec2(1300, 300));
+    if (ImGui::BeginMenuBar())
+    {
+        ImGui::EndMenuBar();
+    }
+    if (ImGui::Button("BEDS"))
+    {
+        ImGui::OpenPopup("Bed-Inventory");
+    }
+    if (ImGui::BeginPopup("Bed-Inventory"))
+    {
+        for (int i = 0; i < purchasedItems.size(); i++)
+        {
+            std::string tempstri = purchasedItems[i];
+            if (purchasedItems[i].find("bed") != std::string::npos)
+            {
+                if (ImGui::Button(tempstri.c_str()))
+                { // Shadai
+                    std::cout << "i: " << purchasedItems[i] << std::endl;
+                    printf("Word contains Bed!\n");
+                    ECS.Get<GraphicsManager::Sprite>(2).image_name = purchasedItems[i];
+                    curr_bed = purchasedItems[i];
+                    ChangedItemSound();
+                }
+            }
+        }
         ImGui::EndPopup();
     }
 
+    if (ImGui::Button("LAMPS"))
+    {
+        ImGui::OpenPopup("lamp-Inventory");
+    }
+    if (ImGui::BeginPopup("lamp-Inventory"))
+    {
 
-    ImGui::End(); //end dormshop window
+        for (int i = 0; i < purchasedItems.size(); i++)
+        {
+            std::string tempstri = purchasedItems[i];
+            if (purchasedItems[i].find("lamp") != std::string::npos)
+            {
+                if (ImGui::Button(tempstri.c_str()))
+                { // Shadai
+
+                    printf("Word contains lamp!\n");
+                    ECS.Get<GraphicsManager::Sprite>(3).image_name = purchasedItems[i];
+                    curr_lamp = purchasedItems[i];
+                    ChangedItemSound();
+                }
+            }
+        }
+
+        ImGui::EndPopup();
+    }
+
+    if (ImGui::Button("DESKS"))
+    {
+        ImGui::OpenPopup("desk-Inventory");
+    }
+    if (ImGui::BeginPopup("desk-Inventory"))
+    {
+
+        for (int i = 0; i < purchasedItems.size(); i++)
+        {
+            std::string tempstri = purchasedItems[i];
+            if (purchasedItems[i].find("desk") != std::string::npos)
+            {
+                if (ImGui::Button(tempstri.c_str()))
+                { // Shadai
+
+                    printf("Word contains desk!\n");
+                    ECS.Get<GraphicsManager::Sprite>(4).image_name = purchasedItems[i];
+                    curr_desk = purchasedItems[i];
+                    ChangedItemSound();
+                }
+            }
+        }
+
+        ImGui::EndPopup();
+    }
+
+    if (ImGui::Button("DRESSERS"))
+    {
+        ImGui::OpenPopup("dress-Inventory");
+    }
+    if (ImGui::BeginPopup("dress-Inventory"))
+    {
+
+        for (int i = 0; i < purchasedItems.size(); i++)
+        {
+            std::string tempstri = purchasedItems[i];
+            if (purchasedItems[i].find("dresser") != std::string::npos)
+            {
+                if (ImGui::Button(tempstri.c_str()))
+                { // Shadai
+
+                    printf("Word contains dresser!\n");
+                    ECS.Get<GraphicsManager::Sprite>(5).image_name = purchasedItems[i];
+                    curr_dresser = purchasedItems[i];
+                    ChangedItemSound();
+                }
+            }
+        }
+
+        ImGui::EndPopup();
+    }
+
+    if (ImGui::Button("FRIDGES"))
+    {
+        ImGui::OpenPopup("fridge-Inventory");
+    }
+    if (ImGui::BeginPopup("fridge-Inventory"))
+    {
+
+        for (int i = 0; i < purchasedItems.size(); i++)
+        {
+            std::string tempstri = purchasedItems[i];
+            if (purchasedItems[i].find("fridge") != std::string::npos)
+            {
+                if (ImGui::Button(tempstri.c_str()))
+                { // Shadai
+                    printf("Word contains fridge!\n");
+                    ECS.Get<GraphicsManager::Sprite>(6).image_name = purchasedItems[i];
+                    curr_fridge = purchasedItems[i];
+                    ChangedItemSound();
+                }
+            }
+        }
+
+        ImGui::EndPopup();
+    }
+
+    if (ImGui::Button("FLOORS"))
+    {
+        ImGui::OpenPopup("floor-Inventory");
+    }
+    if (ImGui::BeginPopup("floor-Inventory"))
+    {
+
+        for (int i = 0; i < purchasedItems.size(); i++)
+        {
+            std::string tempstri = purchasedItems[i];
+            if (purchasedItems[i].find("floor") != std::string::npos)
+            {
+                if (ImGui::Button(tempstri.c_str()))
+                { // Shadai
+
+                    printf("Word contains floor!\n");
+                    ECS.Get<GraphicsManager::Sprite>(7).image_name = purchasedItems[i];
+                    curr_floor = purchasedItems[i];
+                    ChangedItemSound();
+                }
+            }
+        }
+
+        ImGui::EndPopup();
+    }
+
+    if (ImGui::Button("WALLS"))
+    {
+        ImGui::OpenPopup("Wall-Inventory");
+    }
+    if (ImGui::BeginPopup("Wall-Inventory"))
+    {
+
+        for (int i = 0; i < purchasedItems.size(); i++)
+        {
+            std::string tempstri = purchasedItems[i];
+            if (purchasedItems[i].find("wall") != std::string::npos)
+            {
+                if (ImGui::Button(tempstri.c_str()))
+                { // Shadai
+
+                    printf("Word contains wall!\n");
+                    ECS.Get<GraphicsManager::Sprite>(9).image_name = purchasedItems[i];
+                    curr_wall = purchasedItems[i];
+                    ChangedItemSound();
+                }
+            }
+        }
+
+        ImGui::EndPopup();
+    }
+
+    if (ImGui::Button("WINDOWS"))
+    {
+        ImGui::OpenPopup("Window-Inventory");
+    }
+
+    if (ImGui::BeginPopup("Window-Inventory"))
+    {
+
+        for (int i = 0; i < purchasedItems.size(); i++)
+        {
+            std::string tempstri = purchasedItems[i];
+            if (purchasedItems[i].find("sill") != std::string::npos)
+            {
+                if (ImGui::Button(tempstri.c_str()))
+                { // Shadai
+
+                    printf("Word contains window!\n");
+                    ECS.Get<GraphicsManager::Sprite>(8).image_name = purchasedItems[i];
+                    curr_window = purchasedItems[i];
+                    ChangedItemSound();
+                }
+            }
+        }
+
+        ImGui::EndPopup();
+    }
+
+    ImGui::End();
+}
+void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
+{
+    ImGui_ImplWGPU_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    //------------------------------ENERGY BAR-----------------------------//
+    EnergyDrawer();
+
+    //------------------------------Dorm Shop-----------------------------//
+    DormShopDrawer();
     
     
     //-------------money------------------
-    ImGui::SetNextWindowSize(ImVec2(300, 300));
-    ImGui::Begin("Bread!"); 
-     ImGui::SetWindowPos(ImVec2(1300,600));
-    ImGui::SetCursorPos(ImVec2(5, 50));
-    ImGui::Text("Crumbs: $%.2f", ECS.Get<EntityManager::Money>(0).price);
-     if (ImGui::Button("Favor - 5 Energy")) {
-        if(ECS.Get<EntityManager::Health>(0).percent>=5){
-            ECS.Get<EntityManager::Money>(0).price+=200;
-            ECS.Get<EntityManager::Health>(0).percent-=5; 
-        }
-        //5 energy
-        //100 crumbs
-
-     }
-     if (ImGui::Button("Work-Study - 10 Energy")) {
-        if(ECS.Get<EntityManager::Health>(0).percent>=10){
-            ECS.Get<EntityManager::Money>(0).price+=400;
-            ECS.Get<EntityManager::Health>(0).percent-=10; 
-        }
-        //10 energy
-        //400 crumbs
-     }
-     if (ImGui::Button("Part-Time-Job - 15 Energy")) {
-        if(ECS.Get<EntityManager::Health>(0).percent>=15){
-            ECS.Get<EntityManager::Money>(0).price+=700;
-            ECS.Get<EntityManager::Health>(0).percent-=15; 
-        }
-        //15 energy
-        //700 crumbs
-     }
-     if (ImGui::Button("Internship - 35 Energy")) {
-        if(ECS.Get<EntityManager::Health>(0).percent>=35){
-            ECS.Get<EntityManager::Money>(0).price+=1200;
-            ECS.Get<EntityManager::Health>(0).percent-=35;
-        }
-        //35 energy
-        //1200 crumbs
-     }
-
-    ImGui::End(); 
+    BreadDrawer();
 
     //====================INVENTORY===============================//
-     ImGui::SetNextWindowSize(ImVec2(300, 300));
-    ImGui::Begin("Inventory!"); 
-     ImGui::SetWindowPos(ImVec2(1300, 300));
-      if (ImGui::BeginMenuBar()){ImGui::EndMenuBar();}
-        if (ImGui::Button("BEDS")) {      
-         ImGui::OpenPopup("Bed-Inventory");
-        }
-        if (ImGui::BeginPopup("Bed-Inventory")) {
-            for(int i = 0; i< purchasedItems.size(); i++){
-                std::string tempstri = purchasedItems[i];
-                if(purchasedItems[i].find("bed") != std::string::npos){
-                    if (ImGui::Button(tempstri.c_str())) {//Shadai 
-                        std::cout << "i: " <<  purchasedItems[i]<< std::endl;
-                        printf("Word contains Bed!\n");
-                        ECS.Get<GraphicsManager::Sprite>(2).image_name = purchasedItems[i];
-                        curr_bed = purchasedItems[i];
-                        ChangedItemSound();
-                    }
-                }
-            }
-         ImGui::EndPopup();
-        }
-
-        if (ImGui::Button("LAMPS")) {      
-            ImGui::OpenPopup("lamp-Inventory");
-        }
-        if (ImGui::BeginPopup("lamp-Inventory")) {
-       
-            for(int i = 0; i< purchasedItems.size(); i++){
-                std::string tempstri = purchasedItems[i];
-                if(purchasedItems[i].find("lamp") != std::string::npos){
-                    if (ImGui::Button(tempstri.c_str())) {//Shadai 
-                    
-                        printf("Word contains lamp!\n");
-                        ECS.Get<GraphicsManager::Sprite>(3).image_name = purchasedItems[i];
-                        curr_lamp = purchasedItems[i];
-                        ChangedItemSound();
-                    }
-                }
-            }
-
-            ImGui::EndPopup();
-        }
-
-        if (ImGui::Button("DESKS")) {      
-         ImGui::OpenPopup("desk-Inventory");
-        }
-        if (ImGui::BeginPopup("desk-Inventory")) {
-       
-            for(int i = 0; i< purchasedItems.size(); i++){
-                std::string tempstri = purchasedItems[i];
-                if(purchasedItems[i].find("desk") != std::string::npos){
-                    if (ImGui::Button(tempstri.c_str())) {//Shadai 
-                    
-                        printf("Word contains desk!\n");
-                        ECS.Get<GraphicsManager::Sprite>(4).image_name = purchasedItems[i];
-                        curr_desk = purchasedItems[i];
-                        ChangedItemSound();
-                    }
-                }
-            }
-
-            ImGui::EndPopup();
-        }
-        
-        if (ImGui::Button("DRESSERS")) {      
-         ImGui::OpenPopup("dress-Inventory");
-        }
-        if (ImGui::BeginPopup("dress-Inventory")) {
-       
-            for(int i = 0; i< purchasedItems.size(); i++){
-                std::string tempstri = purchasedItems[i];
-                if(purchasedItems[i].find("dresser") != std::string::npos){
-                    if (ImGui::Button(tempstri.c_str())) {//Shadai 
-                    
-                        printf("Word contains dresser!\n");
-                        ECS.Get<GraphicsManager::Sprite>(5).image_name = purchasedItems[i];
-                        curr_dresser = purchasedItems[i];
-                        ChangedItemSound();
-                    }
-                }
-            }
-
-            ImGui::EndPopup();
-        }
-
-        if (ImGui::Button("FRIDGES")) {      
-         ImGui::OpenPopup("fridge-Inventory");
-        }
-        if (ImGui::BeginPopup("fridge-Inventory")) {
-       
-            for(int i = 0; i< purchasedItems.size(); i++){
-                std::string tempstri = purchasedItems[i];
-                if(purchasedItems[i].find("fridge") != std::string::npos){
-                    if (ImGui::Button(tempstri.c_str())) {//Shadai 
-                        printf("Word contains fridge!\n");
-                        ECS.Get<GraphicsManager::Sprite>(6).image_name = purchasedItems[i];
-                        curr_fridge = purchasedItems[i];
-                        ChangedItemSound();
-                    }
-                }
-            }
-
-            ImGui::EndPopup();
-        }
-
-        if (ImGui::Button("FLOORS")) {      
-         ImGui::OpenPopup("floor-Inventory");
-        }
-        if (ImGui::BeginPopup("floor-Inventory")) {
-       
-            for(int i = 0; i< purchasedItems.size(); i++){
-                std::string tempstri = purchasedItems[i];
-                if(purchasedItems[i].find("floor") != std::string::npos){
-                    if (ImGui::Button(tempstri.c_str())) {//Shadai 
-                    
-                        printf("Word contains floor!\n");
-                        ECS.Get<GraphicsManager::Sprite>(7).image_name = purchasedItems[i];
-                        curr_floor = purchasedItems[i];
-                        ChangedItemSound();
-                    }
-                }
-            }
-
-            ImGui::EndPopup();
-        }
-
-         if (ImGui::Button("WALLS")) {      
-         ImGui::OpenPopup("Wall-Inventory");
-        }
-        if (ImGui::BeginPopup("Wall-Inventory")) {
-       
-            for(int i = 0; i< purchasedItems.size(); i++){
-                std::string tempstri = purchasedItems[i];
-                if(purchasedItems[i].find("wall") != std::string::npos){
-                    if (ImGui::Button(tempstri.c_str())) {//Shadai 
-                    
-                        printf("Word contains wall!\n");
-                        ECS.Get<GraphicsManager::Sprite>(9).image_name = purchasedItems[i];
-                        curr_wall = purchasedItems[i];
-                        ChangedItemSound();
-                    }
-                }
-            }
-
-            ImGui::EndPopup();
-        }
-
-        if (ImGui::Button("WINDOWS")) {      
-         ImGui::OpenPopup("Window-Inventory");
-        }
-
-        if (ImGui::BeginPopup("Window-Inventory")) {
-       
-            for(int i = 0; i< purchasedItems.size(); i++){
-                std::string tempstri = purchasedItems[i];
-                if(purchasedItems[i].find("sill") != std::string::npos){
-                    if (ImGui::Button(tempstri.c_str())) {//Shadai 
-                    
-                        printf("Word contains window!\n");
-                        ECS.Get<GraphicsManager::Sprite>(8).image_name = purchasedItems[i];
-                        curr_window = purchasedItems[i];
-                        ChangedItemSound();
-                    }
-                }
-            }
-
-            ImGui::EndPopup();
-        }
-
-    ImGui::End(); 
+    InvDrawer();
+   
     ImGui::EndFrame(); 
     ImGui::Render(); 
     ImGui_ImplWGPU_RenderDrawData(ImGui::GetDrawData(),render_pass);

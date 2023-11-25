@@ -337,13 +337,8 @@ void GuiManager::MenuButtons(std::vector<std::string> names, std::vector<int> in
     }
 }
 
-void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
-{
-    ImGui_ImplWGPU_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
+void GuiManager::DrawEnergy(){
 
-    //------------------------------ENERGY BAR-----------------------------//
     ImGui::SetNextWindowSize(ImVec2(800, 70)); 
     ImGui::Begin("Energy");
     ImGui::SetWindowPos(ImVec2(400, 0));
@@ -374,10 +369,16 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
     if (ECS.Get<EntityManager::Health>(0).percent > maxStamina) {
         ECS.Get<EntityManager::Health>(0).percent = maxStamina;
     }
-
-    
     ImGui::End();
-   //-----------------------------------------------------------------//
+}
+void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
+{
+    ImGui_ImplWGPU_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    //------------------------------ENERGY BAR-----------------------------//
+    DrawEnergy();
 
     ImGui::SetNextWindowSize(ImVec2(300, 300));
     ImGui::Begin("Dorm Shop!"); 
@@ -391,8 +392,6 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
          ImGui::OpenPopup("Bed-SubMenu");
     }
     if (ImGui::BeginPopup("Bed-SubMenu")) {
-
-
 
        CheckHovered("Patriot-Bed 1000$","patriotbed", curr_bed, 1000, 2); 
        DormShopSetter("Patriot-Bed-2 1050$", "patriotbed2", curr_bed, 1050, 2);
@@ -408,8 +407,6 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
        DormShopSetter("Cat-Lady-Bed 1200$", "catbed", curr_bed, 1200, 2);
        DormShopSetter("Pink-Bed 1000$", "pinkbed", curr_bed, 1000, 2);
      
-       
-
         ImGui::EndPopup();
     }
 
@@ -420,7 +417,6 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
          ImGui::SetNextWindowSize(ImVec2(400, 100));
          ImGui::OpenPopup("Lamp-SubMenu");
     }
-
     
     if (ImGui::BeginPopup("Lamp-SubMenu")) {
 

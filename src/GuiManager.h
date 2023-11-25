@@ -73,6 +73,10 @@ class GuiManager{
 
                 void DormShopSetter(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum);
                 void CheckHovered(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum);
+
+                //Draw Helper Functions
+                void DrawEnergy();
+
 };
 
 #endif

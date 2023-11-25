@@ -182,16 +182,23 @@ void GuiManager::Shutdown()
     ImGui::DestroyContext();
 }
 
-void GuiManager::ChangedItemSound(){
-    GLOBAL_ENGINE.soundManager.PlaySound("chime");
-}
+void GuiManager::SoundPicker(int val){
+    switch (val)
+    {
+    case 0:
+        GLOBAL_ENGINE.soundManager.PlaySound("chime"); //changed item sound
+        break;
+    case 1:
+        GLOBAL_ENGINE.soundManager.PlaySound("twinkle"); //purchaced item
+        break;
+    case 2:
+        GLOBAL_ENGINE.soundManager.PlaySound("buzzer"); //no money sound
+        break;
+    default:
+        break;
+    }
 
-void GuiManager::PurchasedItemSound(){
-    GLOBAL_ENGINE.soundManager.PlaySound("twinkle");
-}
 
-void GuiManager::NoMoneySound(){
-    GLOBAL_ENGINE.soundManager.PlaySound("buzzer");
 }
 
 /*=================MAIN MENU BUILDING===========================*/
@@ -204,22 +211,13 @@ void GuiManager::DrawMainMenu(WGPURenderPassEncoder render_pass){
     static int index = 0;
 
     //center menu on screen size
-    int window_width = 1600;
-    int window_height = 900;
     ImVec2 Res = {1600, 900};
     
-     // Center the window on the screen
-    // ImGui::SetNextWindowPos(
-    //     ImVec2((window_width - 200) * 0.5f, (window_height - 150) * 0.5f),
-    //     ImGuiCond_Appearing
-    // );
     ImGui::SetNextWindowPos(ImVec2(Res.x * 0.5f, Res.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
 
     // Create your ImGui UI here
     ImGui::SetNextWindowSize(ImVec2(800, 200), ImGuiCond_Appearing);
     ImGui::Begin("Menu", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse);
-    // ImGui::SetWindowPos(ImVec2((window_width - 200) * 0.5f, (window_height - 150) * 0.5f));
-
 
     //draw buttons
     MenuButtons({"Start Decorating!", "Reset Dorm", "Reset Game", "Exit Game"}, {0, 1, 2, 3}, index);
@@ -232,20 +230,19 @@ void GuiManager::DrawMainMenu(WGPURenderPassEncoder render_pass){
 
     ImGui_ImplWGPU_RenderDrawData(ImGui::GetDrawData(),render_pass); //draw to screen
 }
+
 //from https://www.youtube.com/watch?v=2B_qzPHV4MQ
 void GuiManager::MenuButtons(std::vector<std::string> names, std::vector<int> indexs, int& selected_index){
     std::vector<ImVec2> sizes = {};
     float total_area = 0.0f;
 
-    const auto& style = ImGui::GetStyle();
+    const auto& style = ImGui::GetStyle(); //grab style to change for buttons
 
     for(std::string& name : names){
         const ImVec2 label_size = ImGui::CalcTextSize(name.c_str(), 0, true);
-        // ImVec2 size = ImGui::CalcItemSize(ImVec2(), label_size.x + style.FramePadding.x * 2.0f, label_size.y + style.FramePadding.y * 2.0f);
         ImVec2 size = {label_size.x + style.FramePadding.x * 2.0f, label_size.y + style.FramePadding.y * 2.0f};
         size.x += 45.5f;
         size.y += 15.0f;
-
         sizes.push_back(size);
         total_area += size.x;
     }
@@ -306,9 +303,10 @@ void GuiManager::DormShopSetter(const char * button_name, std::string item_name,
                   
                     ECS.Get<EntityManager::Money>(0).price -= price; 
                     purchasedItems.push_back(item_name);
-                    PurchasedItemSound();   
+                    // PurchasedItemSound();
+                    SoundPicker(1);
             } else {
-                NoMoneySound(); //not enough money
+               SoundPicker(2); //not enough money
             }
          } 
     }
@@ -316,10 +314,7 @@ void GuiManager::DormShopSetter(const char * button_name, std::string item_name,
     if (ImGui::IsItemHovered()&& !isPurchased(item_name)) {
 
         ECS.Get<GraphicsManager::Sprite>(entitynum).image_name = item_name;  
- 
-
     }
-
 }
 //
 void GuiManager::CheckHovered(const char * button_name, std::string item_name, std::string curritem, int price, int entitynum){
@@ -331,9 +326,9 @@ void GuiManager::CheckHovered(const char * button_name, std::string item_name, s
                
                 ECS.Get<EntityManager::Money>(0).price -= price; 
                 purchasedItems.push_back(item_name);
-                PurchasedItemSound();                            
+                SoundPicker(1);                           
             }  else {
-                NoMoneySound(); //not enough money
+                SoundPicker(2);; //not enough money
             }
         }
         
@@ -678,7 +673,7 @@ void GuiManager::InvDrawer()
                     printf("Word contains Bed!\n");
                     ECS.Get<GraphicsManager::Sprite>(2).image_name = purchasedItems[i];
                     curr_bed = purchasedItems[i];
-                    ChangedItemSound();
+                    SoundPicker(0);
                 }
             }
         }
@@ -703,7 +698,7 @@ void GuiManager::InvDrawer()
                     printf("Word contains lamp!\n");
                     ECS.Get<GraphicsManager::Sprite>(3).image_name = purchasedItems[i];
                     curr_lamp = purchasedItems[i];
-                    ChangedItemSound();
+                    SoundPicker(0);
                 }
             }
         }
@@ -729,7 +724,7 @@ void GuiManager::InvDrawer()
                     printf("Word contains desk!\n");
                     ECS.Get<GraphicsManager::Sprite>(4).image_name = purchasedItems[i];
                     curr_desk = purchasedItems[i];
-                    ChangedItemSound();
+                    SoundPicker(0);
                 }
             }
         }
@@ -755,7 +750,7 @@ void GuiManager::InvDrawer()
                     printf("Word contains dresser!\n");
                     ECS.Get<GraphicsManager::Sprite>(5).image_name = purchasedItems[i];
                     curr_dresser = purchasedItems[i];
-                    ChangedItemSound();
+                    SoundPicker(0);
                 }
             }
         }
@@ -780,7 +775,7 @@ void GuiManager::InvDrawer()
                     printf("Word contains fridge!\n");
                     ECS.Get<GraphicsManager::Sprite>(6).image_name = purchasedItems[i];
                     curr_fridge = purchasedItems[i];
-                    ChangedItemSound();
+                    SoundPicker(0);
                 }
             }
         }
@@ -806,7 +801,7 @@ void GuiManager::InvDrawer()
                     printf("Word contains floor!\n");
                     ECS.Get<GraphicsManager::Sprite>(7).image_name = purchasedItems[i];
                     curr_floor = purchasedItems[i];
-                    ChangedItemSound();
+                    SoundPicker(0);
                 }
             }
         }
@@ -832,7 +827,7 @@ void GuiManager::InvDrawer()
                     printf("Word contains wall!\n");
                     ECS.Get<GraphicsManager::Sprite>(9).image_name = purchasedItems[i];
                     curr_wall = purchasedItems[i];
-                    ChangedItemSound();
+                    SoundPicker(0);
                 }
             }
         }
@@ -859,7 +854,7 @@ void GuiManager::InvDrawer()
                     printf("Word contains window!\n");
                     ECS.Get<GraphicsManager::Sprite>(8).image_name = purchasedItems[i];
                     curr_window = purchasedItems[i];
-                    ChangedItemSound();
+                    SoundPicker(0);
                 }
             }
         }

@@ -58,9 +58,7 @@ private:
         time_t LoadTime(); // helper function for reading last closed time
         void SaveEnergy(); // helper function for writing current energy at shutdown
 
-        void ChangedItemSound();   // plays "chime" when item is changed
-        void PurchasedItemSound(); // plays "twinkle" when item is purchaced
-        void NoMoneySound();       // plays "buzzer" when player doesn't have enough money to buy
+        void SoundPicker(int val);
 
         void MenuButtons(std::vector<std::string> names, std::vector<int> indexs, int &selected_index);
 

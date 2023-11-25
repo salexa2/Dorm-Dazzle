@@ -34,6 +34,8 @@ public:
     void Shutdown();
     void ExitGame();
 
+    void ExitToMenu();
+
 };
 
  inline Engine GLOBAL_ENGINE;

@@ -34,6 +34,10 @@ void Engine::Shutdown()
     // inputManager.Shutdown();
 }
 
+void Engine::ExitToMenu(){
+    //set playmode to false to trigger menu switch
+    GLOBAL_ENGINE.graphicsManager.playMode = false;
+}
 
 
 void Engine::ExitGame()

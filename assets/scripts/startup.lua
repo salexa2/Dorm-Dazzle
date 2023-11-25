@@ -6,7 +6,8 @@
    
    LoadTexture("room", "assets/dormroom.png")
    LoadTexture("fox", "assets/fox.png")
-   LoadTexture("title", "assets/DormDeco_title.png") --loading title for imGui...
+   -- LoadTexture("title", "assets/DormDeco_title.png") --loading title for imGui...
+   LoadTexture("menu", "assets/MenuPage.png")
 
    --BED TEXTURES--
    LoadTexture("boringbed", "assets/bed.png")
@@ -128,6 +129,16 @@
    window = CreateEntity() -- EID= 8
    Wall = CreateEntity() --9
 
+   --Menu background sprite, will change z value from front to back...
+   menu = CreateEntity() --EID = 10
+   GetSprite(menu).image_name = "menu"
+   GetSprite(menu).position.x = 0
+   GetSprite(menu).position.y = 0
+   GetSprite(menu).position.z = 1
+   GetSprite(menu).scale.x = 180
+   GetSprite(menu).scale.y = 180
+   GetSprite(menu).z = 0
+
 
    GetSprite(e0).image_name = "room"
    GetSprite(e0).position.x= 10
@@ -135,7 +146,7 @@
    GetSprite(e0).position.z = 1
    GetSprite(e0).scale.x = 200
    GetSprite(e0).scale.y = 200
-   GetSprite(e0).z = 1
+   GetSprite(e0).z = 0.8
    GetScript(e0).name = "room"
    --print("e0:",e0)
    
@@ -146,7 +157,7 @@
    GetSprite(bed).position.z = 0
    GetSprite(bed).scale.x = 145
    GetSprite(bed).scale.y = 145
-   GetSprite(bed).z = 0
+   GetSprite(bed).z = 0.5
    GetScript(bed).name = "bed"--print("bed:",bed)
    print(bed)
   
@@ -157,7 +168,7 @@
    GetSprite(desk).position.z = 0
    GetSprite(desk).scale.x = 48
    GetSprite(desk).scale.y = 48
-   GetSprite(desk).z = 0
+   GetSprite(desk).z = 0.5
    GetScript(desk).name = "desk"
 
    GetSprite(lamp).image_name = "boringlamp"
@@ -166,7 +177,7 @@
    GetSprite(lamp).position.z = 0
    GetSprite(lamp).scale.x = 30
    GetSprite(lamp).scale.y = 30
-   GetSprite(lamp).z = 0
+   GetSprite(lamp).z = 0.5
    GetScript(lamp).name = "lamp"
 
    GetSprite(dresser).image_name = "boringdresser"
@@ -175,7 +186,7 @@
    GetSprite(dresser).position.z = 0
    GetSprite(dresser).scale.x = 38
    GetSprite(dresser).scale.y = 38
-   GetSprite(dresser).z = 0
+   GetSprite(dresser).z = 0.5
    GetScript(dresser).name = "dresser"
 
 
@@ -185,7 +196,7 @@
    GetSprite(Rug).position.z = 0
    GetSprite(Rug).scale.x = 115
    GetSprite(Rug).scale.y = 115
-   GetSprite(Rug).z = 0
+   GetSprite(Rug).z = 0.5
    GetScript(Rug).name = "floor"
 
    
@@ -195,7 +206,7 @@
    GetSprite(fridge).position.z = 0
    GetSprite(fridge).scale.x = 23
    GetSprite(fridge).scale.y = 23
-   GetSprite(fridge).z = 0
+   GetSprite(fridge).z = 0.5
 
 
    GetSprite(Wall).image_name = "boringwall"
@@ -204,7 +215,7 @@
    GetSprite(Wall).position.z = 0
    GetSprite(Wall).scale.x = 60
    GetSprite(Wall).scale.y = 60
-   GetSprite(Wall).z = 0
+   GetSprite(Wall).z = 0.5
 
    GetSprite(window).image_name = "boringsill"
    GetSprite(window).position.x= 25
@@ -212,7 +223,7 @@
    GetSprite(window).position.z = 0
    GetSprite(window).scale.x = 40
    GetSprite(window).scale.y = 40
-   GetSprite(window).z = 0
+   GetSprite(window).z = 0.5
 
 
 

@@ -36,6 +36,8 @@ public:
 
     void ExitToMenu();
 
+    void SetPlayMode(bool mode);
+
 };
 
  inline Engine GLOBAL_ENGINE;

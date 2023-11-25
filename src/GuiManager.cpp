@@ -261,7 +261,9 @@ void GuiManager::MenuButtons(std::vector<std::string> names, std::vector<int> in
                 {
                     case 0:
                         printf("Start game\n");
-                        GLOBAL_ENGINE.graphicsManager.playMode = true;
+                        GLOBAL_ENGINE.SetPlayMode(true);
+                        // GLOBAL_ENGINE.graphicsManager.playMode = true;
+                        // ECS.Get<GraphicsManager::Sprite>(10).z = 1; //send to back
                         break;
                     case 1:
                         printf("Reset dorm items\n");

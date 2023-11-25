@@ -316,7 +316,8 @@ void GuiManager::MenuButtons(std::vector<std::string> names, std::vector<int> in
                         break;
                     case 1:
                         printf("Reset all values\n");
-                        ResetBoring();
+                        // ResetBoring(); //move reset boring to be in game
+                        ResetGame();
                         break;
                     case 2:
                         printf("Exiting game\n");
@@ -797,17 +798,31 @@ void GuiManager::Draw(  WGPURenderPassEncoder render_pass)
    
  }
 
+void GuiManager::ResetGame(){
+    //reset sprites on screen to boring
+    ResetBoring();
+
+    //clear purchased list
+    purchasedItems.clear();
+    //re-add boring
+
+    //default items in inventory
+    purchasedItems.push_back("boringbed");
+    purchasedItems.push_back("boringlamp");
+    purchasedItems.push_back("boringdesk");
+    purchasedItems.push_back("boringdresser");
+    purchasedItems.push_back("fridgetowel"); 
+    purchasedItems.push_back("boringfloor");
+    purchasedItems.push_back("boringwall");
+    purchasedItems.push_back("boringsill");
+
+    //reset energy
+    ECS.Get<EntityManager::Health>(0).percent = maxStamina;
+    //reset money
+    ECS.Get<EntityManager::Money>(0).price = 10000;
+}
+
 void GuiManager::ResetBoring(){
-
-    // purchasedItems.push_back("boringbed");
-    // purchasedItems.push_back("boringlamp");
-    // purchasedItems.push_back("boringdesk");
-    // purchasedItems.push_back("boringdresser");
-    // purchasedItems.push_back("fridgetowel"); 
-    // purchasedItems.push_back("boringfloor");
-    // purchasedItems.push_back("boringwall");
-    // purchasedItems.push_back("boringsill");
-
 
     ECS.Get<GraphicsManager::Sprite>(2).image_name = "boringbed"; // bed
     ECS.Get<GraphicsManager::Sprite>(3).image_name = "boringlamp"; //lamp
@@ -819,6 +834,8 @@ void GuiManager::ResetBoring(){
     ECS.Get<GraphicsManager::Sprite>(8).image_name = "boringsill";
 
     SetTemp(); //reset temp variables
+
+   
 }
 void GuiManager::SetTemp()
 {

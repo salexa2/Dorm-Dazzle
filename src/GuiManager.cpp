@@ -319,8 +319,24 @@ void GuiManager::MenuButtons(std::vector<std::string> names, std::vector<int> in
 
             //create button
             if(ImGui::Button(names[i].c_str(), sizes[i])){
-                printf("Aye i pressed %s", names[i].c_str());
+                
                 selected_index = indexs[i];
+                switch (selected_index)
+                {
+                    case 0:
+                        printf("Start game\n");
+                        GLOBAL_ENGINE.graphicsManager.playMode = true;
+                        break;
+                    case 1:
+                        printf("Reset all values\n");
+                        break;
+                    case 2:
+                        printf("Exiting game\n");
+                        break;
+                    
+                    default:
+                        break;
+                }
             }
 
             ImGui::PopStyleColor(3);
@@ -328,6 +344,22 @@ void GuiManager::MenuButtons(std::vector<std::string> names, std::vector<int> in
              //create button
             if(ImGui::Button(names[i].c_str(), sizes[i])){
                 selected_index = indexs[i];
+                switch (selected_index)
+                {
+                    case 0:
+                        printf("Start game\n");
+                        GLOBAL_ENGINE.graphicsManager.playMode = true;
+                        break;
+                    case 1:
+                        printf("Reset all values\n");
+                        break;
+                    case 2:
+                        printf("Exiting game\n");
+                        break;
+                    
+                    default:
+                        break;
+                }
             }
         }
 

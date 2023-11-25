@@ -16,7 +16,7 @@ public:
         void Start(GLFWwindow *window, WGPUDevice device, WGPUTextureFormat swapchainformat);
         void Shutdown();
         void Draw(WGPURenderPassEncoder render_pass);
-        void DrawMenu(WGPURenderPassEncoder render_pass);
+        void DrawMainMenu(WGPURenderPassEncoder render_pass);
 
         std::string curr_bed;     // bed
         std::string curr_lamp;    // lamp

@@ -503,7 +503,7 @@ void GraphicsManager::Draw()
     if(playMode == true){
         guiManager.Draw(render_pass); //drawing imgui here
     } else {
-        guiManager.DrawMenu(render_pass); //drawing imgui here
+        guiManager.DrawMainMenu(render_pass); //drawing imgui here
     }
     
      wgpuRenderPassEncoderEnd(render_pass);       

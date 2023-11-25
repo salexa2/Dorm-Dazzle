@@ -15,6 +15,7 @@ void ScriptManager::Start()
     lua.set_function("KeyisReleased",[&]( const int keycode ) { return GLOBAL_ENGINE.inputManager.KeyisReleased( keycode ); } );
 
     lua.set_function("ExitGame", [&](){return  GLOBAL_ENGINE.ExitGame(); });
+    lua.set_function("ExitToMenu", [&](){GLOBAL_ENGINE.ExitToMenu();});
   
 
     lua.new_enum("KEYBOARD", 

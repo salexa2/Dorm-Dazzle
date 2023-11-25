@@ -34,6 +34,24 @@ void Engine::Shutdown()
     // inputManager.Shutdown();
 }
 
+void Engine::SetPlayMode(bool mode){
+
+    if(mode){
+        //send menu to back
+        ECS.Get<GraphicsManager::Sprite>(10).z = 1; //send to back
+    } else {
+        ECS.Get<GraphicsManager::Sprite>(10).z = 0; //send to front
+    }
+
+    //set playmode to mode
+    GLOBAL_ENGINE.graphicsManager.playMode = mode;
+}
+
+void Engine::ExitToMenu(){
+    //set playmode to false to trigger menu switch
+    // GLOBAL_ENGINE.graphicsManager.playMode = false;
+    SetPlayMode(false);
+}
 
 
 void Engine::ExitGame()

@@ -34,6 +34,10 @@ public:
     void Shutdown();
     void ExitGame();
 
+    void ExitToMenu();
+
+    void SetPlayMode(bool mode);
+
 };
 
  inline Engine GLOBAL_ENGINE;

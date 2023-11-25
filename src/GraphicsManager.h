@@ -48,7 +48,8 @@ public:
         std::string image_name;
         glm::vec3 position;
         glm::vec2 scale;
-        long z;
+        // long z;
+        double z;
         // ImageData d;
     };
 

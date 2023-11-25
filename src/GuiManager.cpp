@@ -206,20 +206,23 @@ void GuiManager::DrawMainMenu(WGPURenderPassEncoder render_pass){
     //center menu on screen size
     int window_width = 1600;
     int window_height = 900;
+    ImVec2 Res = {1600, 900};
+    
      // Center the window on the screen
-    ImGui::SetNextWindowPos(
-        ImVec2((window_width - 200) * 0.5f, (window_height - 150) * 0.5f),
-        ImGuiCond_Appearing
-    );
+    // ImGui::SetNextWindowPos(
+    //     ImVec2((window_width - 200) * 0.5f, (window_height - 150) * 0.5f),
+    //     ImGuiCond_Appearing
+    // );
+    ImGui::SetNextWindowPos(ImVec2(Res.x * 0.5f, Res.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
 
     // Create your ImGui UI here
-    ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_Appearing);
+    ImGui::SetNextWindowSize(ImVec2(800, 200), ImGuiCond_Appearing);
     ImGui::Begin("Menu", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse);
-    ImGui::SetWindowPos(ImVec2(500,225));
+    // ImGui::SetWindowPos(ImVec2((window_width - 200) * 0.5f, (window_height - 150) * 0.5f));
 
 
     //draw buttons
-    MenuButtons({"Start Decorating!", "Reset Dorm", "Exit Game"}, {0, 1, 2}, index);
+    MenuButtons({"Start Decorating!", "Reset Dorm", "Reset Game", "Exit Game"}, {0, 1, 2, 3}, index);
 
     ImGui::End(); //end drawing menu
 
@@ -264,11 +267,15 @@ void GuiManager::MenuButtons(std::vector<std::string> names, std::vector<int> in
                         GLOBAL_ENGINE.graphicsManager.playMode = true;
                         break;
                     case 1:
-                        printf("Reset all values\n");
+                        printf("Reset dorm items\n");
                         // ResetBoring(); //move reset boring to be in game
-                        ResetGame();
+                        ResetBoring();
                         break;
                     case 2:
+                        printf("Reset Game");
+                        ResetGame();
+                        break;
+                    case 3:
                         printf("Exiting game\n");
                         GLOBAL_ENGINE.ExitGame();
                         break;

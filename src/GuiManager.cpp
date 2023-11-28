@@ -411,6 +411,9 @@ void GuiManager::DormShopDrawer()
         DormShopSetter("Anime-Bed 1799$", "animebed", curr_bed, 1799, 2);
         DormShopSetter("Cat-Lady-Bed 1200$", "catbed", curr_bed, 1200, 2);
         DormShopSetter("Pink-Bed 1000$", "pinkbed", curr_bed, 1000, 2);
+        DormShopSetter("Modern-Bed 1100$", "modernbed", curr_bed, 1100, 2);
+
+
 
         ImGui::EndPopup();
     }
@@ -432,6 +435,7 @@ void GuiManager::DormShopDrawer()
 
         CheckHovered("Patriot-Lamp 500$", "patriotlamp", curr_lamp, 500, 3);
         DormShopSetter("Gamer-Lamp 550$", "gamerlamp", curr_lamp, 550, 3);
+        DormShopSetter("Gamer-Lamp-II 550$", "gamerlamp2", curr_lamp, 550, 3);
         DormShopSetter("Rich-B**** 590$", "richlamp", curr_lamp, 590, 3);
         DormShopSetter("Stoner-Lamp 560$", "stonerlamp", curr_lamp, 560, 3);
         DormShopSetter("Goth-Lamp 575$", "gothlamp", curr_lamp, 575, 3);
@@ -460,6 +464,7 @@ void GuiManager::DormShopDrawer()
     {
 
         CheckHovered("Gamer-Desk-PC 950$", "deskpc", curr_desk, 950, 4);
+        DormShopSetter("Pink-Gamer-PC 950$", "pdeskpc", curr_desk, 950, 4);
         DormShopSetter("Gamer-Desk-Console 899$", "deskconsole", curr_desk, 800, 4);
         DormShopSetter("Patriot-Desk 800$", "desktv", curr_desk, 590, 4);
         DormShopSetter("Rich-B****-Desk 990$", "richdesk", curr_desk, 999, 4);
@@ -469,6 +474,7 @@ void GuiManager::DormShopDrawer()
         DormShopSetter("Christmas-Desk 1000$", "christdesk", curr_desk, 1000, 4);
         DormShopSetter("Anime-Desk 875$", "animedesk", curr_desk, 875, 4);
         DormShopSetter("Cat-Lady-Desk 850$", "catdesk", curr_desk, 850, 4);
+        DormShopSetter("Nerd-Desk 850$", "nerddesk", curr_desk, 850, 4);
         // nerd books bulletin board
 
         ImGui::EndPopup();

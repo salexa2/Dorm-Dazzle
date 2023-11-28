@@ -24,6 +24,7 @@
    LoadTexture("animebed", "assets/animebed.png")
    LoadTexture("catbed", "assets/catbed.png")
    LoadTexture("pinkbed", "assets/pinkbed.png")
+   LoadTexture("modernbed", "assets/modernbed.png")
 
    --LAMP TEXTURES--
    LoadTexture("boringlamp", "assets/boringlamp.png")
@@ -36,6 +37,8 @@
    LoadTexture("christmaslamp", "assets/christmaslamp.png")
    LoadTexture("animelamp", "assets/animelamp.png")
    LoadTexture("catlamp", "assets/catlamp.png")
+   LoadTexture("gamerlamp2", "assets/gamerlamp2.png")
+
 
    --------DESK TEXTURES-------
    LoadTexture("boringdesk","assets/boringdesk.png")
@@ -49,6 +52,8 @@
    LoadTexture("christdesk","assets/christdesk.png")
    LoadTexture("animedesk","assets/animedesk.png")
    LoadTexture("catdesk","assets/catdesk.png")
+   LoadTexture("nerddesk","assets/nerddesk.png")
+   LoadTexture("pdeskpc","assets/pinkdeskpc.png")
    
    
   ---------DRESSER TEXTURES-------------
